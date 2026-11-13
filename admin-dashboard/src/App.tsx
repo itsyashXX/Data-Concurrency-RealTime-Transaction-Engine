@@ -11,6 +11,7 @@ import { DuplicateDetection } from './pages/DuplicateDetection';
 import { Consistency } from './pages/Consistency';
 import { Users } from './pages/Users';
 import { AuditLogs } from './pages/AuditLogs';
+import { CustomerSimulator } from './pages/CustomerSimulator';
 
 const ProtectedLayout: React.FC = () => {
   const token = localStorage.getItem('datacore_admin_token');
@@ -51,7 +52,12 @@ export const App: React.FC = () => {
           <Route path="/consistency" element={<Consistency />} />
           <Route path="/users" element={<Users />} />
           <Route path="/audit-logs" element={<AuditLogs />} />
+          <Route path="/customer-app" element={<CustomerSimulator />} />
         </Route>
+
+        {/* Standalone Direct Customer View */}
+        <Route path="/customer" element={<CustomerSimulator />} />
+        <Route path="/app" element={<CustomerSimulator />} />
 
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

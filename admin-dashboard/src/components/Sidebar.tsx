@@ -10,7 +10,8 @@ import {
   Users,
   ShieldAlert,
   LogOut,
-  Zap
+  Zap,
+  Smartphone
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -35,6 +36,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ userEmail }) => {
     { to: '/consistency', label: 'Consistency Ledger', icon: Scale },
     { to: '/users', label: 'User Management', icon: Users },
     { to: '/audit-logs', label: 'Audit Trail', icon: ShieldAlert },
+    { to: '/customer-app', label: 'Customer Mobile App', icon: Smartphone, highlight: true },
   ];
 
   return (
@@ -65,12 +67,19 @@ export const Sidebar: React.FC<SidebarProps> = ({ userEmail }) => {
                 `flex items-center space-x-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
                   isActive
                     ? 'bg-brand-600/15 text-brand-400 border border-brand-500/30'
+                    : item.highlight
+                    ? 'text-blue-400 bg-blue-500/10 border border-blue-500/20 hover:bg-blue-500/20'
                     : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900'
                 }`
               }
             >
-              <Icon className="w-4 h-4 flex-shrink-0" />
+              <Icon className={`w-4 h-4 flex-shrink-0 ${item.highlight ? 'text-blue-400' : ''}`} />
               <span>{item.label}</span>
+              {item.highlight && (
+                <span className="ml-auto text-[9px] bg-blue-500/25 text-blue-300 px-1.5 py-0.5 rounded font-mono uppercase font-bold tracking-wider">
+                  Live
+                </span>
+              )}
             </NavLink>
           );
         })}
