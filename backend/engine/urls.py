@@ -1,0 +1,39 @@
+from django.urls import path
+from .views import (
+    AccountListView,
+    AccountDetailView,
+    TransactionView,
+    TransactionDetailView,
+    TransactionHistoryView,
+    CustomerEventsView,
+    EventStreamView,
+    AdminOverviewView,
+    AdminUsersListView,
+    AdminTransactionsListView,
+    AdminMetricsView,
+    AdminConcurrencyMonitorView,
+    AdminExperimentsView,
+    AdminAuditLogsView,
+    AdminDuplicateDetectionView,
+)
+
+urlpatterns = [
+    # Customer APIs
+    path('accounts/', AccountListView.as_view(), name='account_list'),
+    path('accounts/<uuid:pk>/', AccountDetailView.as_view(), name='account_detail'),
+    path('transactions/', TransactionView.as_view(), name='transaction_root'),
+    path('transactions/history/', TransactionHistoryView.as_view(), name='transaction_history'),
+    path('transactions/<uuid:pk>/', TransactionDetailView.as_view(), name='transaction_detail'),
+    path('events/my/', CustomerEventsView.as_view(), name='customer_events'),
+    path('events/stream/', EventStreamView.as_view(), name='events_stream'),
+
+    # Administrator APIs
+    path('admin/overview/', AdminOverviewView.as_view(), name='admin_overview'),
+    path('admin/users/', AdminUsersListView.as_view(), name='admin_users'),
+    path('admin/transactions/', AdminTransactionsListView.as_view(), name='admin_transactions'),
+    path('admin/metrics/', AdminMetricsView.as_view(), name='admin_metrics'),
+    path('admin/concurrency/', AdminConcurrencyMonitorView.as_view(), name='admin_concurrency'),
+    path('admin/experiments/', AdminExperimentsView.as_view(), name='admin_experiments'),
+    path('admin/audit-logs/', AdminAuditLogsView.as_view(), name='admin_audit_logs'),
+    path('admin/duplicates/', AdminDuplicateDetectionView.as_view(), name='admin_duplicates'),
+]
