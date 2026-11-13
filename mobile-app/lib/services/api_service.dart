@@ -1,9 +1,10 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class ApiService {
-  // 10.0.2.2 is Android emulator host loopback. Can be overridden in production.
-  static const String defaultBaseUrl = 'http://10.0.2.2:8000';
+  // Use 127.0.0.1 for Web/Desktop/localhost; 10.0.2.2 for Android emulator
+  static const String defaultBaseUrl = kIsWeb ? 'http://127.0.0.1:8000' : 'http://10.0.2.2:8000';
   final Dio dio;
   final FlutterSecureStorage storage = const FlutterSecureStorage();
 
