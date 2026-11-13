@@ -2,6 +2,7 @@ import time
 import hashlib
 import json
 import uuid
+import secrets
 import threading
 from decimal import Decimal
 from django.db import transaction, DatabaseError
@@ -287,18 +288,19 @@ class RaceExperimentService:
                 'timestamp': timezone.now().isoformat()
             }
             try:
-                # Direct invocation of strategy
-                with transaction.atomic():
-                    if strategy == Transaction.ConcurrencyStrategy.PESSIMISTIC:
-                        s, r = ConcurrencyStrategyHandler.execute_pessimistic(test_sender.id, test_receiver.id, amount)
-                    elif strategy == Transaction.ConcurrencyStrategy.OPTIMISTIC:
-                        s, r = ConcurrencyStrategyHandler.execute_optimistic(test_sender.id, test_receiver.id, amount)
-                    elif strategy == Transaction.ConcurrencyStrategy.ATOMIC_CONDITIONAL:
-                        s, r = ConcurrencyStrategyHandler.execute_atomic_conditional(test_sender.id, test_receiver.id, amount)
-                    elif strategy == Transaction.ConcurrencyStrategy.UNSAFE_BASELINE:
-                        s, r = ConcurrencyStrategyHandler.execute_unsafe_baseline(test_sender.id, test_receiver.id, amount)
-                    else:
-                        raise ValueError(f"Unknown strategy: {strategy}")
+                # Direct invocation of strategy (Unsafe baseline runs without atomic transaction)
+                if strategy == Transaction.ConcurrencyStrategy.UNSAFE_BASELINE:
+                    s, r = ConcurrencyStrategyHandler.execute_unsafe_baseline(test_sender.id, test_receiver.id, amount)
+                else:
+                    with transaction.atomic():
+                        if strategy == Transaction.ConcurrencyStrategy.PESSIMISTIC:
+                            s, r = ConcurrencyStrategyHandler.execute_pessimistic(test_sender.id, test_receiver.id, amount)
+                        elif strategy == Transaction.ConcurrencyStrategy.OPTIMISTIC:
+                            s, r = ConcurrencyStrategyHandler.execute_optimistic(test_sender.id, test_receiver.id, amount)
+                        elif strategy == Transaction.ConcurrencyStrategy.ATOMIC_CONDITIONAL:
+                            s, r = ConcurrencyStrategyHandler.execute_atomic_conditional(test_sender.id, test_receiver.id, amount)
+                        else:
+                            raise ValueError(f"Unknown strategy: {strategy}")
 
                 log_entry['status'] = 'SUCCESS'
                 log_entry['message'] = f"Successfully debited {amount}"

@@ -1,8 +1,12 @@
 import os
 from pathlib import Path
 from datetime import timedelta
-import dj_database_url
 from dotenv import load_dotenv
+
+try:
+    import dj_database_url
+except ImportError:
+    dj_database_url = None
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -80,9 +84,9 @@ TEMPLATES = [
 WSGI_APPLICATION = 'config.wsgi.application'
 
 # Database configuration
-# Defaults to SQLite for local development/testing if DATABASE_URL is not set.
-DATABASE_URL = os.environ.get('DATABASE_URL')
-if DATABASE_URL:
+# Defaults to SQLite for local development/testing if DATABASE_URL is not set or empty.
+DATABASE_URL = os.environ.get('DATABASE_URL', '').strip()
+if DATABASE_URL and dj_database_url is not None:
     DATABASES = {
         'default': dj_database_url.config(
             default=DATABASE_URL,

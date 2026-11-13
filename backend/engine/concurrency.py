@@ -211,11 +211,12 @@ class ConcurrencyStrategyHandler:
         # Artificial delay between check and write
         time.sleep(0.04)
 
-        sender.balance -= amount
-        receiver.balance += amount
+        # Unsafe check-then-act: applies the withdrawal without row lock or conditional guard
+        Account.objects.filter(id=sender_id).update(balance=models.F('balance') - amount)
+        Account.objects.filter(id=receiver_id).update(balance=models.F('balance') + amount)
 
-        sender.save(update_fields=['balance'])
-        receiver.save(update_fields=['balance'])
+        sender.refresh_from_db()
+        receiver.refresh_from_db()
 
         if event_callback:
             event_callback('UNSAFE_WRITTEN', {
