@@ -12,12 +12,17 @@ import {
   Wallet,
   ArrowRight,
   Copy,
-  Check
+  Check,
+  Zap,
+  TrendingUp,
+  Smartphone
 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { api } from '../services/api';
 import { User } from '../types';
 
 export const Users: React.FC = () => {
+  const navigate = useNavigate();
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -43,7 +48,7 @@ export const Users: React.FC = () => {
 
   useEffect(() => {
     fetchUsers();
-    // Auto-poll every 4 seconds so accounts created in the mobile app appear live
+    // Auto-poll every 4 seconds so mobile app account sign-ups sync live
     const interval = setInterval(() => fetchUsers(false), 4000);
     return () => clearInterval(interval);
   }, []);
@@ -52,6 +57,11 @@ export const Users: React.FC = () => {
     navigator.clipboard.writeText(upi);
     setCopiedUpi(upi);
     setTimeout(() => setCopiedUpi(null), 2000);
+  };
+
+  const handleOpenWalletForUser = (user: User) => {
+    // Quick login as this user for testing in the Customer Simulator
+    navigate('/customer-app');
   };
 
   // Filtered users
@@ -90,32 +100,34 @@ export const Users: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      {/* Top action / status bar */}
+      {/* Top Header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
-          <div className="flex items-center space-x-2">
-            <h1 className="text-xl font-bold text-slate-100 flex items-center space-x-2">
-              <UsersIcon className="w-5 h-5 text-brand-400" />
+          <div className="flex items-center space-x-2.5">
+            <h1 className="text-xl font-bold text-white flex items-center space-x-2.5 tracking-tight">
+              <div className="p-2 rounded-xl bg-brand-500/15 text-brand-400 border border-brand-500/30 shadow-glow-brand">
+                <UsersIcon className="w-5 h-5" />
+              </div>
               <span>User & Account Management</span>
             </h1>
-            <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse mr-1"></span>
+            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 flex items-center">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse mr-1.5"></span>
               Live Sync (4s)
             </span>
           </div>
-          <p className="text-xs text-slate-400 mt-1">
-            Registered customer accounts, associated ledger accounts, test balances, UPI IDs, and real-time transaction volume
+          <p className="text-xs text-slate-400 mt-1 max-w-xl">
+            Customer identities, associated double-entry ledger accounts, real-time balances, UPI IDs, and transaction activity.
           </p>
         </div>
 
         <div className="flex items-center space-x-3">
-          <span className="text-[11px] text-slate-500">
-            Synced: {lastUpdated.toLocaleTimeString()}
+          <span className="text-[11px] font-mono text-slate-500">
+            Last Synced: {lastUpdated.toLocaleTimeString()}
           </span>
           <button
             onClick={() => fetchUsers(true)}
-            className="p-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg border border-slate-700 transition-colors"
-            title="Refresh users list"
+            className="p-2 bg-obsidian-900 hover:bg-obsidian-850 text-slate-300 rounded-xl border border-white/[0.08] transition-colors shadow-sm"
+            title="Refresh user database"
           >
             <RefreshCw className={`w-4 h-4 ${isRefreshing ? 'animate-spin text-brand-400' : ''}`} />
           </button>
@@ -123,72 +135,75 @@ export const Users: React.FC = () => {
       </div>
 
       {/* Aggregate Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 flex items-center justify-between">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="bg-obsidian-900/90 border border-white/[0.08] rounded-2xl p-4.5 flex items-center justify-between shadow-lg">
           <div>
-            <span className="text-[11px] font-medium text-slate-400 uppercase tracking-wider">
+            <span className="text-[10px] font-mono font-semibold text-slate-400 uppercase tracking-wider block">
               Total Registered Users
             </span>
-            <div className="text-2xl font-bold text-slate-100 mt-0.5">{users.length}</div>
-            <span className="text-[10px] text-emerald-400">All authenticated identities</span>
+            <div className="text-2xl font-bold text-white font-mono mt-1">{users.length}</div>
+            <span className="text-[11px] text-emerald-400 flex items-center gap-1 mt-0.5 font-medium">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              All identities synced
+            </span>
           </div>
-          <div className="w-10 h-10 rounded-xl bg-brand-500/10 text-brand-400 border border-brand-500/20 flex items-center justify-center">
+          <div className="w-11 h-11 rounded-xl bg-brand-500/10 text-brand-400 border border-brand-500/25 flex items-center justify-center shadow-glow-brand">
             <UsersIcon className="w-5 h-5" />
           </div>
         </div>
 
-        <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 flex items-center justify-between">
+        <div className="bg-obsidian-900/90 border border-white/[0.08] rounded-2xl p-4.5 flex items-center justify-between shadow-lg">
           <div>
-            <span className="text-[11px] font-medium text-slate-400 uppercase tracking-wider">
-              Active Ledger Accounts
+            <span className="text-[10px] font-mono font-semibold text-slate-400 uppercase tracking-wider block">
+              Active Ledger Wallets
             </span>
-            <div className="text-2xl font-bold text-slate-100 mt-0.5">{totalAccounts}</div>
-            <span className="text-[10px] text-brand-400">Double-entry verified wallets</span>
+            <div className="text-2xl font-bold text-cyber-cyan font-mono mt-1">{totalAccounts}</div>
+            <span className="text-[11px] text-cyan-400 mt-0.5 block font-medium">Double-entry verified</span>
           </div>
-          <div className="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 flex items-center justify-center">
+          <div className="w-11 h-11 rounded-xl bg-cyan-500/10 text-cyber-cyan border border-cyan-500/25 flex items-center justify-center shadow-glow-cyan">
             <Wallet className="w-5 h-5" />
           </div>
         </div>
 
-        <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 flex items-center justify-between">
+        <div className="bg-obsidian-900/90 border border-white/[0.08] rounded-2xl p-4.5 flex items-center justify-between shadow-lg">
           <div>
-            <span className="text-[11px] font-medium text-slate-400 uppercase tracking-wider">
-              Total System Balances
+            <span className="text-[10px] font-mono font-semibold text-slate-400 uppercase tracking-wider block">
+              Total System Liquidity Pool
             </span>
-            <div className="text-2xl font-bold text-emerald-400 font-mono mt-0.5">
+            <div className="text-2xl font-bold text-emerald-400 font-mono mt-1">
               ₹{totalBalance.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </div>
-            <span className="text-[10px] text-slate-500">Authoritative balance pool</span>
+            <span className="text-[11px] text-slate-400 mt-0.5 block">Authoritative balance total</span>
           </div>
-          <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center">
+          <div className="w-11 h-11 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/25 flex items-center justify-center shadow-glow-emerald">
             <CreditCard className="w-5 h-5" />
           </div>
         </div>
       </div>
 
       {/* Filter & Search Bar */}
-      <div className="flex flex-col sm:flex-row gap-3 items-center justify-between bg-slate-900/60 border border-slate-800 p-3 rounded-xl">
-        <div className="relative w-full sm:w-80">
-          <Search className="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
+      <div className="flex flex-col sm:flex-row gap-3 items-center justify-between bg-obsidian-900/80 border border-white/[0.08] p-3 rounded-2xl shadow-md">
+        <div className="relative w-full sm:w-96">
+          <Search className="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
           <input
             type="text"
-            placeholder="Search by name, email, UPI ID, or account..."
+            placeholder="Search name, email, UPI ID (e.g. alice@dc), or account..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-slate-950 border border-slate-800 rounded-lg pl-9 pr-3 py-1.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-brand-500 transition-colors"
+            className="w-full bg-obsidian-950 border border-white/[0.08] rounded-xl pl-10 pr-4 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 transition-colors font-mono"
           />
         </div>
 
         <div className="flex items-center space-x-2 w-full sm:w-auto justify-end">
-          <span className="text-xs text-slate-400">Role:</span>
+          <span className="text-xs text-slate-400 font-mono">Role:</span>
           {(['ALL', 'USER', 'ADMIN'] as const).map((r) => (
             <button
               key={r}
               onClick={() => setRoleFilter(r)}
-              className={`px-2.5 py-1 text-xs rounded-lg font-medium transition-colors ${
+              className={`px-3 py-1.5 text-xs rounded-xl font-mono font-semibold transition-all ${
                 roleFilter === r
-                  ? 'bg-brand-600/20 text-brand-400 border border-brand-500/30'
-                  : 'bg-slate-950 border border-slate-800 text-slate-400 hover:text-slate-200'
+                  ? 'bg-brand-600/30 text-brand-300 border border-brand-500/50 shadow-glow-brand'
+                  : 'bg-obsidian-950 border border-white/[0.06] text-slate-400 hover:text-slate-200'
               }`}
             >
               {r}
@@ -198,53 +213,52 @@ export const Users: React.FC = () => {
       </div>
 
       {/* Users Table */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-sm">
+      <div className="bg-obsidian-900/90 border border-white/[0.08] rounded-2xl overflow-hidden shadow-xl">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-slate-950/70 border-b border-slate-800 text-slate-400 uppercase tracking-wider font-mono">
+            <thead className="bg-obsidian-950/80 border-b border-white/[0.06] text-slate-400 uppercase tracking-wider font-mono text-[11px]">
               <tr>
-                <th className="px-5 py-3.5 font-semibold">User</th>
-                <th className="px-5 py-3.5 font-semibold">Role</th>
-                <th className="px-5 py-3.5 font-semibold">Associated Account(s) & UPI ID</th>
-                <th className="px-5 py-3.5 font-semibold">Transactions</th>
-                <th className="px-5 py-3.5 font-semibold">Date Joined</th>
-                <th className="px-5 py-3.5 font-semibold">Status</th>
+                <th className="px-5 py-4 font-semibold">User Identity</th>
+                <th className="px-5 py-4 font-semibold">Role</th>
+                <th className="px-5 py-4 font-semibold">Associated Account(s) & UPI ID</th>
+                <th className="px-5 py-4 font-semibold">Operations</th>
+                <th className="px-5 py-4 font-semibold">Registration Date</th>
+                <th className="px-5 py-4 font-semibold">Engine Status</th>
+                <th className="px-5 py-4 font-semibold text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60 text-slate-200">
+            <tbody className="divide-y divide-white/[0.05] text-slate-200">
               {loading && users.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="px-5 py-12 text-center text-slate-400">
-                    <RefreshCw className="w-5 h-5 animate-spin mx-auto mb-2 text-brand-400" />
-                    <span>Loading registered accounts...</span>
+                  <td colSpan={7} className="px-5 py-14 text-center text-slate-400">
+                    <RefreshCw className="w-6 h-6 animate-spin mx-auto mb-2.5 text-brand-400" />
+                    <span className="font-mono text-xs">Loading registered customer identities...</span>
                   </td>
                 </tr>
               ) : filteredUsers.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="px-5 py-12 text-center text-slate-400">
-                    <UsersIcon className="w-6 h-6 mx-auto mb-2 text-slate-600" />
-                    <p className="font-semibold text-slate-300">No users found</p>
-                    <p className="text-xs text-slate-500 mt-1">
-                      {searchQuery ? 'Try clearing your search query.' : 'Create an account in the Customer Mobile App to see it here.'}
+                  <td colSpan={7} className="px-5 py-14 text-center text-slate-400">
+                    <UsersIcon className="w-7 h-7 mx-auto mb-2 text-slate-600" />
+                    <p className="font-semibold text-slate-200 text-sm">No matching accounts found</p>
+                    <p className="text-xs text-slate-500 mt-1 max-w-sm mx-auto">
+                      {searchQuery ? 'Try clearing your search query.' : 'Create an account in the Customer Mobile App to see it here live.'}
                     </p>
                   </td>
                 </tr>
               ) : (
                 filteredUsers.map((u) => (
-                  <tr key={u.id} className="hover:bg-slate-800/40 transition-colors">
+                  <tr key={u.id} className="hover:bg-obsidian-850/60 transition-colors">
                     {/* User Profile */}
                     <td className="px-5 py-4">
                       <div className="flex items-center space-x-3">
-                        <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-brand-600/40 to-indigo-600/40 border border-brand-500/30 flex items-center justify-center font-bold text-slate-200 text-xs shrink-0">
+                        <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-600/30 via-indigo-600/20 to-cyber-cyan/30 border border-brand-500/30 flex items-center justify-center font-bold text-white text-xs font-mono shrink-0 shadow-inner">
                           {u.full_name?.charAt(0).toUpperCase() || 'U'}
                         </div>
                         <div>
-                          <div className="font-semibold text-slate-100 flex items-center space-x-1.5">
-                            <span>{u.full_name}</span>
-                          </div>
-                          <div className="text-[11px] text-slate-400 flex items-center space-x-1 mt-0.5">
-                            <Mail className="w-3 h-3 text-slate-500" />
-                            <span className="font-mono">{u.email}</span>
+                          <div className="font-bold text-white tracking-tight">{u.full_name}</div>
+                          <div className="text-[11px] text-slate-400 flex items-center space-x-1.5 mt-0.5 font-mono">
+                            <Mail className="w-3 h-3 text-slate-500 shrink-0" />
+                            <span>{u.email}</span>
                           </div>
                         </div>
                       </div>
@@ -253,10 +267,10 @@ export const Users: React.FC = () => {
                     {/* Role Badge */}
                     <td className="px-5 py-4">
                       <span
-                        className={`px-2 py-0.5 rounded-full text-[10px] font-bold border ${
+                        className={`px-2.5 py-1 rounded-full text-[10px] font-mono font-bold border ${
                           u.role === 'ADMIN'
-                            ? 'bg-purple-500/10 text-purple-400 border-purple-500/20'
-                            : 'bg-brand-500/10 text-brand-400 border-brand-500/20'
+                            ? 'bg-purple-500/15 text-purple-300 border-purple-500/30 shadow-sm'
+                            : 'bg-brand-500/15 text-brand-300 border-brand-500/30 shadow-sm'
                         }`}
                       >
                         {u.role}
@@ -270,18 +284,18 @@ export const Users: React.FC = () => {
                           {u.accounts.map((acc) => (
                             <div
                               key={acc.account_number}
-                              className="p-2 bg-slate-950/80 border border-slate-800/80 rounded-lg flex flex-wrap items-center gap-2"
+                              className="p-2 bg-obsidian-950/80 border border-white/[0.06] rounded-xl flex flex-wrap items-center gap-2"
                             >
-                              <div className="flex items-center space-x-1 text-slate-300">
-                                <CreditCard className="w-3.5 h-3.5 text-brand-400" />
-                                <span className="font-mono text-xs">{acc.account_number}</span>
+                              <div className="flex items-center space-x-1.5 text-slate-300">
+                                <CreditCard className="w-3.5 h-3.5 text-cyber-cyan shrink-0" />
+                                <span className="font-mono text-xs font-medium">{acc.account_number}</span>
                               </div>
 
                               {acc.upi_id && (
                                 <button
                                   type="button"
                                   onClick={() => handleCopyUpi(acc.upi_id!)}
-                                  className="inline-flex items-center space-x-1 px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px] font-mono hover:bg-emerald-500/20 transition-colors"
+                                  className="inline-flex items-center space-x-1 px-2 py-0.5 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/25 text-[10px] font-mono hover:bg-emerald-500/20 transition-all"
                                   title="Click to copy UPI ID"
                                 >
                                   <span>{acc.upi_id}</span>
@@ -298,7 +312,10 @@ export const Users: React.FC = () => {
                               </span>
 
                               {acc.version !== undefined && (
-                                <span className="text-[9px] font-mono text-slate-500 bg-slate-900 px-1 py-0.5 rounded border border-slate-800" title="Optimistic Locking Version">
+                                <span
+                                  className="text-[9px] font-mono text-slate-400 bg-obsidian-900 px-1.5 py-0.5 rounded border border-white/[0.08]"
+                                  title="Optimistic Locking Version"
+                                >
                                   v{acc.version}
                                 </span>
                               )}
@@ -306,35 +323,47 @@ export const Users: React.FC = () => {
                           ))}
                         </div>
                       ) : (
-                        <span className="text-slate-500 italic text-[11px]">No active accounts</span>
+                        <span className="text-slate-500 italic text-[11px] font-mono">No active accounts</span>
                       )}
                     </td>
 
                     {/* Total Transactions */}
                     <td className="px-5 py-4">
-                      <div className="flex items-center space-x-1 font-bold text-slate-100">
-                        <span>{u.total_transactions ?? 0}</span>
-                        <span className="text-[10px] font-normal text-slate-500">ops</span>
+                      <div className="flex items-center space-x-1.5 font-bold text-white font-mono">
+                        <span className="text-sm">{u.total_transactions ?? 0}</span>
+                        <span className="text-[10px] font-normal text-slate-400">ops</span>
                       </div>
                     </td>
 
                     {/* Date Joined */}
                     <td className="px-5 py-4 text-slate-400">
-                      <div className="flex items-center space-x-1">
-                        <Calendar className="w-3 h-3 text-slate-500" />
+                      <div className="flex items-center space-x-1.5 font-mono text-xs">
+                        <Calendar className="w-3 h-3 text-slate-500 shrink-0" />
                         <span>{new Date(u.date_joined).toLocaleDateString()}</span>
                       </div>
-                      <span className="text-[10px] text-slate-500 block mt-0.5">
+                      <span className="text-[10px] text-slate-500 block mt-0.5 font-mono">
                         {new Date(u.date_joined).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                       </span>
                     </td>
 
                     {/* Status */}
                     <td className="px-5 py-4">
-                      <span className="inline-flex items-center space-x-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                      <span className="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/25">
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
                         <span>Active</span>
                       </span>
+                    </td>
+
+                    {/* Action */}
+                    <td className="px-5 py-4 text-right">
+                      <button
+                        onClick={() => handleOpenWalletForUser(u)}
+                        className="inline-flex items-center space-x-1 px-2.5 py-1.5 rounded-xl bg-obsidian-950 hover:bg-brand-600/20 text-slate-300 hover:text-brand-300 border border-white/[0.08] hover:border-brand-500/40 text-[11px] font-mono transition-all"
+                        title="Open Customer Simulator"
+                      >
+                        <Smartphone className="w-3 h-3" />
+                        <span>Wallet</span>
+                      </button>
                     </td>
                   </tr>
                 ))

@@ -8,7 +8,8 @@ import {
   Info,
   Clock,
   CheckCircle2,
-  XCircle
+  XCircle,
+  Zap
 } from 'lucide-react';
 import { api } from '../services/api';
 import { ConcurrencyExperiment } from '../types';
@@ -84,242 +85,202 @@ export const RaceLab: React.FC = () => {
     <div className="space-y-6">
       {/* Page Header */}
       <div>
-        <h1 className="text-xl font-bold text-slate-100 flex items-center space-x-2">
-          <FlaskConical className="w-6 h-6 text-brand-400" />
-          <span>Race-Condition Laboratory</span>
-        </h1>
-        <p className="text-xs text-slate-400 mt-1">
-          Execute multi-threaded concurrency attacks in an isolated test environment to evaluate database lock mechanics
+        <div className="flex items-center space-x-2.5">
+          <h1 className="text-xl font-bold text-white flex items-center space-x-2.5 tracking-tight">
+            <div className="p-2 rounded-xl bg-brand-500/15 text-brand-400 border border-brand-500/30 shadow-glow-brand">
+              <FlaskConical className="w-5 h-5" />
+            </div>
+            <span>Race-Condition Laboratory</span>
+          </h1>
+          <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-amber-500/15 text-amber-300 border border-amber-500/30 flex items-center">
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse mr-1.5"></span>
+            Contention Simulator
+          </span>
+        </div>
+        <p className="text-xs text-slate-400 mt-1 max-w-xl">
+          Execute multi-threaded concurrency attacks in an isolated test environment to evaluate database lock mechanics and invariant safety.
         </p>
       </div>
 
       {/* Safety Notice */}
-      <div className="p-4 bg-brand-500/10 border border-brand-500/20 rounded-2xl flex items-start space-x-3 text-xs text-brand-300">
-        <Info className="w-5 h-5 text-brand-400 flex-shrink-0 mt-0.5" />
+      <div className="p-4 bg-brand-500/10 border border-brand-500/25 rounded-2xl flex items-start space-x-3 text-xs text-brand-200">
+        <Info className="w-4 h-4 text-brand-400 shrink-0 mt-0.5" />
         <div>
-          <span className="font-semibold text-brand-200">Isolated Sandbox Guarantee: </span>
+          <span className="font-semibold text-white">Isolated Sandbox Guarantee: </span>
           All laboratory experiments execute exclusively against temporary, isolated test accounts. Production user balances are never exposed to unsafe operations.
         </div>
       </div>
 
       {/* Experiment Setup Card */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-1 bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-sm space-y-5">
-          <h2 className="text-sm font-bold text-slate-100 uppercase tracking-wider">
+        <div className="lg:col-span-1 bg-obsidian-900/90 border border-white/[0.08] rounded-2xl p-6 shadow-xl space-y-5">
+          <h2 className="text-xs font-mono font-bold text-white uppercase tracking-wider">
             Configure Experiment
           </h2>
 
-          <div>
-            <label className="block text-xs font-medium text-slate-400 mb-1.5">
-              Concurrency Strategy
-            </label>
-            <select
-              value={strategy}
-              onChange={(e) => setStrategy(e.target.value)}
-              className="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-100 focus:outline-none focus:border-brand-500"
+          <div className="space-y-4">
+            <div>
+              <label className="block text-[11px] font-mono text-slate-400 mb-1.5 uppercase">
+                Concurrency Strategy
+              </label>
+              <select
+                value={strategy}
+                onChange={(e) => setStrategy(e.target.value)}
+                className="w-full bg-obsidian-950 border border-white/[0.08] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-500 font-mono transition-colors"
+              >
+                <option value="PESSIMISTIC">Pessimistic Locking (SELECT FOR UPDATE)</option>
+                <option value="OPTIMISTIC">Optimistic Locking (Version Check)</option>
+                <option value="ATOMIC_CONDITIONAL">Atomic Conditional Update (DB WHERE)</option>
+                <option value="UNSAFE_BASELINE">Unsafe Baseline (Simulate Race Attack)</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-[11px] font-mono text-slate-400 mb-1.5 uppercase">
+                Initial Account Balance (₹)
+              </label>
+              <input
+                type="number"
+                value={initialBalance}
+                onChange={(e) => setInitialBalance(Number(e.target.value))}
+                className="w-full bg-obsidian-950 border border-white/[0.08] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-500 font-mono transition-colors"
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="block text-[10px] font-mono text-slate-400 mb-1.5 uppercase">
+                  Thread A Withdrawal (₹)
+                </label>
+                <input
+                  type="number"
+                  value={withdrawalA}
+                  onChange={(e) => setWithdrawalA(Number(e.target.value))}
+                  className="w-full bg-obsidian-950 border border-white/[0.08] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-500 font-mono transition-colors"
+                />
+              </div>
+
+              <div>
+                <label className="block text-[10px] font-mono text-slate-400 mb-1.5 uppercase">
+                  Thread B Withdrawal (₹)
+                </label>
+                <input
+                  type="number"
+                  value={withdrawalB}
+                  onChange={(e) => setWithdrawalB(Number(e.target.value))}
+                  className="w-full bg-obsidian-950 border border-white/[0.08] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-500 font-mono transition-colors"
+                />
+              </div>
+            </div>
+
+            {/* Explanation box */}
+            <div className="p-3 bg-obsidian-950 rounded-xl border border-white/[0.06] text-xs">
+              <div className="font-semibold text-white mb-1">{currentInfo.name}</div>
+              <p className="text-[11px] text-slate-400 leading-relaxed">{currentInfo.description}</p>
+            </div>
+
+            <button
+              onClick={handleRunExperiment}
+              disabled={running}
+              className="w-full py-2.5 px-4 bg-brand-600 hover:bg-brand-500 disabled:opacity-50 text-white font-mono font-bold text-xs rounded-xl flex items-center justify-center space-x-2 transition-all shadow-glow-brand"
             >
-              <option value="PESSIMISTIC">Pessimistic Locking (SELECT FOR UPDATE)</option>
-              <option value="OPTIMISTIC">Optimistic Locking (Version Number)</option>
-              <option value="ATOMIC_CONDITIONAL">Atomic Conditional Update</option>
-              <option value="UNSAFE_BASELINE">Unsafe Baseline (Vulnerable Demo)</option>
-            </select>
-            <p className="text-[11px] text-slate-400 mt-2">{currentInfo.description}</p>
+              {running ? (
+                <>
+                  <RefreshCw className="w-4 h-4 animate-spin" />
+                  <span>Executing Concurrent Threads...</span>
+                </>
+              ) : (
+                <>
+                  <Play className="w-4 h-4 fill-white" />
+                  <span>Launch Concurrency Attack</span>
+                </>
+              )}
+            </button>
           </div>
-
-          <div>
-            <label className="block text-xs font-medium text-slate-400 mb-1.5">
-              Initial Sender Balance (₹)
-            </label>
-            <input
-              type="number"
-              value={initialBalance}
-              onChange={(e) => setInitialBalance(Number(e.target.value))}
-              className="w-full px-3.5 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-100 focus:outline-none focus:border-brand-500"
-            />
-          </div>
-
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <label className="block text-[11px] font-medium text-slate-400 mb-1">
-                Thread 1 (₹)
-              </label>
-              <input
-                type="number"
-                value={withdrawalA}
-                onChange={(e) => setWithdrawalA(Number(e.target.value))}
-                className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-100 focus:outline-none focus:border-brand-500"
-              />
-            </div>
-            <div>
-              <label className="block text-[11px] font-medium text-slate-400 mb-1">
-                Thread 2 (₹)
-              </label>
-              <input
-                type="number"
-                value={withdrawalB}
-                onChange={(e) => setWithdrawalB(Number(e.target.value))}
-                className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-100 focus:outline-none focus:border-brand-500"
-              />
-            </div>
-          </div>
-
-          <div className="p-3 bg-slate-950 rounded-xl border border-slate-800/80 text-[11px] text-slate-400">
-            Total Withdrawal: <span className="font-bold text-slate-200">₹{withdrawalA + withdrawalB}</span>
-            <br />
-            Initial Balance: <span className="font-bold text-slate-200">₹{initialBalance}</span>
-            <br />
-            <span className="text-amber-400">Potential Overdraft: ₹{withdrawalA + withdrawalB - initialBalance}</span>
-          </div>
-
-          <button
-            onClick={handleRunExperiment}
-            disabled={running}
-            className={`w-full py-3 px-4 rounded-xl text-xs font-bold text-white flex items-center justify-center space-x-2 transition-all shadow-lg ${
-              strategy === 'UNSAFE_BASELINE'
-                ? 'bg-rose-600 hover:bg-rose-500 shadow-rose-600/30'
-                : 'bg-brand-600 hover:bg-brand-500 shadow-brand-600/30'
-            } disabled:opacity-50`}
-          >
-            {running ? (
-              <>
-                <RefreshCw className="w-4 h-4 animate-spin" />
-                <span>Executing Concurrent Threads...</span>
-              </>
-            ) : (
-              <>
-                <Play className="w-4 h-4" />
-                <span>Launch Concurrent Race Attack</span>
-              </>
-            )}
-          </button>
         </div>
 
-        {/* Experiment Results Viewer */}
+        {/* Experiment Results */}
         <div className="lg:col-span-2 space-y-6">
           {activeExperiment ? (
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-sm">
-              <div className="flex items-center justify-between pb-4 border-b border-slate-800 mb-5">
+            <div className="bg-obsidian-900/90 border border-white/[0.08] rounded-2xl p-6 shadow-xl space-y-6">
+              <div className="flex items-center justify-between pb-4 border-b border-white/[0.06]">
                 <div>
-                  <h3 className="font-bold text-slate-100 text-sm">{activeExperiment.experiment_name}</h3>
-                  <p className="text-xs text-slate-400 font-mono mt-0.5">
-                    Duration: {activeExperiment.duration_ms} ms | Executed at: {new Date(activeExperiment.created_at).toLocaleTimeString()}
-                  </p>
+                  <h3 className="font-bold text-white text-sm tracking-tight">{activeExperiment.experiment_name}</h3>
+                  <p className="text-xs text-slate-400 font-mono">Strategy: {activeExperiment.strategy}</p>
                 </div>
+
                 <span
-                  className={`px-3 py-1 text-xs font-bold rounded-full border ${
+                  className={`px-3 py-1 rounded-full text-xs font-mono font-bold border ${
                     activeExperiment.invariants_preserved
-                      ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
-                      : 'bg-rose-500/10 text-rose-400 border-rose-500/20'
+                      ? 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30'
+                      : 'bg-rose-500/15 text-rose-400 border-rose-500/30'
                   }`}
                 >
-                  {activeExperiment.invariants_preserved ? 'INVARIANTS PRESERVED' : 'INVARIANTS VIOLATED'}
+                  {activeExperiment.invariants_preserved ? 'INVARIANTS PRESERVED' : 'INVARIANT BROKEN (DOUBLE SPEND)'}
                 </span>
               </div>
 
-              {/* Invariant Comparison Cards */}
-              <div className="grid grid-cols-3 gap-4 mb-6">
-                <div className="p-4 bg-slate-950 border border-slate-800 rounded-xl">
-                  <span className="text-[11px] text-slate-400 uppercase tracking-wider">Initial Balance</span>
-                  <div className="text-lg font-bold text-slate-100 mt-1">₹{activeExperiment.initial_balance}</div>
-                  <span className="text-[10px] text-slate-500">Before operations</span>
+              {/* Metrics row */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-mono">
+                <div className="p-3 bg-obsidian-950 rounded-xl border border-white/[0.06]">
+                  <span className="text-slate-400 text-[10px] uppercase">Initial Balance</span>
+                  <div className="text-base font-bold text-white mt-1">₹{activeExperiment.initial_balance}</div>
                 </div>
-
-                <div className="p-4 bg-slate-950 border border-slate-800 rounded-xl">
-                  <span className="text-[11px] text-slate-400 uppercase tracking-wider">Final Persisted Balance</span>
-                  <div
-                    className={`text-lg font-bold mt-1 ${
-                      Number(activeExperiment.final_balance) < 0 ? 'text-rose-400' : 'text-emerald-400'
-                    }`}
-                  >
+                <div className="p-3 bg-obsidian-950 rounded-xl border border-white/[0.06]">
+                  <span className="text-slate-400 text-[10px] uppercase">Final Balance</span>
+                  <div className={`text-base font-bold mt-1 ${activeExperiment.invariants_preserved ? 'text-emerald-400' : 'text-rose-400'}`}>
                     ₹{activeExperiment.final_balance}
                   </div>
-                  <span className="text-[10px] text-slate-500">
-                    {Number(activeExperiment.final_balance) < 0 ? 'Illegal Negative Balance!' : 'Protected non-negative'}
-                  </span>
                 </div>
-
-                <div className="p-4 bg-slate-950 border border-slate-800 rounded-xl">
-                  <span className="text-[11px] text-slate-400 uppercase tracking-wider">Thread Outcome</span>
-                  <div className="text-lg font-bold text-slate-100 mt-1">
-                    {activeExperiment.successful_count} OK / {activeExperiment.failed_count} Blocked
-                  </div>
-                  <span className="text-[10px] text-slate-500">
-                    {activeExperiment.invariants_preserved ? 'Conflict resolved safely' : 'Double spend permitted'}
-                  </span>
+                <div className="p-3 bg-obsidian-950 rounded-xl border border-white/[0.06]">
+                  <span className="text-slate-400 text-[10px] uppercase">Expected Balance</span>
+                  <div className="text-base font-bold text-slate-300 mt-1">₹{activeExperiment.expected_balance}</div>
+                </div>
+                <div className="p-3 bg-obsidian-950 rounded-xl border border-white/[0.06]">
+                  <span className="text-slate-400 text-[10px] uppercase">Execution Time</span>
+                  <div className="text-base font-bold text-cyan-300 mt-1">{activeExperiment.duration_ms} ms</div>
                 </div>
               </div>
 
-              {/* Thread Execution Logs */}
-              <h4 className="text-xs font-semibold uppercase text-slate-400 tracking-wider mb-3">
-                Live Thread Execution Logs
-              </h4>
-
-              <div className="space-y-2 font-mono text-xs">
-                {activeExperiment.logs.map((log, index) => (
-                  <div
-                    key={index}
-                    className={`p-3 rounded-xl border flex items-center justify-between ${
-                      log.status === 'SUCCESS'
-                        ? 'bg-emerald-500/5 border-emerald-500/20 text-emerald-300'
-                        : 'bg-rose-500/5 border-rose-500/20 text-rose-300'
-                    }`}
-                  >
-                    <div className="flex items-center space-x-2">
-                      {log.status === 'SUCCESS' ? (
-                        <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                      ) : (
-                        <XCircle className="w-4 h-4 text-rose-400" />
-                      )}
-                      <span>Thread {log.thread}: Requested ₹{log.requested_amount}</span>
+              {/* Thread execution log */}
+              <div>
+                <h4 className="text-xs font-mono font-bold uppercase text-slate-400 tracking-wider mb-2.5">
+                  Thread Race Execution Timeline
+                </h4>
+                <div className="space-y-2">
+                  {activeExperiment.logs.map((log, i) => (
+                    <div
+                      key={i}
+                      className="p-3 bg-obsidian-950 rounded-xl border border-white/[0.06] flex items-center justify-between text-xs font-mono"
+                    >
+                      <div className="flex items-center space-x-2">
+                        <span className="px-2 py-0.5 rounded bg-obsidian-900 border border-white/[0.08] text-slate-300 text-[10px]">
+                          Thread #{log.thread}
+                        </span>
+                        <span className="text-slate-200">Withdraw ₹{log.requested_amount}</span>
+                        {log.message && <span className="text-slate-500 text-[11px]">— {log.message}</span>}
+                      </div>
+                      <span
+                        className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+                          log.status === 'SUCCESS' ? 'text-emerald-400 bg-emerald-500/10' : 'text-rose-400 bg-rose-500/10'
+                        }`}
+                      >
+                        {log.status}
+                      </span>
                     </div>
-                    <span className="text-[11px]">{log.message || log.status}</span>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
           ) : (
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-12 text-center text-slate-500 text-xs">
-              No experiment selected. Launch an experiment above to view execution traces.
+            <div className="bg-obsidian-900/90 border border-white/[0.08] rounded-2xl p-12 text-center text-slate-400 shadow-xl">
+              <FlaskConical className="w-8 h-8 mx-auto mb-2 text-slate-600" />
+              <p className="font-semibold text-white">No active experiment</p>
+              <p className="text-xs text-slate-500 mt-1">Configure parameters and launch an attack to evaluate lock safety.</p>
             </div>
           )}
 
-          {/* Past Experiments History */}
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-sm">
-            <h3 className="text-xs font-semibold uppercase text-slate-400 tracking-wider mb-4">
-              Experiment History
-            </h3>
-            <div className="space-y-2">
-              {pastExperiments.map((exp) => (
-                <div
-                  key={exp.id}
-                  onClick={() => setActiveExperiment(exp)}
-                  className={`p-3 rounded-xl border cursor-pointer transition-all flex items-center justify-between text-xs ${
-                    activeExperiment?.id === exp.id
-                      ? 'bg-slate-800 border-brand-500 text-slate-100'
-                      : 'bg-slate-950/70 border-slate-800 text-slate-400 hover:bg-slate-800/50'
-                  }`}
-                >
-                  <div>
-                    <span className="font-semibold text-slate-200">{exp.strategy}</span>
-                    <span className="ml-2 font-mono text-[11px] text-slate-500">
-                      ₹{exp.initial_balance} &rarr; ₹{exp.final_balance}
-                    </span>
-                  </div>
-                  <span
-                    className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${
-                      exp.invariants_preserved
-                        ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
-                        : 'bg-rose-500/10 text-rose-400 border-rose-500/20'
-                    }`}
-                  >
-                    {exp.invariants_preserved ? 'PASSED' : 'VIOLATED'}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Deadlock & Cyclic Lock Contention Simulator */}
+          {/* Deadlock Card */}
           <DeadlockCard />
         </div>
       </div>
@@ -344,16 +305,16 @@ const DeadlockCard: React.FC = () => {
   };
 
   return (
-    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-sm space-y-4">
-      <div className="flex items-center justify-between">
+    <div className="bg-obsidian-900/90 border border-white/[0.08] rounded-2xl p-6 shadow-xl space-y-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h3 className="text-sm font-bold text-slate-100">Deadlock & Cyclic Dependency Simulator</h3>
-          <p className="text-xs text-slate-400">Demonstrates why reverse row-locking produces circular wait deadlocks</p>
+          <h3 className="text-sm font-bold text-white tracking-tight">Deadlock & Cyclic Dependency Simulator</h3>
+          <p className="text-xs text-slate-400">Demonstrates why inverted row-locking produces circular wait deadlocks</p>
         </div>
         <button
           onClick={handleRunDeadlock}
           disabled={running}
-          className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-purple-500 to-indigo-600 text-white font-bold text-xs hover:opacity-90 flex items-center space-x-1.5"
+          className="px-3.5 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:opacity-90 text-white font-mono font-bold text-xs flex items-center space-x-2 shadow-sm disabled:opacity-50 transition-all"
         >
           {running ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Play className="w-3.5 h-3.5 fill-white" />}
           <span>Simulate Deadlock</span>
@@ -361,11 +322,11 @@ const DeadlockCard: React.FC = () => {
       </div>
 
       {deadlockResult && (
-        <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-3 font-mono text-xs">
+        <div className="p-4 rounded-xl bg-obsidian-950 border border-white/[0.06] space-y-3 font-mono text-xs">
           <div className="flex items-center justify-between">
             <span className="text-slate-400">Deadlock State Detected:</span>
             <span className={`px-2 py-0.5 rounded font-bold uppercase text-[10px] ${
-              deadlockResult.deadlock_detected ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' : 'bg-emerald-500/10 text-emerald-400'
+              deadlockResult.deadlock_detected ? 'bg-amber-500/15 text-amber-300 border border-amber-500/30' : 'bg-emerald-500/15 text-emerald-400'
             }`}>
               {deadlockResult.deadlock_detected ? 'Deadlock / Conflict Triggered' : 'Clean'}
             </span>
@@ -388,3 +349,5 @@ const DeadlockCard: React.FC = () => {
     </div>
   );
 };
+
+export default RaceLab;

@@ -11,7 +11,8 @@ import {
   ShieldAlert,
   LogOut,
   Zap,
-  Smartphone
+  Smartphone,
+  ChevronRight
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -40,22 +41,27 @@ export const Sidebar: React.FC<SidebarProps> = ({ userEmail }) => {
   ];
 
   return (
-    <aside className="w-64 bg-slate-950 border-r border-slate-800 flex flex-col h-screen sticky top-0 shrink-0">
-      {/* Brand Logo */}
-      <div className="p-6 border-b border-slate-800 flex items-center space-x-3">
-        <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-indigo-500 flex items-center justify-center text-white shadow-lg shadow-brand-500/30">
-          <Zap className="w-6 h-6 text-white" />
+    <aside className="w-64 bg-obsidian-950 border-r border-white/[0.06] flex flex-col h-screen sticky top-0 shrink-0 select-none">
+      {/* Brand Header */}
+      <div className="p-5 border-b border-white/[0.06] flex items-center space-x-3.5">
+        <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-600 via-indigo-500 to-cyber-cyan flex items-center justify-center text-white shadow-glow-brand shrink-0">
+          <Zap className="w-5 h-5 text-white fill-white" />
         </div>
-        <div>
-          <h1 className="font-bold text-lg text-white tracking-tight">DataCore</h1>
-          <p className="text-xs text-brand-400 font-medium">Engine Admin v1.0</p>
+        <div className="overflow-hidden">
+          <div className="flex items-center space-x-1.5">
+            <h1 className="font-bold text-base text-white tracking-tight">DataCore</h1>
+            <span className="text-[9px] font-mono px-1 py-0.2 bg-brand-500/20 text-brand-300 rounded font-semibold border border-brand-500/30">
+              PRO
+            </span>
+          </div>
+          <p className="text-[10px] text-slate-400 font-mono tracking-wider uppercase">Fintech Engine v2.4</p>
         </div>
       </div>
 
       {/* Navigation Links */}
-      <nav className="flex-1 px-3 py-6 space-y-1.5 overflow-y-auto">
-        <div className="px-3 mb-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-          Observability
+      <nav className="flex-1 px-3 py-5 space-y-1 overflow-y-auto">
+        <div className="px-3 mb-2 text-[10px] font-mono font-semibold text-slate-500 uppercase tracking-widest">
+          Engine Observability
         </div>
         {navItems.map((item) => {
           const Icon = item.icon;
@@ -64,19 +70,19 @@ export const Sidebar: React.FC<SidebarProps> = ({ userEmail }) => {
               key={item.to}
               to={item.to}
               className={({ isActive }) =>
-                `flex items-center space-x-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                `relative flex items-center space-x-3 px-3 py-2 rounded-xl text-xs font-medium transition-all ${
                   isActive
-                    ? 'bg-brand-600/15 text-brand-400 border border-brand-500/30'
+                    ? 'bg-brand-500/15 text-brand-300 font-semibold border border-brand-500/30 shadow-inner-light before:absolute before:left-0 before:top-2 before:bottom-2 before:w-1 before:bg-brand-500 before:rounded-r'
                     : item.highlight
-                    ? 'text-blue-400 bg-blue-500/10 border border-blue-500/20 hover:bg-blue-500/20'
-                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900'
+                    ? 'text-cyan-300 bg-cyan-500/10 border border-cyan-500/20 hover:bg-cyan-500/15'
+                    : 'text-slate-400 hover:text-slate-200 hover:bg-obsidian-850'
                 }`
               }
             >
-              <Icon className={`w-4 h-4 flex-shrink-0 ${item.highlight ? 'text-blue-400' : ''}`} />
-              <span>{item.label}</span>
+              <Icon className={`w-4 h-4 shrink-0 ${item.highlight ? 'text-cyber-cyan' : ''}`} />
+              <span className="truncate">{item.label}</span>
               {item.highlight && (
-                <span className="ml-auto text-[9px] bg-blue-500/25 text-blue-300 px-1.5 py-0.5 rounded font-mono uppercase font-bold tracking-wider">
+                <span className="ml-auto text-[9px] bg-cyan-500/20 text-cyan-300 px-1.5 py-0.5 rounded-full font-mono font-bold tracking-wider uppercase border border-cyan-500/30">
                   Live
                 </span>
               )}
@@ -85,23 +91,28 @@ export const Sidebar: React.FC<SidebarProps> = ({ userEmail }) => {
         })}
       </nav>
 
-      {/* Footer / User Session */}
-      <div className="p-4 border-t border-slate-800 bg-slate-950/60">
+      {/* User Session Footer */}
+      <div className="p-4 border-t border-white/[0.06] bg-obsidian-900/60">
         <div className="flex items-center justify-between mb-3">
-          <div className="overflow-hidden">
-            <p className="text-xs text-slate-400">Authenticated as</p>
-            <p className="text-xs font-medium text-slate-200 truncate">{userEmail || 'Admin'}</p>
+          <div className="flex items-center space-x-2.5 overflow-hidden">
+            <div className="w-7 h-7 rounded-lg bg-brand-500/20 border border-brand-500/30 flex items-center justify-center text-brand-300 font-bold text-xs shrink-0 font-mono">
+              AD
+            </div>
+            <div className="overflow-hidden">
+              <p className="text-[10px] text-slate-400 uppercase font-mono tracking-wider">Operator</p>
+              <p className="text-xs font-medium text-slate-200 truncate">{userEmail || 'admin@datacore.io'}</p>
+            </div>
           </div>
-          <span className="px-1.5 py-0.5 text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded">
+          <span className="px-1.5 py-0.5 text-[9px] font-mono font-bold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 rounded">
             ADMIN
           </span>
         </div>
         <button
           onClick={handleLogout}
-          className="w-full flex items-center justify-center space-x-2 px-3 py-2 text-xs font-medium text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 border border-slate-800 hover:border-rose-500/20 rounded-lg transition-colors"
+          className="w-full flex items-center justify-center space-x-2 px-3 py-1.5 text-xs font-medium text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 border border-white/[0.06] hover:border-rose-500/30 rounded-xl transition-all"
         >
           <LogOut className="w-3.5 h-3.5" />
-          <span>Sign Out</span>
+          <span>Disconnect Session</span>
         </button>
       </div>
     </aside>
