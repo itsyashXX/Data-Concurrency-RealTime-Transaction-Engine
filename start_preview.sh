@@ -1,12 +1,19 @@
 #!/usr/bin/env bash
 set -e
 
+SOURCE_DIR="/storage/emulated/0/Alarms/DataCore/DataCore"
 REPO_DIR="/data/data/com.termux/files/home/Data-Concurrency-RealTime-Transaction-Engine"
 VENV_DIR="/data/data/com.termux/files/home/venv"
 
 echo "=================================================="
 echo " Starting DataCore Enterprise Preview in Termux"
 echo "=================================================="
+
+# 0. Sync latest changes from Android storage if available
+if [ -d "$SOURCE_DIR" ]; then
+    echo "[0/3] Syncing latest changes from $SOURCE_DIR..."
+    rsync -au --exclude=".git" --exclude="node_modules" --exclude="venv" --exclude="__pycache__" "$SOURCE_DIR/" "$REPO_DIR/" 2>/dev/null || true
+fi
 
 # 1. Activate Python virtual environment & migrate/seed
 source "$VENV_DIR/bin/activate"
