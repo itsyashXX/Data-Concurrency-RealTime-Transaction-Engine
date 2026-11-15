@@ -440,6 +440,43 @@
 <body>
 
 <div class="phone-container">
+  <!-- ==================== SCREEN: OPENING APP SPLASH SCREEN ==================== -->
+  <div id="app-splash-screen" class="absolute inset-0 z-[120] bg-gradient-to-b from-slate-950 via-[#0B0F19] to-slate-950 flex flex-col items-center justify-between p-8 text-white select-none transition-all duration-700 pointer-events-auto">
+    <!-- Top Spacer for Status Area -->
+    <div class="h-6"></div>
+
+    <!-- Center App Brand & Logo -->
+    <div class="flex flex-col items-center text-center space-y-4 -mt-10">
+      <div class="relative">
+        <!-- Ambient Glow Aura behind logo -->
+        <div class="absolute -inset-4 bg-gradient-to-tr from-blue-600 via-indigo-600 to-purple-600 rounded-3xl blur-xl opacity-60 animate-pulse"></div>
+        <!-- Actual App Logo -->
+        <div class="relative w-20 h-20 rounded-3xl bg-gradient-to-tr from-blue-700 via-blue-600 to-indigo-600 text-white flex items-center justify-center text-4xl shadow-2xl shadow-blue-500/50 border border-white/20 transform transition duration-500">
+          <i class="fa-solid fa-bolt"></i>
+        </div>
+      </div>
+      <div>
+        <h1 class="text-3xl font-black tracking-tight text-white mt-1">DataCore Pay</h1>
+        <p class="text-xs text-blue-200/80 font-medium tracking-wide mt-1">High Concurrency Real-Time UPI Engine</p>
+      </div>
+
+      <!-- Loading / Initialization Indicator -->
+      <div class="flex items-center space-x-2 pt-4">
+        <span class="w-2.5 h-2.5 rounded-full bg-blue-500 animate-ping"></span>
+        <span class="text-[10px] font-semibold text-slate-400 tracking-wider">INITIALIZING SECURE ENGINE...</span>
+      </div>
+    </div>
+
+    <!-- Bottom Security & Assured Badges -->
+    <div class="flex flex-col items-center space-y-2 text-center pb-6">
+      <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-slate-900/90 border border-slate-800 text-[10px] font-bold text-slate-300 shadow-inner">
+        <i class="fa-solid fa-shield-halved text-emerald-400"></i>
+        <span>NPCI & BBPS ASSURED • 256-BIT ENCRYPTION</span>
+      </div>
+      <p class="text-[9px] text-slate-500 font-medium">Powered by DataCore Transaction Engine v8.4</p>
+    </div>
+  </div>
+
   <!-- Biometric Lock Screen Overlay (Simulated) -->
   <div id="biometric-lock" class="lock-overlay hidden text-white text-center p-6">
     <div class="w-20 h-20 rounded-3xl bg-blue-600/20 border border-blue-500/40 flex items-center justify-center text-blue-400 text-3xl mb-4 animate-pulse">
@@ -877,7 +914,122 @@
         </button>
       </div>
 
-      <!-- 🔄 AUTOPAY & RECURRING MANDATES (IN SERVICES) -->
+      <!-- POPULAR SERVICES SECTION (PREMIUM GRID) -->
+      <div id="search-popular-services-section" class="mb-5">
+        <div class="flex items-center justify-between mb-2.5">
+          <span class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Popular Services</span>
+          <span class="text-[10px] font-bold text-blue-600">Quick Access</span>
+        </div>
+        <div class="grid grid-cols-4 gap-2 text-center">
+          <!-- 1. Mobile Recharge -->
+          <div onclick="openServiceDetail('recharge')" class="p-2.5 bg-white border border-slate-200/90 rounded-2xl shadow-sm hover:border-blue-400 cursor-pointer active:scale-95 transition flex flex-col items-center">
+            <div class="w-10 h-10 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl mb-1 border border-blue-100 shadow-sm">
+              📱
+            </div>
+            <span class="text-[11px] font-bold text-slate-800 leading-tight">Recharge</span>
+          </div>
+
+          <!-- 2. Electricity -->
+          <div onclick="openServiceDetail('electricity')" class="p-2.5 bg-white border border-slate-200/90 rounded-2xl shadow-sm hover:border-amber-400 cursor-pointer active:scale-95 transition flex flex-col items-center">
+            <div class="w-10 h-10 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl mb-1 border border-amber-100 shadow-sm">
+              ⚡
+            </div>
+            <span class="text-[11px] font-bold text-slate-800 leading-tight">Electricity</span>
+          </div>
+
+          <!-- 3. DTH TV -->
+          <div onclick="openServiceDetail('dth')" class="p-2.5 bg-white border border-slate-200/90 rounded-2xl shadow-sm hover:border-indigo-400 cursor-pointer active:scale-95 transition flex flex-col items-center">
+            <div class="w-10 h-10 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl mb-1 border border-indigo-100 shadow-sm">
+              📺
+            </div>
+            <span class="text-[11px] font-bold text-slate-800 leading-tight">DTH / TV</span>
+          </div>
+
+          <!-- 4. FASTag -->
+          <div onclick="openServiceDetail('fastag')" class="p-2.5 bg-white border border-slate-200/90 rounded-2xl shadow-sm hover:border-cyan-400 cursor-pointer active:scale-95 transition flex flex-col items-center">
+            <div class="w-10 h-10 rounded-2xl bg-cyan-50 text-cyan-600 flex items-center justify-center text-xl mb-1 border border-cyan-100 shadow-sm">
+              🚗
+            </div>
+            <span class="text-[11px] font-bold text-slate-800 leading-tight">FASTag</span>
+          </div>
+
+          <!-- 5. Metro QR -->
+          <div onclick="openServiceDetail('metro')" class="p-2.5 bg-white border border-slate-200/90 rounded-2xl shadow-sm hover:border-emerald-400 cursor-pointer active:scale-95 transition flex flex-col items-center">
+            <div class="w-10 h-10 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl mb-1 border border-emerald-100 shadow-sm">
+              🚇
+            </div>
+            <span class="text-[11px] font-bold text-slate-800 leading-tight">Metro QR</span>
+          </div>
+
+          <!-- 6. Credit Card -->
+          <div onclick="openServiceDetail('creditcard')" class="p-2.5 bg-white border border-slate-200/90 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer active:scale-95 transition flex flex-col items-center">
+            <div class="w-10 h-10 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center text-xl mb-1 border border-purple-100 shadow-sm">
+              💳
+            </div>
+            <span class="text-[11px] font-bold text-slate-800 leading-tight">Card Bill</span>
+          </div>
+
+          <!-- 7. Piped Gas -->
+          <div onclick="openServiceDetail('gas')" class="p-2.5 bg-white border border-slate-200/90 rounded-2xl shadow-sm hover:border-orange-400 cursor-pointer active:scale-95 transition flex flex-col items-center">
+            <div class="w-10 h-10 rounded-2xl bg-orange-50 text-orange-600 flex items-center justify-center text-xl mb-1 border border-orange-100 shadow-sm">
+              ♨️
+            </div>
+            <span class="text-[11px] font-bold text-slate-800 leading-tight">Piped Gas</span>
+          </div>
+
+          <!-- 8. 24K Gold -->
+          <div onclick="openServiceDetail('gold')" class="p-2.5 bg-white border border-slate-200/90 rounded-2xl shadow-sm hover:border-yellow-400 cursor-pointer active:scale-95 transition flex flex-col items-center">
+            <div class="w-10 h-10 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl mb-1 border border-amber-100 shadow-sm">
+              🪙
+            </div>
+            <span class="text-[11px] font-bold text-slate-800 leading-tight">24K Gold</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- NEW FOR YOU PROMOTIONAL CARDS SECTION -->
+      <div id="search-new-for-you-section" class="mb-5 space-y-2.5">
+        <div class="flex items-center justify-between">
+          <span class="text-[10px] font-black text-slate-400 uppercase tracking-wider">New For You</span>
+          <span class="text-[9px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">Featured</span>
+        </div>
+
+        <!-- Promo Card 1: Metro QR Turnstile Pass -->
+        <div onclick="openServiceDetail('metro')" class="p-3.5 rounded-2xl bg-gradient-to-r from-indigo-900 via-blue-900 to-slate-900 text-white shadow-md cursor-pointer hover:border-blue-400 active:scale-98 transition relative overflow-hidden">
+          <div class="flex items-start justify-between relative z-10">
+            <div class="flex-1 pr-3">
+              <div class="inline-flex items-center space-x-1 px-2 py-0.5 rounded-full bg-blue-500/20 border border-blue-400/40 text-[9px] font-bold text-blue-300 mb-1.5">
+                <i class="fa-solid fa-bolt text-[8px]"></i>
+                <span>ZERO QUEUE</span>
+              </div>
+              <h4 class="text-xs font-black text-white">Metro Contactless Turnstile QR</h4>
+              <p class="text-[10px] text-slate-300 mt-0.5">Book Mumbai, Delhi & Bangalore metro tickets instantly with 10% cashback.</p>
+            </div>
+            <div class="w-10 h-10 rounded-2xl bg-white/10 backdrop-blur border border-white/20 flex items-center justify-center text-xl shrink-0">
+              🚇
+            </div>
+          </div>
+        </div>
+
+        <!-- Promo Card 2: 24K Digital Gold SIP -->
+        <div onclick="openServiceDetail('gold')" class="p-3.5 rounded-2xl bg-gradient-to-r from-amber-950 via-slate-900 to-yellow-950 text-white shadow-md cursor-pointer hover:border-amber-400 active:scale-98 transition relative overflow-hidden">
+          <div class="flex items-start justify-between relative z-10">
+            <div class="flex-1 pr-3">
+              <div class="inline-flex items-center space-x-1 px-2 py-0.5 rounded-full bg-amber-500/20 border border-amber-400/40 text-[9px] font-bold text-amber-300 mb-1.5">
+                <i class="fa-solid fa-coins text-[8px]"></i>
+                <span>99.99% MMTC-PAMP</span>
+              </div>
+              <h4 class="text-xs font-black text-white">Start 24K Gold SIP from ₹10</h4>
+              <p class="text-[10px] text-amber-200/80 mt-0.5">Secure, 100% insured physical gold vaulting with 0% storage fees.</p>
+            </div>
+            <div class="w-10 h-10 rounded-2xl bg-white/10 backdrop-blur border border-white/20 flex items-center justify-center text-xl shrink-0">
+              🪙
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 🔄 AUTOPAY & RECURRING MANDATES (WITH FULLY FUNCTIONAL MANAGE BUTTONS) -->
       <div id="services-autopay-card" class="bg-white border border-slate-200/90 rounded-3xl p-4 shadow-sm mb-4 space-y-3">
         <div class="flex justify-between items-center">
           <div class="flex items-center space-x-2">
@@ -889,10 +1041,10 @@
               <span class="text-[10px] text-slate-400">Recurring automatic debits</span>
             </div>
           </div>
-          <span class="text-[10px] font-bold text-purple-700 bg-purple-50 px-2.5 py-0.5 rounded-full border border-purple-200">2 Active</span>
+          <span id="autopay-active-badge" class="text-[10px] font-bold text-purple-700 bg-purple-50 px-2.5 py-0.5 rounded-full border border-purple-200">2 Active</span>
         </div>
 
-        <div class="grid grid-cols-2 gap-2 text-xs">
+        <div id="autopay-mandates-list" class="grid grid-cols-2 gap-2 text-xs">
           <!-- Active Mandate 1: Netflix -->
           <div class="p-2.5 bg-slate-50 border border-slate-200/80 rounded-2xl flex items-center justify-between">
             <div class="flex items-center space-x-2">
@@ -902,7 +1054,7 @@
                 <span class="text-[9px] text-slate-400">₹649/mo</span>
               </div>
             </div>
-            <button onclick="manageMandate('Netflix Premium 4K')" class="text-[10px] text-blue-600 font-bold hover:underline">Manage</button>
+            <button onclick="manageMandate('Netflix 4K')" class="text-[10px] text-blue-600 font-bold hover:underline px-1 py-0.5 rounded">Manage</button>
           </div>
 
           <!-- Active Mandate 2: JioFiber -->
@@ -914,12 +1066,12 @@
                 <span class="text-[9px] text-slate-400">₹943/mo</span>
               </div>
             </div>
-            <button onclick="manageMandate('JioFiber Broadband')" class="text-[10px] text-blue-600 font-bold hover:underline">Manage</button>
+            <button onclick="manageMandate('JioFiber')" class="text-[10px] text-blue-600 font-bold hover:underline px-1 py-0.5 rounded">Manage</button>
           </div>
         </div>
 
-        <button onclick="showToast('To set up AutoPay, choose AutoPay at checkout on your favorite apps')" class="w-full py-2 bg-slate-50 hover:bg-slate-100 text-slate-700 rounded-xl text-xs font-bold transition flex items-center justify-center space-x-1.5 border border-slate-200">
-          <i class="fa-solid fa-plus text-[10px]"></i>
+        <button onclick="openSetupMandateModal()" class="w-full py-2.5 bg-slate-50 hover:bg-slate-100 text-slate-700 rounded-xl text-xs font-bold transition flex items-center justify-center space-x-1.5 border border-slate-200 active:scale-98">
+          <i class="fa-solid fa-plus text-[10px] text-blue-600"></i>
           <span>Setup New AutoPay Mandate</span>
         </button>
       </div>
@@ -1407,14 +1559,23 @@
             </div>
           </div>
 
-          <div class="flex justify-between items-center pt-1">
-            <div>
-              <span class="text-[10px] font-bold text-slate-400 uppercase">Total Bill Amount</span>
-              <div id="elec-preview-amt" class="text-xl font-black text-slate-900">₹1,420.00</div>
+          <div class="pt-3 border-t border-amber-200/60 space-y-3">
+            <div class="flex justify-between items-center">
+              <div>
+                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Total Payable Amount</span>
+                <div id="elec-preview-amt" class="text-2xl font-black text-slate-900">₹1,420.00</div>
+              </div>
+              <div class="text-right">
+                <span class="inline-flex items-center space-x-1 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-[10px] font-bold">
+                  <i class="fa-solid fa-shield-check text-[9px]"></i>
+                  <span>BBPS Assured</span>
+                </span>
+                <span class="text-[9px] text-slate-400 block mt-0.5">Zero Convenience Fee</span>
+              </div>
             </div>
-            <button onclick="payElectricityBill()" class="py-2.5 px-5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-bold text-xs shadow-md shadow-emerald-600/30 active:scale-95 transition flex items-center space-x-1.5">
-              <i class="fa-solid fa-lock text-[10px]"></i>
-              <span id="elec-pay-btn-label">Proceed to Pay ₹1,420</span>
+            <button onclick="payElectricityBill()" class="w-full py-4 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 text-white rounded-2xl font-bold text-sm shadow-xl shadow-blue-500/25 active:scale-98 transition flex items-center justify-center space-x-2">
+              <i class="fa-solid fa-shield-halved text-xs"></i>
+              <span id="elec-pay-btn-label">Proceed to Pay ₹1,420.00</span>
             </button>
           </div>
         </div>
@@ -2246,6 +2407,12 @@
       </div>
       <div id="transfer-provider-badge" class="mt-2 flex items-center space-x-1.5 hidden"></div>
       
+      <!-- Live Verified Payee Badge -->
+      <div id="transfer-verified-payee" class="hidden mt-2.5 p-2 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-[10px] font-bold flex items-center space-x-1.5">
+        <i class="fa-solid fa-circle-check text-emerald-600"></i>
+        <span id="transfer-verified-payee-name">Verified Payee: Yash Sharma (DataCore Assured)</span>
+      </div>
+
       <!-- Clean handle shortcuts -->
       <div class="flex flex-wrap gap-1.5 mt-2.5">
         <button type="button" onclick="appendUpiHandle('@dc')" class="px-2.5 py-1 bg-blue-50 hover:bg-blue-100 text-[10px] font-bold text-blue-700 rounded-lg border border-blue-200 transition">+ @dc</button>
@@ -2263,7 +2430,7 @@
       </div>
       <div class="relative mb-3">
         <span class="absolute left-3.5 top-2.5 text-2xl font-black text-slate-800">₹</span>
-        <input id="transfer-amount" type="number" step="1" value="500" class="w-full bg-slate-50 border border-slate-200 rounded-2xl pl-10 pr-4 py-3 text-2xl font-black text-slate-900 focus:outline-none focus:border-blue-600 transition font-mono" placeholder="0">
+        <input id="transfer-amount" oninput="updateTransferButtonLabel(this.value)" type="number" step="1" value="500" class="w-full bg-slate-50 border border-slate-200 rounded-2xl pl-10 pr-4 py-3 text-2xl font-black text-slate-900 focus:outline-none focus:border-blue-600 transition font-mono" placeholder="0">
       </div>
       <!-- Quick Amount Chips -->
       <div class="flex flex-wrap gap-2">
@@ -2271,25 +2438,47 @@
         <button type="button" onclick="setTransferAmount(500)" class="px-3 py-1.5 bg-slate-100 hover:bg-blue-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 active:scale-95 transition">+₹500</button>
         <button type="button" onclick="setTransferAmount(1000)" class="px-3 py-1.5 bg-slate-100 hover:bg-blue-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 active:scale-95 transition">+₹1,000</button>
         <button type="button" onclick="setTransferAmount(2000)" class="px-3 py-1.5 bg-slate-100 hover:bg-blue-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 active:scale-95 transition">+₹2,000</button>
+        <button type="button" onclick="setTransferAmount(5000)" class="px-3 py-1.5 bg-slate-100 hover:bg-blue-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 active:scale-95 transition">+₹5,000</button>
       </div>
     </div>
 
-    <!-- Debited From Account Selection -->
-    <div class="bg-white border border-slate-200/90 rounded-3xl p-3.5 shadow-sm mb-4 flex items-center justify-between">
-      <div class="flex items-center space-x-3">
-        <div class="w-10 h-10 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-base shadow-sm">
-          <i class="fa-solid fa-building-columns"></i>
+    <!-- Debited From Account Selection (Interactive) -->
+    <div class="bg-white border border-slate-200/90 rounded-3xl p-3.5 shadow-sm mb-4 space-y-2.5">
+      <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Debiting From Account</label>
+      
+      <!-- Option 1: SBI Bank -->
+      <div id="transfer-acc-sbi" onclick="selectTransferAccount('sbi')" class="p-2.5 rounded-2xl border-2 border-blue-600 bg-blue-50/40 flex items-center justify-between cursor-pointer transition">
+        <div class="flex items-center space-x-3">
+          <div class="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center text-sm shadow-sm">
+            <i class="fa-solid fa-building-columns"></i>
+          </div>
+          <div>
+            <span class="text-xs font-black text-slate-900 block leading-tight">State Bank of India •••• 9104</span>
+            <span class="text-[10px] text-emerald-600 font-bold flex items-center space-x-1">
+              <i class="fa-solid fa-shield-check text-[9px]"></i>
+              <span>Verified Primary UPI Account</span>
+            </span>
+          </div>
         </div>
-        <div>
-          <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Debiting From</span>
-          <span class="text-xs font-black text-slate-900 block">State Bank of India •••• 9104</span>
-          <span class="text-[10px] text-emerald-600 font-bold flex items-center space-x-1">
-            <i class="fa-solid fa-shield-check text-[9px]"></i>
-            <span>Verified Primary UPI Account</span>
-          </span>
+        <div id="transfer-radio-sbi" class="w-5 h-5 rounded-full bg-blue-600 text-white flex items-center justify-center text-[10px]">
+          <i class="fa-solid fa-check"></i>
         </div>
       </div>
-      <i class="fa-solid fa-circle-check text-emerald-500 text-base"></i>
+
+      <!-- Option 2: DataCore Digital Wallet -->
+      <div id="transfer-acc-dc" onclick="selectTransferAccount('dc')" class="p-2.5 rounded-2xl border border-slate-200 bg-slate-50 hover:bg-blue-50/30 flex items-center justify-between cursor-pointer transition">
+        <div class="flex items-center space-x-3">
+          <div class="w-9 h-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center text-sm shadow-sm">
+            <i class="fa-solid fa-bolt"></i>
+          </div>
+          <div>
+            <span class="text-xs font-black text-slate-900 block leading-tight">DataCore Digital Wallet</span>
+            <span class="text-[10px] text-slate-500 font-medium block">Instant Concurrency Engine • Zero Latency</span>
+          </div>
+        </div>
+        <div id="transfer-radio-dc" class="w-5 h-5 rounded-full border-2 border-slate-300 flex items-center justify-center text-[10px]">
+        </div>
+      </div>
     </div>
 
     <!-- Optional Note -->
@@ -3244,9 +3433,16 @@
       <div id="receive-qrcode-render" class="flex items-center justify-center min-h-[190px]">
         <!-- Dynamic QR rendered by JS -->
       </div>
-      <div class="mt-2 text-center">
+      <div class="mt-2 text-center space-y-1">
         <span id="receive-user-name" class="text-xs font-black text-slate-900 block leading-tight">Yash Sharma</span>
-        <span id="receive-account-no" class="font-mono text-[10px] text-slate-500 block">yash@datacore</span>
+        <div class="flex items-center justify-center space-x-1">
+          <span class="text-[9px] font-bold text-slate-400 uppercase">UPI ID:</span>
+          <span id="receive-account-no" class="font-mono text-xs font-bold text-blue-600 block">yash@dc</span>
+        </div>
+        <div id="receive-requested-amt-badge" class="hidden inline-flex items-center space-x-1 px-2 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-[10px] font-bold">
+          <span>Requesting: </span>
+          <span id="receive-requested-amt-val">₹0.00</span>
+        </div>
       </div>
     </div>
 
@@ -3419,16 +3615,26 @@
       <div class="absolute bottom-4 left-4 w-7 h-7 border-b-4 border-l-4 border-blue-500 rounded-bl-xl pointer-events-none z-10"></div>
       <div class="absolute bottom-4 right-4 w-7 h-7 border-b-4 border-r-4 border-blue-500 rounded-br-xl pointer-events-none z-10"></div>
 
-      <!-- Fallback / Permission Prompt Overlay if camera not active -->
-      <div id="scanner-camera-fallback" class="absolute inset-0 bg-slate-950/85 backdrop-blur-sm flex flex-col items-center justify-center p-4 text-white z-10">
-        <div class="w-12 h-12 rounded-full bg-blue-600/20 text-blue-400 flex items-center justify-center text-xl mb-2">
-          <i class="fa-solid fa-camera"></i>
+      <!-- Fallback / Permission Explanation Overlay (shown ONLY when camera unavailable/denied) -->
+      <div id="scanner-camera-fallback" class="hidden absolute inset-0 bg-slate-950/90 backdrop-blur-md flex flex-col items-center justify-center p-5 text-white z-20">
+        <div class="w-14 h-14 rounded-2xl bg-indigo-500/20 border border-indigo-400/30 text-indigo-400 flex items-center justify-center text-2xl mb-2.5 shadow-lg">
+          <i class="fa-solid fa-camera-rotate"></i>
         </div>
-        <p class="text-xs font-bold mb-1">Camera Viewfinder</p>
-        <p id="camera-status-msg" class="text-[10px] text-slate-300 text-center mb-3">Tap below to grant camera access or choose gallery image</p>
-        <button onclick="requestCameraAccess()" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold shadow-md transition active:scale-95">
-          Allow Camera Access
-        </button>
+        <h4 class="text-xs font-bold mb-1 text-white">Camera Permission Needed</h4>
+        <p id="camera-status-msg" class="text-[10px] text-slate-300 text-center mb-3 leading-relaxed">DataCore Pay needs camera access to scan UPI QR codes. You can grant access or scan QR images from your gallery.</p>
+        <div class="space-y-1.5 w-full max-w-[200px]">
+          <button onclick="requestCameraAccess()" class="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold shadow-md transition active:scale-95 flex items-center justify-center space-x-1.5">
+            <i class="fa-solid fa-arrows-rotate text-[10px]"></i>
+            <span>Try Again</span>
+          </button>
+          <button onclick="openAppSettingsGuide()" class="w-full py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 rounded-xl text-[11px] font-bold transition active:scale-95">
+            Open App Settings
+          </button>
+          <button onclick="document.getElementById('scanner-gallery-input').click()" class="w-full py-1.5 bg-white/10 hover:bg-white/15 text-white rounded-xl text-[11px] font-bold transition active:scale-95 flex items-center justify-center space-x-1.5">
+            <i class="fa-regular fa-image text-[10px]"></i>
+            <span>Upload from Gallery</span>
+          </button>
+        </div>
       </div>
 
       <p class="absolute bottom-3 text-[10px] text-white/80 font-medium z-20 pointer-events-none drop-shadow">Align any UPI QR code inside frame</p>
@@ -3462,6 +3668,118 @@
 
     <button onclick="closeAllModals()" class="w-full py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition">
       Cancel
+    </button>
+  </div>
+
+
+  <!-- ==================== AUTOPAY MANAGE MANDATE MODAL ==================== -->
+  <div id="modal-manage-mandate" class="modal-sheet p-6 text-center">
+    <div class="w-10 h-1 bg-slate-200 rounded-full mx-auto mb-3"></div>
+    <div class="flex justify-between items-center mb-3">
+      <div class="flex items-center space-x-2">
+        <h3 class="text-base font-black text-slate-900">Manage AutoPay Mandate</h3>
+      </div>
+      <button onclick="closeAllModals()" class="p-1 text-slate-400 hover:text-slate-700">
+        <i class="fa-solid fa-xmark text-sm"></i>
+      </button>
+    </div>
+
+    <!-- Mandate Details Hero Card -->
+    <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm mb-4 text-left space-y-3">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+        <div class="flex items-center space-x-3">
+          <div id="mandate-modal-logo" class="w-10 h-10 rounded-xl bg-red-600 text-white font-black text-sm flex items-center justify-center shadow-sm">N</div>
+          <div>
+            <h4 id="mandate-modal-title" class="text-sm font-bold text-slate-900">Netflix 4K Premium</h4>
+            <span id="mandate-modal-freq" class="text-[10px] text-slate-400">Monthly Recurring Debit</span>
+          </div>
+        </div>
+        <span id="mandate-modal-status-badge" class="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-bold">Active</span>
+      </div>
+
+      <div class="grid grid-cols-2 gap-2 text-xs">
+        <div>
+          <span class="text-[10px] text-slate-400 block">Max Debit Limit</span>
+          <span id="mandate-modal-limit" class="font-bold text-slate-900">₹649.00 / month</span>
+        </div>
+        <div>
+          <span class="text-[10px] text-slate-400 block">Next Debit Date</span>
+          <span id="mandate-modal-next-date" class="font-bold text-slate-900">01 Dec 2026</span>
+        </div>
+        <div class="col-span-2">
+          <span class="text-[10px] text-slate-400 block">Unique Mandate Number (UMN)</span>
+          <span id="mandate-modal-umn" class="font-mono text-[10px] font-bold text-slate-600">UMN/DC/9820192840/2026/0491</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="space-y-2.5">
+      <button id="mandate-btn-toggle-pause" onclick="toggleMandatePauseStatus()" class="w-full py-3 bg-amber-500 hover:bg-amber-600 text-white rounded-xl text-xs font-bold transition flex items-center justify-center space-x-2 shadow-sm active:scale-95">
+        <i id="mandate-toggle-pause-icon" class="fa-solid fa-pause text-xs"></i>
+        <span id="mandate-toggle-pause-label">Pause Mandate</span>
+      </button>
+
+      <button onclick="promptUpdateMandateLimit()" class="w-full py-3 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl text-xs font-bold transition flex items-center justify-center space-x-2 active:scale-95">
+        <i class="fa-solid fa-pen-to-square text-xs text-blue-600"></i>
+        <span>Update Max Debit Limit</span>
+      </button>
+
+      <button onclick="cancelCurrentMandate()" class="w-full py-3 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 rounded-xl text-xs font-bold transition flex items-center justify-center space-x-2 active:scale-95">
+        <i class="fa-solid fa-trash-can text-xs text-rose-600"></i>
+        <span>Cancel AutoPay Mandate</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ==================== AUTOPAY SETUP MANDATE MODAL ==================== -->
+  <div id="modal-setup-mandate" class="modal-sheet p-6 text-center">
+    <div class="w-10 h-1 bg-slate-200 rounded-full mx-auto mb-3"></div>
+    <div class="flex justify-between items-center mb-3">
+      <div class="flex items-center space-x-2">
+        <h3 class="text-base font-black text-slate-900">Setup New AutoPay Mandate</h3>
+      </div>
+      <button onclick="closeAllModals()" class="p-1 text-slate-400 hover:text-slate-700">
+        <i class="fa-solid fa-xmark text-sm"></i>
+      </button>
+    </div>
+
+    <div class="space-y-3 text-left mb-4">
+      <div>
+        <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Select Merchant / Provider</label>
+        <select id="setup-mandate-provider" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-bold text-slate-800 focus:outline-none focus:border-blue-600">
+          <option value="Spotify Premium">Spotify Premium (₹119/mo)</option>
+          <option value="Amazon Prime">Amazon Prime Video (₹299/mo)</option>
+          <option value="Tata AIA Life Insurance">Tata AIA Life Insurance (₹1,250/mo)</option>
+          <option value="Nippon India Mutual Fund">Nippon India Small Cap SIP (₹1,000/mo)</option>
+          <option value="Disney+ Hotstar">Disney+ Hotstar Super (₹149/mo)</option>
+          <option value="YouTube Premium">YouTube Premium Family (₹189/mo)</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Consumer / Subscription ID</label>
+        <input id="setup-mandate-subid" type="text" value="SUB-9820192840" placeholder="e.g. SUB-9820192840" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-mono font-bold text-slate-900 focus:outline-none focus:border-blue-600">
+      </div>
+
+      <div>
+        <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Maximum Auto-Debit Limit (₹)</label>
+        <input id="setup-mandate-limit" type="number" value="1000" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-lg font-black text-blue-600 focus:outline-none focus:border-blue-600">
+      </div>
+
+      <div>
+        <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Debit Frequency</label>
+        <select id="setup-mandate-freq" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-bold text-slate-800 focus:outline-none">
+          <option value="Monthly">Monthly</option>
+          <option value="Quarterly">Quarterly</option>
+          <option value="As Presented">As Presented by Merchant</option>
+        </select>
+      </div>
+    </div>
+
+    <button onclick="submitNewMandateSetup()" class="w-full py-3.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 text-white rounded-2xl font-bold text-xs shadow-xl shadow-blue-500/25 active:scale-98 transition flex items-center justify-center space-x-2">
+      <i class="fa-solid fa-lock text-xs"></i>
+      <span>Authorize & Create Mandate</span>
     </button>
   </div>
 
@@ -4174,14 +4492,250 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
 
 
 
+
+  // ================= AUTOPAY & RECURRING MANDATES STATE & ENGINE =================
+  let activeMandates = [
+    {
+      id: 'm-netflix',
+      name: 'Netflix 4K',
+      fullName: 'Netflix 4K Premium',
+      logoText: 'N',
+      logoBg: 'bg-red-600',
+      maxLimit: 649.00,
+      freq: 'Monthly',
+      nextDate: '01 Dec 2026',
+      umn: 'UMN/DC/9820192840/2026/0491',
+      status: 'Active'
+    },
+    {
+      id: 'm-jiofiber',
+      name: 'JioFiber',
+      fullName: 'JioFiber Broadband',
+      logoText: 'Jio',
+      logoBg: 'bg-blue-600',
+      maxLimit: 943.00,
+      freq: 'Monthly',
+      nextDate: '05 Dec 2026',
+      umn: 'UMN/DC/9820192840/2026/0812',
+      status: 'Active'
+    }
+  ];
+
+  let currentManagingMandate = null;
+
+  function renderAutoPayMandates() {
+    const container = document.getElementById('autopay-mandates-list');
+    const badge = document.getElementById('autopay-active-badge');
+    if (!container) return;
+
+    const activeCount = activeMandates.filter(m => m.status === 'Active').length;
+    if (badge) badge.innerText = `${activeCount} Active`;
+
+    if (activeMandates.length === 0) {
+      container.innerHTML = `<div class="col-span-2 text-center py-4 text-xs text-slate-400">No recurring mandates active</div>`;
+      return;
+    }
+
+    let html = '';
+    activeMandates.forEach(m => {
+      const isPaused = m.status === 'Paused';
+      html += `
+        <div class="p-2.5 bg-slate-50 border border-slate-200/80 rounded-2xl flex items-center justify-between">
+          <div class="flex items-center space-x-2">
+            <div class="w-7 h-7 rounded-lg ${m.logoBg} text-white font-black text-xs flex items-center justify-center shadow-sm">${m.logoText}</div>
+            <div>
+              <span class="text-xs font-bold text-slate-900 block leading-tight">${m.name}</span>
+              <span class="text-[9px] ${isPaused ? 'text-amber-600 font-bold' : 'text-slate-400'}">₹${m.maxLimit}/mo ${isPaused ? '• PAUSED' : ''}</span>
+            </div>
+          </div>
+          <button onclick="manageMandate('${m.name}')" class="text-[10px] text-blue-600 font-bold hover:underline px-1 py-0.5 rounded">Manage</button>
+        </div>
+      `;
+    });
+    container.innerHTML = html;
+  }
+
   function manageMandate(name) {
-    promptUpiPinAndExecute(
-      `Authenticate to manage mandate for ${name}`,
+    const mandate = activeMandates.find(m => m.name.toLowerCase() === name.toLowerCase() || (m.fullName && m.fullName.toLowerCase() === name.toLowerCase()) || name.toLowerCase().includes(m.name.toLowerCase()));
+    if (!mandate) {
+      return showToast(`Mandate ${name} not found`, false);
+    }
+    currentManagingMandate = mandate;
+
+    const logo = document.getElementById('mandate-modal-logo');
+    const title = document.getElementById('mandate-modal-title');
+    const freq = document.getElementById('mandate-modal-freq');
+    const statusBadge = document.getElementById('mandate-modal-status-badge');
+    const limit = document.getElementById('mandate-modal-limit');
+    const nextDate = document.getElementById('mandate-modal-next-date');
+    const umn = document.getElementById('mandate-modal-umn');
+
+    if (logo) {
+      logo.className = `w-10 h-10 rounded-xl ${mandate.logoBg} text-white font-black text-sm flex items-center justify-center shadow-sm`;
+      logo.innerText = mandate.logoText;
+    }
+    if (title) title.innerText = mandate.fullName || mandate.name;
+    if (freq) freq.innerText = `${mandate.freq} Recurring Debit`;
+    if (limit) limit.innerText = `₹${mandate.maxLimit.toFixed(2)} / month`;
+    if (nextDate) nextDate.innerText = mandate.nextDate;
+    if (umn) umn.innerText = mandate.umn;
+
+    const isPaused = mandate.status === 'Paused';
+    if (statusBadge) {
+      statusBadge.innerText = mandate.status;
+      statusBadge.className = isPaused 
+        ? 'px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200 text-[10px] font-bold'
+        : 'px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-bold';
+    }
+
+    const pauseBtn = document.getElementById('mandate-btn-toggle-pause');
+    const pauseLabel = document.getElementById('mandate-toggle-pause-label');
+    const pauseIcon = document.getElementById('mandate-toggle-pause-icon');
+    if (pauseBtn && pauseLabel && pauseIcon) {
+      if (isPaused) {
+        pauseBtn.className = 'w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition flex items-center justify-center space-x-2 shadow-sm active:scale-95';
+        pauseLabel.innerText = 'Resume Mandate';
+        pauseIcon.className = 'fa-solid fa-play text-xs';
+      } else {
+        pauseBtn.className = 'w-full py-3 bg-amber-500 hover:bg-amber-600 text-white rounded-xl text-xs font-bold transition flex items-center justify-center space-x-2 shadow-sm active:scale-95';
+        pauseLabel.innerText = 'Pause Mandate';
+        pauseIcon.className = 'fa-solid fa-pause text-xs';
+      }
+    }
+
+    closeAllModals();
+    const backdrop = document.getElementById('backdrop');
+    const modal = document.getElementById('modal-manage-mandate');
+    if (backdrop) backdrop.classList.add('active');
+    if (modal) modal.classList.add('active');
+    triggerHaptic();
+  }
+
+  function toggleMandatePauseStatus() {
+    if (!currentManagingMandate) return;
+    const isNowPaused = currentManagingMandate.status === 'Active';
+    currentManagingMandate.status = isNowPaused ? 'Paused' : 'Active';
+
+    renderAutoPayMandates();
+    closeAllModals();
+    triggerSuccessHaptic();
+
+    const actionText = isNowPaused ? 'paused' : 'resumed';
+    showToast(`Mandate for ${currentManagingMandate.name} has been ${actionText}!`);
+
+    addNotification({
+      title: `Mandate ${isNowPaused ? 'Paused' : 'Resumed'}`,
+      msg: `Recurring AutoPay for ${currentManagingMandate.fullName || currentManagingMandate.name} is now ${currentManagingMandate.status.toLowerCase()}.`
+    });
+  }
+
+  function promptUpdateMandateLimit() {
+    if (!currentManagingMandate) return;
+    const currentLimit = currentManagingMandate.maxLimit;
+    const newLimitStr = prompt(`Enter new Maximum Debit Limit for ${currentManagingMandate.name} (Current: ₹${currentLimit}):`, currentLimit);
+    if (!newLimitStr) return;
+    const newLimit = parseFloat(newLimitStr);
+    if (isNaN(newLimit) || newLimit <= 0) {
+      return showToast('Invalid amount entered', false);
+    }
+
+    promptUpiPinKeypad(
+      `Update Mandate Limit: ${currentManagingMandate.name}`,
+      0,
       () => {
-        showToast(`AutoPay Mandate for ${name} verified & active`);
+        currentManagingMandate.maxLimit = newLimit;
+        renderAutoPayMandates();
+        closeAllModals();
+        playSuccessChime();
+        triggerSuccessHaptic();
+        showToast(`Mandate limit updated to ₹${newLimit.toFixed(2)}/mo`);
+        addNotification({
+          title: 'Mandate Limit Updated',
+          msg: `Max debit limit for ${currentManagingMandate.fullName || currentManagingMandate.name} set to ₹${newLimit.toFixed(2)}.`
+        });
       }
     );
   }
+
+  function cancelCurrentMandate() {
+    if (!currentManagingMandate) return;
+    if (!confirm(`Are you sure you want to cancel the AutoPay mandate for ${currentManagingMandate.fullName || currentManagingMandate.name}?`)) {
+      return;
+    }
+
+    promptUpiPinKeypad(
+      `Cancel Mandate: ${currentManagingMandate.name}`,
+      0,
+      () => {
+        const removed = currentManagingMandate;
+        activeMandates = activeMandates.filter(m => m.id !== removed.id);
+        renderAutoPayMandates();
+        closeAllModals();
+        playSuccessChime();
+        triggerSuccessHaptic();
+        showToast(`Mandate for ${removed.name} cancelled successfully`);
+        addNotification({
+          title: 'Mandate Cancelled',
+          msg: `AutoPay mandate ${removed.umn} has been cancelled per your request.`
+        });
+      }
+    );
+  }
+
+  function openSetupMandateModal() {
+    closeAllModals();
+    const backdrop = document.getElementById('backdrop');
+    const modal = document.getElementById('modal-setup-mandate');
+    if (backdrop) backdrop.classList.add('active');
+    if (modal) modal.classList.add('active');
+    triggerHaptic();
+  }
+
+  function submitNewMandateSetup() {
+    const prov = document.getElementById('setup-mandate-provider')?.value || 'Spotify Premium';
+    const subid = (document.getElementById('setup-mandate-subid')?.value || 'SUB-12345').trim();
+    const limit = parseFloat(document.getElementById('setup-mandate-limit')?.value) || 500;
+    const freq = document.getElementById('setup-mandate-freq')?.value || 'Monthly';
+
+    if (limit <= 0) return showToast('Please enter a valid debit limit', false);
+
+    promptUpiPinKeypad(
+      `Authorize Mandate: ${prov}`,
+      0,
+      () => {
+        const initials = prov.split(' ').map(w => w[0]).join('').slice(0, 3);
+        const newMandate = {
+          id: `m-${Date.now()}`,
+          name: prov.split(' ')[0],
+          fullName: prov,
+          logoText: initials,
+          logoBg: 'bg-indigo-600',
+          maxLimit: limit,
+          freq: freq,
+          nextDate: '15 Dec 2026',
+          umn: `UMN/DC/${generateRandomDigits(10)}/2026/${Math.floor(1000 + Math.random()*9000)}`,
+          status: 'Active'
+        };
+
+        activeMandates.push(newMandate);
+        renderAutoPayMandates();
+        closeAllModals();
+        playSuccessChime();
+        triggerSuccessHaptic();
+        showToast(`AutoPay Mandate authorized for ${prov}!`);
+        addNotification({
+          title: 'AutoPay Mandate Created',
+          msg: `Mandate for ${prov} (Max: ₹${limit.toFixed(2)}) is active. Next debit on 15 Dec 2026.`
+        });
+      }
+    );
+  }
+
+  // ================= GENERAL UPI PROMPT HELPER =================
+  function promptUpiPinAndExecute(titleOrDesc, onSuccessCallback, amount = 0) {
+    promptUpiPinKeypad(titleOrDesc, amount, onSuccessCallback);
+  }
+
 
   function openDisputeModal() {
     const ref = `DISP-${Math.floor(100000 + Math.random()*900000)}`;
@@ -6496,6 +7050,50 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
     list.innerHTML = html || '<div class="text-center py-8 text-xs text-slate-400">No transactions match criteria</div>';
   }
 
+
+  // ================= CENTRALIZED DEDUPLICATED NOTIFICATION ENGINE =================
+  function addNotification(notif, targetUser = null) {
+    const target = targetUser || currentUser;
+    if (!target) return;
+    if (!target.notifications) target.notifications = [];
+
+    const now = Date.now();
+    const title = (notif.title || '').trim();
+    const msg = (notif.msg || '').trim();
+
+    // Deduplication check: title, msg, and recent timestamp within 8 seconds
+    const isDuplicate = target.notifications.some(existing => {
+      const sameTitle = (existing.title || '').trim().toLowerCase() === title.toLowerCase();
+      const sameMsg = (existing.msg || '').trim().toLowerCase() === msg.toLowerCase();
+      const isRecent = existing.timestamp && (now - existing.timestamp < 8000);
+      return sameTitle && sameMsg && isRecent;
+    });
+
+    if (isDuplicate) {
+      console.log('Suppressed duplicate notification:', title);
+      return;
+    }
+
+    const notifObj = {
+      id: notif.id || `n-${now}-${Math.floor(Math.random() * 1000)}`,
+      title: title || 'Notification',
+      msg: msg,
+      unread: notif.unread !== undefined ? notif.unread : true,
+      time: notif.time || 'Just now',
+      timestamp: now
+    };
+
+    target.notifications.unshift(notifObj);
+    if (target.notifications.length > 50) {
+      target.notifications = target.notifications.slice(0, 50);
+    }
+
+    if (target === currentUser) {
+      notifications = target.notifications;
+      renderNotifications();
+    }
+  }
+
   function renderNotifications() {
     const list = document.getElementById('notif-list');
     if (!list) return;
@@ -6995,15 +7593,12 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
 
     transactions.unshift(debitTx);
 
-    notifications.unshift({
-      id: `n-${Date.now()}`,
+    addNotification({
       title: 'Transfer Sent',
-      msg: `₹${amt.toFixed(2)} sent to ${recipientName} with ${selectedStrategy} row lock.`,
-      unread: true,
-      time: 'Just now'
+      msg: `₹${amt.toFixed(2)} sent to ${recipientName} via UPI.`
     });
 
-    // Real-time credit to recipient wallet
+    // Real-time credit to recipient wallet (Deduplicated: only push if not current user)
     if (targetWallet) {
       targetWallet.balance += amt;
       if (!targetWallet.transactions) targetWallet.transactions = [];
@@ -7021,14 +7616,12 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
         strategy: selectedStrategy,
         latency: latencyVal
       });
-      if (!targetWallet.notifications) targetWallet.notifications = [];
-      targetWallet.notifications.unshift({
-        id: `n-rec-${Date.now()}`,
-        title: 'Funds Received',
-        msg: `₹${amt.toFixed(2)} received from ${currentUser.name} (${currentUser.accountNo}) for "${note}".`,
-        unread: true,
-        time: 'Just now'
-      });
+      if (targetWallet.email !== currentUser.email) {
+        addNotification({
+          title: 'Funds Received',
+          msg: `₹${amt.toFixed(2)} received from ${currentUser.name} for "${note}".`
+        }, targetWallet);
+      }
     }
 
     saveCurrentWalletState();
@@ -7344,11 +7937,23 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
     }
   }
 
-  // ================= DYNAMIC UNIQUE QR CODE GENERATION =================
-  function renderUserDynamicQRCode() {
+  // ================= DYNAMIC UNIQUE QR CODE GENERATION (WITH OPTIONAL AMOUNT) =================
+  function renderUserDynamicQRCode(requestedAmt = null) {
     if (!currentUser) return;
     const userHandle = getUserUpiId(currentUser);
-    const upiUri = `upi://pay?pa=${encodeURIComponent(userHandle)}&pn=${encodeURIComponent(currentUser.name)}&cu=INR&mode=02&orgid=189999`;
+    let upiUri = `upi://pay?pa=${encodeURIComponent(userHandle)}&pn=${encodeURIComponent(currentUser.name)}&cu=INR&mode=02&orgid=189999`;
+
+    const amtBadge = document.getElementById('receive-requested-amt-badge');
+    const amtValEl = document.getElementById('receive-requested-amt-val');
+    if (requestedAmt && !isNaN(requestedAmt) && requestedAmt > 0) {
+      upiUri += `&am=${parseFloat(requestedAmt).toFixed(2)}`;
+      if (amtBadge && amtValEl) {
+        amtBadge.classList.remove('hidden');
+        amtValEl.innerText = formatINR(requestedAmt);
+      }
+    } else {
+      if (amtBadge) amtBadge.classList.add('hidden');
+    }
 
     // 1. Render in Receive Modal if open
     const recContainer = document.getElementById('receive-qrcode-render');
@@ -7387,24 +7992,30 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
     }
 
     const profUpi = document.getElementById('profile-upi-handle-display');
-    if (profUpi) profUpi.innerText = `${currentUser.accountNo}@datacore`;
+    if (profUpi) profUpi.innerText = userHandle;
 
     const recAcc = document.getElementById('receive-account-no');
-    if (recAcc) recAcc.innerText = `${currentUser.accountNo}@datacore`;
+    if (recAcc) recAcc.innerText = userHandle;
 
     renderAllAvatars();
     updateBiometricUI();
   }
 
   function shareUserQRCode() {
-    if (navigator.share && currentUser) {
+    if (!currentUser) return;
+    const userHandle = getUserUpiId(currentUser);
+    const amtVal = parseFloat(document.getElementById('receive-custom-amt')?.value) || 0;
+    let upiUri = `upi://pay?pa=${encodeURIComponent(userHandle)}&pn=${encodeURIComponent(currentUser.name)}&cu=INR`;
+    if (amtVal > 0) upiUri += `&am=${amtVal.toFixed(2)}`;
+
+    if (navigator.share) {
       navigator.share({
-        title: `${currentUser.name}'s UPI QR`,
-        text: `Pay ${currentUser.name} via DataCore UPI: ${currentUser.accountNo}@datacore`,
-        url: `upi://pay?pa=${currentUser.accountNo}@datacore&pn=${encodeURIComponent(currentUser.name)}&cu=INR`
+        title: `${currentUser.name}'s BHIM UPI QR`,
+        text: `Pay ${currentUser.name} via BHIM UPI: ${userHandle}${amtVal > 0 ? ` (Amount: ₹${amtVal.toFixed(2)})` : ''}`,
+        url: upiUri
       }).catch(() => {});
     } else {
-      copyToClipboard(getUserUpiId(currentUser), 'UPI handle copied to clipboard!');
+      copyToClipboard(upiUri, 'Payment UPI link copied!');
     }
   }
 
@@ -7496,7 +8107,7 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
     triggerHaptic();
   };
 
-  const originalClaimCashbackReward = claimCashbackReward;
+  // Consolidated claimCashbackReward using centralized addNotification
   claimCashbackReward = function() {
     if (!currentUser) return;
     initUserScratchCards(currentUser);
@@ -7524,12 +8135,9 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
       latency: '3.4 ms'
     });
 
-    notifications.unshift({
-      id: `n-rew-${Date.now()}`,
+    addNotification({
       title: 'Cashback Deposited',
-      msg: `${formatINR(currentScratchWon)} cashback credited to your primary wallet!`,
-      unread: true,
-      time: 'Just now'
+      msg: `${formatINR(currentScratchWon)} cashback credited to your primary wallet!`
     });
 
     saveCurrentWalletState();
@@ -7788,8 +8396,7 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
         };
 
         transactions.unshift(tx);
-        notifications.unshift({
-          id: `n-${Date.now()}`,
+        addNotification({
           title: 'Electricity Bill Paid',
           msg: `₹${amt.toFixed(2)} paid to ${currentFetchedBill.boardName}. Bharat BillPay Ref: ${exact12UtrNo}.`,
           unread: true,
@@ -8049,8 +8656,7 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
         };
 
         transactions.unshift(tx);
-        notifications.unshift({
-          id: `n-${Date.now()}`,
+        addNotification({
           title: 'Recharge Successful',
           msg: `₹${p.amount} recharge successful for +91 ${mobile} (${currentSelectedOperator}). Operator Ref: ${exact12UtrNo}.`,
           unread: true,
@@ -8120,8 +8726,7 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
         };
 
         transactions.unshift(tx);
-        notifications.unshift({
-          id: `n-${Date.now()}`,
+        addNotification({
           title: 'Broadband Bill Paid',
           msg: `₹${amt.toFixed(2)} paid to ${prov} (A/C: ${acc}). Ref: ${utr}.`,
           unread: true,
@@ -8863,8 +9468,7 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
           latency: '4.2 ms'
         };
         transactions.unshift(tx);
-        notifications.unshift({
-          id: `n-${Date.now()}`,
+        addNotification({
           title: 'DTH Recharge Successful',
           msg: `₹${amt.toFixed(2)} recharge completed for ${op} (VC: ${subId}). Ref: ${utr}.`,
           unread: true,
@@ -8929,8 +9533,7 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
           latency: '3.9 ms'
         };
         transactions.unshift(tx);
-        notifications.unshift({
-          id: `n-${Date.now()}`,
+        addNotification({
           title: 'FASTag Recharged',
           msg: `₹${amt.toFixed(2)} added to NETC FASTag wallet for ${veh}. Ref: ${utr}.`,
           unread: true,
@@ -8995,8 +9598,7 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
           latency: '4.7 ms'
         };
         transactions.unshift(tx);
-        notifications.unshift({
-          id: `n-${Date.now()}`,
+        addNotification({
           title: 'Water Bill Paid',
           msg: `₹${amt.toFixed(2)} paid to ${board}. Ref: ${utr}.`,
           unread: true,
@@ -9061,8 +9663,7 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
           latency: '4.5 ms'
         };
         transactions.unshift(tx);
-        notifications.unshift({
-          id: `n-${Date.now()}`,
+        addNotification({
           title: 'LPG Cylinder Booked',
           msg: `₹${amt.toFixed(2)} booked with ${provider}. Ref: ${utr}.`,
           unread: true,
@@ -9126,8 +9727,7 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
         };
         transactions.unshift(tx);
         const formattedDateTime = formatSuccessDateTime();
-        notifications.unshift({
-          id: `n-${Date.now()}`,
+        addNotification({
           title: 'Credit Card Bill Paid',
           msg: `₹${amt.toFixed(2)} credited to ${bank} ending in ${last4}. Ref: ${utr}.`,
           unread: true,
@@ -9237,6 +9837,47 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
   }
 
   // ================= ACCEPT ANY UPI HANDLE & LIVE PROVIDER BADGE =================
+
+  // ================= SEND MONEY INTERACTIVE HELPERS =================
+  let selectedTransferAccount = 'sbi';
+
+  function selectTransferAccount(type) {
+    selectedTransferAccount = type;
+    const sbiCard = document.getElementById('transfer-acc-sbi');
+    const dcCard = document.getElementById('transfer-acc-dc');
+    const sbiRadio = document.getElementById('transfer-radio-sbi');
+    const dcRadio = document.getElementById('transfer-radio-dc');
+
+    if (type === 'sbi') {
+      if (sbiCard) sbiCard.className = 'p-2.5 rounded-2xl border-2 border-blue-600 bg-blue-50/40 flex items-center justify-between cursor-pointer transition';
+      if (dcCard) dcCard.className = 'p-2.5 rounded-2xl border border-slate-200 bg-slate-50 hover:bg-blue-50/30 flex items-center justify-between cursor-pointer transition';
+      if (sbiRadio) sbiRadio.innerHTML = '<i class="fa-solid fa-check"></i>';
+      if (sbiRadio) sbiRadio.className = 'w-5 h-5 rounded-full bg-blue-600 text-white flex items-center justify-center text-[10px]';
+      if (dcRadio) dcRadio.innerHTML = '';
+      if (dcRadio) dcRadio.className = 'w-5 h-5 rounded-full border-2 border-slate-300 flex items-center justify-center text-[10px]';
+    } else {
+      if (sbiCard) sbiCard.className = 'p-2.5 rounded-2xl border border-slate-200 bg-slate-50 hover:bg-blue-50/30 flex items-center justify-between cursor-pointer transition';
+      if (dcCard) dcCard.className = 'p-2.5 rounded-2xl border-2 border-indigo-600 bg-indigo-50/40 flex items-center justify-between cursor-pointer transition';
+      if (dcRadio) dcRadio.innerHTML = '<i class="fa-solid fa-check"></i>';
+      if (dcRadio) dcRadio.className = 'w-5 h-5 rounded-full bg-indigo-600 text-white flex items-center justify-center text-[10px]';
+      if (sbiRadio) sbiRadio.innerHTML = '';
+      if (sbiRadio) sbiRadio.className = 'w-5 h-5 rounded-full border-2 border-slate-300 flex items-center justify-center text-[10px]';
+    }
+    triggerHaptic();
+  }
+
+  function updateTransferButtonLabel(val) {
+    const amt = parseFloat(val) || 0;
+    const btnLabel = document.getElementById('transfer-pay-btn-label');
+    if (btnLabel) {
+      btnLabel.innerText = amt > 0 ? `Proceed to Securely Pay ${formatINR(amt)}` : 'Proceed to Securely Pay';
+    }
+  }
+
+  function openAppSettingsGuide() {
+    showToast('Open Phone Settings → Apps → DataCore Pay → Permissions → Allow Camera');
+  }
+
   function handleRecipientInput(val) {
     const badge = document.getElementById('transfer-provider-badge');
     if (!badge) return;
@@ -9262,6 +9903,34 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
       badge.innerHTML = '<i class="fa-solid fa-shield-halved text-slate-600"></i><span>🇮🇳 NPCI UPI 2.0 Inter-bank Verified</span>';
     } else {
       badge.className = 'mt-1.5 hidden';
+    }
+
+    const verifiedPayeeBox = document.getElementById('transfer-verified-payee');
+    const verifiedNameEl = document.getElementById('transfer-verified-payee-name');
+    if (verifiedPayeeBox && verifiedNameEl) {
+      let matchedName = null;
+      if (clean.length >= 3) {
+        Object.keys(wallets).forEach(k => {
+          const w = wallets[k];
+          if (w.email.toLowerCase().includes(clean) || 
+              (w.upiId && w.upiId.toLowerCase().includes(clean)) || 
+              (w.mobile && w.mobile.includes(clean)) ||
+              (w.name && w.name.toLowerCase().includes(clean))) {
+            matchedName = w.name;
+          }
+        });
+        if (!matchedName && typeof knownPayees !== 'undefined' && Array.isArray(knownPayees)) {
+          const p = knownPayees.find(kp => kp.handle && kp.handle.toLowerCase().includes(clean));
+          if (p) matchedName = p.name;
+        }
+      }
+
+      if (matchedName) {
+        verifiedNameEl.innerText = `✓ Verified Payee: ${matchedName} (NPCI Assured)`;
+        verifiedPayeeBox.classList.remove('hidden');
+      } else {
+        verifiedPayeeBox.classList.add('hidden');
+      }
     }
   }
 
@@ -9689,6 +10358,33 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
   renderTransactions();
   renderNotifications();
   initServicesHub();
+  renderAutoPayMandates();
+
+  // Deduplicate any preexisting notifications in currentUser
+  if (currentUser && Array.isArray(currentUser.notifications)) {
+    const seen = new Set();
+    currentUser.notifications = currentUser.notifications.filter(n => {
+      const key = `${(n.title||'').trim().toLowerCase()}|${(n.msg||'').trim().toLowerCase()}`;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+    notifications = currentUser.notifications;
+    renderNotifications();
+  }
+
+  // Smoothly dismiss Opening Splash Screen
+  const splash = document.getElementById('app-splash-screen');
+  if (splash) {
+    setTimeout(() => {
+      splash.style.opacity = '0';
+      splash.style.transform = 'scale(1.04)';
+      splash.style.pointerEvents = 'none';
+      setTimeout(() => {
+        splash.classList.add('hidden');
+      }, 700);
+    }, 1100);
+  }
 
   const storedLoginStatus = localStorage.getItem('datacore_is_logged_in');
   // Default to logged-in as active user unless user explicitly logged out
