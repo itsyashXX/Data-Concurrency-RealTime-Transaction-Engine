@@ -24,6 +24,7 @@
       width: 100%;
       max-width: 440px;
       height: 100vh;
+      height: 100dvh;
       max-height: 920px;
       background: #F8FAFC;
       border-radius: 36px;
@@ -43,7 +44,8 @@
         width: 100vw;
         max-width: 100vw;
         height: 100vh;
-        max-height: 100vh;
+        height: 100dvh;
+        max-height: 100dvh;
         border-radius: 0;
         box-shadow: none;
         min-height: 0;
@@ -58,18 +60,39 @@
     .app-screen {
       flex: 1 1 auto;
       min-height: 0;
-      height: 100%;
+      height: auto;
       width: 100%;
       overflow-y: auto !important;
       overflow-x: hidden;
       -webkit-overflow-scrolling: touch;
       touch-action: pan-y;
-      overscroll-behavior-y: contain;
-      padding-bottom: 120px !important;
+      overscroll-behavior-y: auto;
+      padding-bottom: 140px !important;
       scrollbar-width: none;
+      scroll-behavior: smooth;
+      box-sizing: border-box;
     }
     .app-screen::-webkit-scrollbar {
       display: none;
+      width: 0px;
+      height: 0px;
+    }
+    .app-screen:not(.hidden) {
+      animation: screenFadeIn 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes screenFadeIn {
+      0% { opacity: 0.88; transform: translateY(4px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .card-touch {
+      transition: transform 0.18s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+    .card-touch:hover {
+      transform: translateY(-1.5px);
+      box-shadow: 0 6px 16px -2px rgba(0, 0, 0, 0.08);
+    }
+    .card-touch:active {
+      transform: scale(0.97);
     }
     .modal-sheet {
       position: absolute;
@@ -102,11 +125,15 @@
       opacity: 1;
       pointer-events: auto;
     }
+    .tab-btn {
+      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
     .tab-btn.active {
       color: #436CF0;
     }
     .tab-btn.active i {
-      transform: scale(1.1);
+      transform: scale(1.18) translateY(-1px);
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
     .lock-overlay {
       position: absolute;
@@ -233,7 +260,7 @@
     .animate-shake {
       animation: shake 0.35s ease-in-out;
     }
-    . {
+    .line-clamp-2 {
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
@@ -281,7 +308,7 @@
   <!-- Modal Backdrop -->
   <div id="backdrop" class="modal-backdrop" onclick="closeAllModals()"></div>
 
-    <!-- ==================== SCREEN 0: LOGIN & REGISTRATION ==================== -->
+    <!-- ==================== SCREEN 0: LOGIN & REGISTRATION (PHONEPE STYLE) ==================== -->
   <div id="screen-login" class="app-screen p-5 hidden">
     <!-- App Brand Header -->
     <div class="text-center pt-3 pb-4">
@@ -460,7 +487,14 @@
       </div>
     </div>
 
+    <!-- Quick Demo Access / Skip Login -->
+    <div class="mt-4 pt-3 border-t border-slate-200 text-center">
+      <button type="button" onclick="loginAs(activeUserEmail || 'yash@datacore')" class="inline-flex items-center space-x-1.5 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition active:scale-95">
+        <i class="fa-solid fa-bolt text-amber-500"></i>
+        <span>Explore Wallet Demo Directly &rarr;</span>
+      </button>
     </div>
+  </div>
 
   <!-- ==================== SCREEN 1: HOME ==================== -->
   <div id="screen-home" class="app-screen p-5">
@@ -499,7 +533,9 @@
     </div>
 
     <!-- Balance Card -->
-    <div class="rounded-3xl p-6 bg-gradient-to-br from-[#2B4FE5] to-[#4F46E5] text-white shadow-xl shadow-blue-600/30 relative overflow-hidden mb-5">
+    <div class="rounded-3xl p-6 bg-gradient-to-br from-[#2B4FE5] via-[#3B5FEB] to-[#4F46E5] text-white shadow-xl shadow-blue-600/30 relative overflow-hidden mb-5 card-touch">
+      <div class="absolute -right-10 -top-10 w-36 h-36 bg-white/10 rounded-full blur-xl pointer-events-none"></div>
+      <div class="absolute -left-10 -bottom-10 w-32 h-32 bg-indigo-300/15 rounded-full blur-xl pointer-events-none"></div>
       <div class="flex justify-between items-center mb-3">
         <div class="flex items-center space-x-2">
           <span class="text-xs text-white/80 font-medium">Available Balance</span>
@@ -530,38 +566,38 @@
       </div>
     </div>
 
-    <!-- Quick Actions (Send, Scan QR, Receive, Statement) -->
-    <div class="grid grid-cols-4 gap-2 mb-5">
-      <button onclick="navigateTo('transfer')" class="bg-white border border-slate-200/80 p-3 rounded-2xl flex flex-col items-center shadow-sm active:scale-95 transition hover:border-blue-500">
-        <div class="w-10 h-10 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center mb-1.5 shadow-sm">
+    <!-- Quick Actions (Send, Scan QR, Receive, Services) -->
+    <div class="grid grid-cols-4 gap-2.5 mb-5">
+      <button onclick="navigateTo('transfer')" class="bg-white border border-slate-200/80 p-3 rounded-2xl flex flex-col items-center shadow-sm card-touch group hover:border-blue-500">
+        <div class="w-10 h-10 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center mb-1.5 shadow-sm group-hover:scale-105 transition-transform">
           <i class="fa-solid fa-paper-plane text-sm"></i>
         </div>
         <span class="text-xs font-bold text-slate-800">Send</span>
       </button>
 
-      <button onclick="openScannerModal()" class="bg-white border border-slate-200/80 p-3 rounded-2xl flex flex-col items-center shadow-sm active:scale-95 transition hover:border-blue-500">
-        <div class="w-10 h-10 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center mb-1.5 shadow-sm">
+      <button onclick="openScannerModal()" class="bg-white border border-slate-200/80 p-3 rounded-2xl flex flex-col items-center shadow-sm card-touch group hover:border-indigo-500">
+        <div class="w-10 h-10 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center mb-1.5 shadow-sm group-hover:scale-105 transition-transform">
           <i class="fa-solid fa-qrcode text-sm"></i>
         </div>
         <span class="text-xs font-bold text-slate-800">Scan QR</span>
       </button>
 
-      <button onclick="openReceiveModal()" class="bg-white border border-slate-200/80 p-3 rounded-2xl flex flex-col items-center shadow-sm active:scale-95 transition hover:border-blue-500">
-        <div class="w-10 h-10 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-1.5 shadow-sm">
+      <button onclick="openReceiveModal()" class="bg-white border border-slate-200/80 p-3 rounded-2xl flex flex-col items-center shadow-sm card-touch group hover:border-emerald-500">
+        <div class="w-10 h-10 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-1.5 shadow-sm group-hover:scale-105 transition-transform">
           <i class="fa-solid fa-arrow-down text-sm"></i>
         </div>
         <span class="text-xs font-bold text-slate-800">Receive</span>
       </button>
 
-      <button onclick="navigateTo('services')" class="bg-white border border-slate-200/80 p-3 rounded-2xl flex flex-col items-center shadow-sm active:scale-95 transition hover:border-blue-500">
-        <div class="w-10 h-10 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center mb-1.5 shadow-sm">
+      <button onclick="navigateTo('services')" class="bg-white border border-slate-200/80 p-3 rounded-2xl flex flex-col items-center shadow-sm card-touch group hover:border-purple-500">
+        <div class="w-10 h-10 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center mb-1.5 shadow-sm group-hover:scale-105 transition-transform">
           <i class="fa-solid fa-layer-group text-sm"></i>
         </div>
         <span class="text-xs font-bold text-slate-800">Services</span>
       </button>
     </div>
 
-    <!-- 1-Tap Services Hub Banner -->
+    <!-- 1-Tap Services Hub Banner (PhonePe Style) -->
     <div onclick="navigateTo('services')" class="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 text-white rounded-3xl p-3.5 shadow-md shadow-blue-500/20 mb-5 cursor-pointer active:scale-98 transition flex items-center justify-between group">
       <div class="flex items-center space-x-3">
         <div class="w-10 h-10 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-lg shadow-inner group-hover:scale-105 transition">
@@ -636,6 +672,9 @@
     <div id="home-tx-list" class="space-y-2.5">
       <!-- Injected by JS -->
     </div>
+    <!-- Bottom Spacer to Guarantee 100% Unhindered Scrolling Past Navigation Bar -->
+    <div class="h-16 w-full shrink-0" aria-hidden="true"></div>
+
   </div>
 
   <!-- ==================== SCREEN: SERVICES & BILL PAYMENTS ==================== -->
@@ -644,7 +683,7 @@
 
     <!-- ================= VIEW 0: MAIN DIRECTORY OF SERVICES ================= -->
     <div id="services-hub-directory">
-      <!-- Header with Services Hub styling -->
+      <!-- Header with PhonePe Royal Purple styling -->
       <div class="flex items-center justify-between mb-4">
         <div class="flex items-center">
           <button onclick="navigateTo('home')" class="p-2 -ml-2 text-slate-700 hover:text-purple-700 active:scale-95 transition">
@@ -751,7 +790,7 @@
           <span class="text-[10px] font-black text-slate-400 uppercase tracking-wider block mb-2">Essential Utilities</span>
           <div class="grid grid-cols-2 gap-2.5">
             <!-- Electricity Card -->
-            <div onclick="openServiceDetail('electricity')" data-service-category="utilities" class="service-card p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer active:scale-98 transition flex items-center space-x-3 group">
+            <div onclick="openServiceDetail('electricity')" class="p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer card-touch flex items-center space-x-3 group">
               <div class="w-10 h-10 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl font-bold border border-amber-200/60 shadow-sm group-hover:scale-105 transition">
                 ⚡
               </div>
@@ -762,7 +801,7 @@
             </div>
 
             <!-- Water Bill Card -->
-            <div onclick="openServiceDetail('water')" data-service-category="utilities" class="service-card p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer active:scale-98 transition flex items-center space-x-3 group">
+            <div onclick="openServiceDetail('water')" class="p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer card-touch flex items-center space-x-3 group">
               <div class="w-10 h-10 rounded-2xl bg-sky-50 text-sky-600 flex items-center justify-center text-xl font-bold border border-sky-200/60 shadow-sm group-hover:scale-105 transition">
                 💧
               </div>
@@ -773,7 +812,7 @@
             </div>
 
             <!-- Gas & Cylinder Card -->
-            <div onclick="openServiceDetail('gas')" data-service-category="utilities" class="service-card p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer active:scale-98 transition flex items-center space-x-3 group">
+            <div onclick="openServiceDetail('gas')" class="p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer card-touch flex items-center space-x-3 group">
               <div class="w-10 h-10 rounded-2xl bg-orange-50 text-orange-600 flex items-center justify-center text-xl font-bold border border-orange-200/60 shadow-sm group-hover:scale-105 transition">
                 🔥
               </div>
@@ -784,7 +823,7 @@
             </div>
 
             <!-- Broadband Card -->
-            <div onclick="openServiceDetail('broadband')" data-service-category="utilities" class="service-card p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer active:scale-98 transition flex items-center space-x-3 group">
+            <div onclick="openServiceDetail('broadband')" class="p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer card-touch flex items-center space-x-3 group">
               <div class="w-10 h-10 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center text-xl font-bold border border-purple-200/60 shadow-sm group-hover:scale-105 transition">
                 🌐
               </div>
@@ -801,7 +840,7 @@
           <span class="text-[10px] font-black text-slate-400 uppercase tracking-wider block mb-2">Recharge & Entertainment</span>
           <div class="grid grid-cols-2 gap-2.5">
             <!-- Mobile Recharge Card -->
-            <div onclick="openServiceDetail('mobile')" data-service-category="recharge" class="service-card p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer active:scale-98 transition flex items-center space-x-3 group">
+            <div onclick="openServiceDetail('mobile')" class="p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer card-touch flex items-center space-x-3 group">
               <div class="w-10 h-10 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl font-bold border border-blue-200/60 shadow-sm group-hover:scale-105 transition">
                 📱
               </div>
@@ -812,7 +851,7 @@
             </div>
 
             <!-- DTH Card -->
-            <div onclick="openServiceDetail('dth')" data-service-category="recharge" class="service-card p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer active:scale-98 transition flex items-center space-x-3 group">
+            <div onclick="openServiceDetail('dth')" class="p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer card-touch flex items-center space-x-3 group">
               <div class="w-10 h-10 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl font-bold border border-indigo-200/60 shadow-sm group-hover:scale-105 transition">
                 📺
               </div>
@@ -823,7 +862,7 @@
             </div>
 
             <!-- FASTag Card -->
-            <div onclick="openServiceDetail('fastag')" data-service-category="transit" class="service-card p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer active:scale-98 transition flex items-center space-x-3 group">
+            <div onclick="openServiceDetail('fastag')" class="p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer card-touch flex items-center space-x-3 group">
               <div class="w-10 h-10 rounded-2xl bg-cyan-50 text-cyan-600 flex items-center justify-center text-xl font-bold border border-cyan-200/60 shadow-sm group-hover:scale-105 transition">
                 🚗
               </div>
@@ -834,7 +873,7 @@
             </div>
 
             <!-- Google Play Card -->
-            <div onclick="openServiceDetail('googleplay')" data-service-category="recharge" class="service-card p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer active:scale-98 transition flex items-center space-x-3 group">
+            <div onclick="openServiceDetail('googleplay')" class="p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer card-touch flex items-center space-x-3 group">
               <div class="w-10 h-10 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl font-bold border border-emerald-200/60 shadow-sm group-hover:scale-105 transition">
                 🎮
               </div>
@@ -851,7 +890,7 @@
           <span class="text-[10px] font-black text-slate-400 uppercase tracking-wider block mb-2">Financial Services & Credit</span>
           <div class="grid grid-cols-2 gap-2.5">
             <!-- Credit Card Bill -->
-            <div onclick="openServiceDetail('creditcard')" data-service-category="finance" class="service-card p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer active:scale-98 transition flex items-center space-x-3 group">
+            <div onclick="openServiceDetail('creditcard')" class="p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer card-touch flex items-center space-x-3 group">
               <div class="w-10 h-10 rounded-2xl bg-rose-50 text-rose-600 flex items-center justify-center text-xl font-bold border border-rose-200/60 shadow-sm group-hover:scale-105 transition">
                 💳
               </div>
@@ -862,7 +901,7 @@
             </div>
 
             <!-- Loan EMI -->
-            <div onclick="openServiceDetail('loan')" data-service-category="finance" class="service-card p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer active:scale-98 transition flex items-center space-x-3 group">
+            <div onclick="openServiceDetail('loan')" class="p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer card-touch flex items-center space-x-3 group">
               <div class="w-10 h-10 rounded-2xl bg-violet-50 text-violet-600 flex items-center justify-center text-xl font-bold border border-violet-200/60 shadow-sm group-hover:scale-105 transition">
                 🏦
               </div>
@@ -873,7 +912,7 @@
             </div>
 
             <!-- Insurance -->
-            <div onclick="openServiceDetail('insurance')" data-service-category="finance" class="service-card p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer active:scale-98 transition flex items-center space-x-3 group">
+            <div onclick="openServiceDetail('insurance')" class="p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer card-touch flex items-center space-x-3 group">
               <div class="w-10 h-10 rounded-2xl bg-teal-50 text-teal-600 flex items-center justify-center text-xl font-bold border border-teal-200/60 shadow-sm group-hover:scale-105 transition">
                 🛡️
               </div>
@@ -884,7 +923,7 @@
             </div>
 
             <!-- Municipal Tax -->
-            <div onclick="openServiceDetail('tax')" class="p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer active:scale-98 transition flex items-center space-x-3 group">
+            <div onclick="openServiceDetail('tax')" class="p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer card-touch flex items-center space-x-3 group">
               <div class="w-10 h-10 rounded-2xl bg-lime-50 text-lime-700 flex items-center justify-center text-xl font-bold border border-lime-200/60 shadow-sm group-hover:scale-105 transition">
                 🏛️
               </div>
@@ -896,6 +935,9 @@
           </div>
         </div>
       </div>
+    
+    <!-- Bottom Spacer to Guarantee 100% Unhindered Scrolling Past Navigation Bar -->
+    <div class="h-16 w-full shrink-0" aria-hidden="true"></div>
     </div> <!-- End services-hub-directory -->
 
     <!-- ================= VIEW 1: DEDICATED ELECTRICITY BILL VIEW ================= -->
@@ -1411,191 +1453,6 @@
       </div>
     </div> <!-- End service-view-broadband -->
 
-    <!-- ==================== SUB-VIEW 9: LOAN EMI ==================== -->
-    <div id="service-view-loan" class="hidden space-y-4">
-      <div class="flex items-center justify-between mb-2">
-        <button onclick="openServiceDetail('directory')" class="p-2 -ml-2 text-slate-700 hover:text-purple-700 flex items-center space-x-1 font-bold text-xs">
-          <i class="fa-solid fa-arrow-left text-sm mr-1"></i>
-          <span>All Services</span>
-        </button>
-        <span class="px-2 py-0.5 rounded-full bg-violet-50 text-violet-700 text-[10px] font-bold border border-violet-200">LOAN EMI</span>
-      </div>
-
-      <div class="bg-white border border-slate-200 rounded-3xl p-5 shadow-sm space-y-3.5">
-        <div class="flex items-center space-x-3 pb-3 border-b border-slate-100">
-          <div class="w-12 h-12 rounded-2xl bg-violet-50 text-violet-600 flex items-center justify-center text-2xl font-bold border border-violet-200 shadow-sm">
-            🏦
-          </div>
-          <div>
-            <h3 class="text-sm font-bold text-slate-900">Loan EMI Repayment</h3>
-            <p class="text-[10px] text-slate-500">NBFC & Bank Instant Repayment via BBPS</p>
-          </div>
-        </div>
-
-        <div>
-          <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Select Lender / NBFC</label>
-          <select id="loan-lender-select" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-bold text-slate-900 focus:outline-none focus:border-purple-600">
-            <option value="Bajaj Finance">Bajaj Finance Ltd</option>
-            <option value="HDFC Bank Loan">HDFC Bank Personal Loan</option>
-            <option value="Muthoot Finance">Muthoot Finance Gold Loan</option>
-            <option value="Tata Capital">Tata Capital Financial Services</option>
-            <option value="L&T Finance">L&T Financial Services</option>
-          </select>
-        </div>
-
-        <div>
-          <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Loan Account Number / Agreement ID</label>
-          <input id="loan-account-no" type="text" placeholder="e.g. LN-8291038" value="LN-4920194" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-mono font-bold uppercase text-slate-900 focus:outline-none focus:border-purple-600">
-        </div>
-
-        <div>
-          <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">EMI Amount (₹)</label>
-          <input id="loan-amount" type="number" value="3450" placeholder="3450" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-mono font-bold text-slate-900 focus:outline-none focus:border-purple-600">
-        </div>
-
-        <button onclick="payGenericBill('Loan EMI', 'loan-lender-select', 'loan-account-no', 'loan-amount')" class="w-full py-3.5 bg-purple-700 hover:bg-purple-800 text-white rounded-xl font-bold text-xs shadow-md shadow-purple-600/25 active:scale-98 transition flex items-center justify-center space-x-1.5">
-          <i class="fa-solid fa-lock text-xs mr-1"></i>
-          <span>Pay EMI with Protected Ledger</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- ==================== SUB-VIEW 10: INSURANCE ==================== -->
-    <div id="service-view-insurance" class="hidden space-y-4">
-      <div class="flex items-center justify-between mb-2">
-        <button onclick="openServiceDetail('directory')" class="p-2 -ml-2 text-slate-700 hover:text-purple-700 flex items-center space-x-1 font-bold text-xs">
-          <i class="fa-solid fa-arrow-left text-sm mr-1"></i>
-          <span>All Services</span>
-        </button>
-        <span class="px-2 py-0.5 rounded-full bg-teal-50 text-teal-700 text-[10px] font-bold border border-teal-200">INSURANCE</span>
-      </div>
-
-      <div class="bg-white border border-slate-200 rounded-3xl p-5 shadow-sm space-y-3.5">
-        <div class="flex items-center space-x-3 pb-3 border-b border-slate-100">
-          <div class="w-12 h-12 rounded-2xl bg-teal-50 text-teal-600 flex items-center justify-center text-2xl font-bold border border-teal-200 shadow-sm">
-            🛡️
-          </div>
-          <div>
-            <h3 class="text-sm font-bold text-slate-900">Insurance Premium Payment</h3>
-            <p class="text-[10px] text-slate-500">Life, Health & Motor Insurance Policies</p>
-          </div>
-        </div>
-
-        <div>
-          <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Insurance Provider</label>
-          <select id="insurance-provider-select" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-bold text-slate-900 focus:outline-none focus:border-purple-600">
-            <option value="LIC of India">Life Insurance Corporation (LIC)</option>
-            <option value="HDFC Life">HDFC Life Insurance</option>
-            <option value="ICICI Prudential">ICICI Prudential Life</option>
-            <option value="Star Health">Star Health and Allied Insurance</option>
-            <option value="SBI Life">SBI Life Insurance</option>
-          </select>
-        </div>
-
-        <div>
-          <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Policy Number</label>
-          <input id="insurance-policy-no" type="text" placeholder="e.g. 082910492" value="948201940" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-mono font-bold text-slate-900 focus:outline-none focus:border-purple-600">
-        </div>
-
-        <div>
-          <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Premium Amount (₹)</label>
-          <input id="insurance-amount" type="number" value="2850" placeholder="2850" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-mono font-bold text-slate-900 focus:outline-none focus:border-purple-600">
-        </div>
-
-        <button onclick="payGenericBill('Insurance Premium', 'insurance-provider-select', 'insurance-policy-no', 'insurance-amount')" class="w-full py-3.5 bg-purple-700 hover:bg-purple-800 text-white rounded-xl font-bold text-xs shadow-md shadow-purple-600/25 active:scale-98 transition flex items-center justify-center space-x-1.5">
-          <i class="fa-solid fa-lock text-xs mr-1"></i>
-          <span>Pay Premium Securely</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- ==================== SUB-VIEW 11: MUNICIPAL TAX ==================== -->
-    <div id="service-view-tax" class="hidden space-y-4">
-      <div class="flex items-center justify-between mb-2">
-        <button onclick="openServiceDetail('directory')" class="p-2 -ml-2 text-slate-700 hover:text-purple-700 flex items-center space-x-1 font-bold text-xs">
-          <i class="fa-solid fa-arrow-left text-sm mr-1"></i>
-          <span>All Services</span>
-        </button>
-        <span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-bold border border-emerald-200">MUNICIPAL TAX</span>
-      </div>
-
-      <div class="bg-white border border-slate-200 rounded-3xl p-5 shadow-sm space-y-3.5">
-        <div class="flex items-center space-x-3 pb-3 border-b border-slate-100">
-          <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-2xl font-bold border border-emerald-200 shadow-sm">
-            🏛️
-          </div>
-          <div>
-            <h3 class="text-sm font-bold text-slate-900">Municipal Property Tax</h3>
-            <p class="text-[10px] text-slate-500">Government & Municipal Corporation Assessment</p>
-          </div>
-        </div>
-
-        <div>
-          <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Municipal Corporation</label>
-          <select id="tax-board-select" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-bold text-slate-900 focus:outline-none focus:border-purple-600">
-            <option value="Municipal Corporation of Delhi (MCD)">MCD - Municipal Corporation of Delhi</option>
-            <option value="Bruhat Bengaluru Mahanagara Palike (BBMP)">BBMP - Bangalore Mahanagara Palike</option>
-            <option value="Brihanmumbai Municipal Corporation (BMC)">BMC - Mumbai Municipal Corporation</option>
-            <option value="Greater Chennai Corporation (GCC)">GCC - Greater Chennai Corporation</option>
-          </select>
-        </div>
-
-        <div>
-          <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Property Identification Number (PID / UPI)</label>
-          <input id="tax-pid-no" type="text" placeholder="e.g. PID-948201" value="PID-839201" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-mono font-bold text-slate-900 focus:outline-none focus:border-purple-600">
-        </div>
-
-        <div>
-          <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Tax Assessment Amount (₹)</label>
-          <input id="tax-amount" type="number" value="1200" placeholder="1200" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-mono font-bold text-slate-900 focus:outline-none focus:border-purple-600">
-        </div>
-
-        <button onclick="payGenericBill('Municipal Tax', 'tax-board-select', 'tax-pid-no', 'tax-amount')" class="w-full py-3.5 bg-purple-700 hover:bg-purple-800 text-white rounded-xl font-bold text-xs shadow-md shadow-purple-600/25 active:scale-98 transition flex items-center justify-center space-x-1.5">
-          <i class="fa-solid fa-lock text-xs mr-1"></i>
-          <span>Pay Property Tax Now</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- ==================== SUB-VIEW 12: GOOGLE PLAY ==================== -->
-    <div id="service-view-googleplay" class="hidden space-y-4">
-      <div class="flex items-center justify-between mb-2">
-        <button onclick="openServiceDetail('directory')" class="p-2 -ml-2 text-slate-700 hover:text-purple-700 flex items-center space-x-1 font-bold text-xs">
-          <i class="fa-solid fa-arrow-left text-sm mr-1"></i>
-          <span>All Services</span>
-        </button>
-        <span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-bold border border-emerald-200">GOOGLE PLAY</span>
-      </div>
-
-      <div class="bg-white border border-slate-200 rounded-3xl p-5 shadow-sm space-y-3.5">
-        <div class="flex items-center space-x-3 pb-3 border-b border-slate-100">
-          <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-2xl font-bold border border-emerald-200 shadow-sm">
-            🎮
-          </div>
-          <div>
-            <h3 class="text-sm font-bold text-slate-900">Google Play Recharge Code</h3>
-            <p class="text-[10px] text-slate-500">Buy Play Store balance for apps, games & books</p>
-          </div>
-        </div>
-
-        <div>
-          <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Your Google Account Email</label>
-          <input id="gplay-email" type="email" placeholder="user@gmail.com" value="user@datacore.io" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-slate-900 focus:outline-none focus:border-purple-600">
-        </div>
-
-        <div>
-          <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Recharge Amount (₹)</label>
-          <input id="gplay-amount" type="number" value="500" placeholder="500" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-mono font-bold text-slate-900 focus:outline-none focus:border-purple-600">
-        </div>
-
-        <button onclick="payGenericBill('Google Play Code', 'gplay-email', 'gplay-email', 'gplay-amount')" class="w-full py-3.5 bg-purple-700 hover:bg-purple-800 text-white rounded-xl font-bold text-xs shadow-md shadow-purple-600/25 active:scale-98 transition flex items-center justify-center space-x-1.5">
-          <i class="fa-solid fa-lock text-xs mr-1"></i>
-          <span>Purchase Google Play Code</span>
-        </button>
-      </div>
-    </div>
-
-
   </div> <!-- End screen-services -->
 
 
@@ -1625,7 +1482,7 @@
 
     <!-- Recipient Input -->
     <div class="mb-4">
-      <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1.5">Recipient (UPI ID, DataCore Pay @ybl, GPay @oksbi, Paytm, Bank A/C or Mobile)</label>
+      <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1.5">Recipient (UPI ID, PhonePe @ybl, GPay @oksbi, Paytm, Bank A/C or Mobile)</label>
       <div class="relative">
         <i class="fa-regular fa-user absolute left-3.5 top-3.5 text-slate-400 text-sm"></i>
         <input id="transfer-recipient" oninput="handleRecipientInput(this.value)" type="text" value="" class="w-full bg-white border border-slate-200 rounded-2xl pl-10 pr-4 py-3 text-xs text-slate-900 font-medium focus:outline-none focus:border-blue-600 shadow-sm" placeholder="e.g. 9876543210@ybl, rahul@oksbi, DC-1519-6941">
@@ -1633,7 +1490,7 @@
       <div id="transfer-provider-badge" class="mt-1.5 flex items-center space-x-1.5 hidden"></div>
       <div class="flex flex-wrap gap-1.5 mt-2">
         <button onclick="appendUpiHandle('@dc')" class="px-2.5 py-1 bg-blue-50 hover:bg-blue-100 text-[10px] font-bold text-blue-700 rounded-lg border border-blue-200 transition">+ @dc (DataCore)</button>
-        <button onclick="appendUpiHandle('@ybl')" class="px-2 py-0.5 bg-slate-100 hover:bg-blue-50 text-[10px] font-bold text-slate-600 hover:text-blue-600 rounded-lg border border-slate-200 transition">+ @ybl (UPI Handle)</button>
+        <button onclick="appendUpiHandle('@ybl')" class="px-2 py-0.5 bg-slate-100 hover:bg-blue-50 text-[10px] font-bold text-slate-600 hover:text-blue-600 rounded-lg border border-slate-200 transition">+ @ybl (PhonePe)</button>
         <button onclick="appendUpiHandle('@oksbi')" class="px-2 py-0.5 bg-slate-100 hover:bg-blue-50 text-[10px] font-bold text-slate-600 hover:text-blue-600 rounded-lg border border-slate-200 transition">+ @oksbi (GPay)</button>
         <button onclick="appendUpiHandle('@paytm')" class="px-2 py-0.5 bg-slate-100 hover:bg-blue-50 text-[10px] font-bold text-slate-600 hover:text-blue-600 rounded-lg border border-slate-200 transition">+ @paytm</button>
         <button onclick="appendUpiHandle('@okhdfcbank')" class="px-2 py-0.5 bg-slate-100 hover:bg-blue-50 text-[10px] font-bold text-slate-600 hover:text-blue-600 rounded-lg border border-slate-200 transition">+ @okhdfcbank</button>
@@ -1759,6 +1616,9 @@
     <div id="history-tx-list" class="space-y-2.5">
       <!-- Injected by JS -->
     </div>
+    
+    <!-- Bottom Spacer to Guarantee 100% Unhindered Scrolling Past Navigation Bar -->
+    <div class="h-16 w-full shrink-0" aria-hidden="true"></div>
     </div> <!-- End history-subtab-tx -->
 
     <div id="history-subtab-stmt" class="hidden">
@@ -1845,6 +1705,9 @@
     <div id="statement-entries-list" class="space-y-2.5">
       <!-- Injected by JS -->
     </div>
+    
+    <!-- Bottom Spacer to Guarantee 100% Unhindered Scrolling Past Navigation Bar -->
+    <div class="h-16 w-full shrink-0" aria-hidden="true"></div>
     </div> <!-- End history-subtab-stmt -->
   </div>
 
@@ -2019,7 +1882,7 @@
       </div>
     </div>
 
-    <!-- DIRECTLY VISIBLE BHIM UPI QR CODE CARD -->
+    <!-- DIRECTLY VISIBLE BHIM UPI QR CODE CARD (PHONEPE / GPAY STYLE) -->
     <div class="bg-white border border-slate-200/90 rounded-3xl p-5 shadow-sm text-center relative overflow-hidden">
       <div class="flex items-center justify-between mb-3">
         <div class="flex items-center space-x-2">
@@ -2032,7 +1895,7 @@
         </span>
       </div>
 
-      <p class="text-[11px] text-slate-500 mb-3">Scan with any UPI app (GPay, Paytm, BHIM, DataCore) to pay me</p>
+      <p class="text-[11px] text-slate-500 mb-3">Scan with any UPI app (PhonePe, GPay, Paytm) to pay me</p>
 
       <!-- Real Dynamic QR Container with User Avatar in Center -->
       <div class="relative w-56 h-56 bg-white border-2 border-slate-200/90 rounded-3xl mx-auto p-3 shadow-md flex items-center justify-center mb-3 qr-container">
@@ -2189,7 +2052,7 @@
       <div class="flex justify-between items-center">
         <div>
           <span class="text-xs font-bold text-slate-800 block">Sound & Payment Chimes</span>
-          <span class="text-[10px] text-slate-400">Play payment audio chime on success</span>
+          <span class="text-[10px] text-slate-400">Play PhonePe audio chime on success</span>
         </div>
         <input type="checkbox" id="pref-sound" checked onchange="toggleSound(this.checked)" class="w-5 h-5 accent-blue-600 cursor-pointer">
       </div>
@@ -2202,8 +2065,11 @@
           <span class="text-xs font-bold text-slate-800 block">Language</span>
           <span class="text-[10px] text-slate-400">Select app display language</span>
         </div>
-        <select id="pref-language" disabled class="bg-slate-50 border border-slate-200 rounded-xl px-2.5 py-1 text-xs font-bold text-slate-700 focus:outline-none cursor-default">
-          <option value="English" selected>English</option>
+        <select id="pref-language" onchange="showToast('Language set to ' + this.value)" class="bg-slate-50 border border-slate-200 rounded-xl px-2.5 py-1 text-xs font-bold text-slate-700 focus:outline-none">
+          <option value="English">English</option>
+          <option value="Hindi">हिंदी (Hindi)</option>
+          <option value="Marathi">मराठी (Marathi)</option>
+          <option value="Telugu">తెలుగు (Telugu)</option>
         </select>
       </div>
     </div>
@@ -2225,33 +2091,20 @@
         <i class="fa-solid fa-chevron-right text-purple-400 text-xs"></i>
       </div>
 
-      <div onclick="openReportFraudModal()" class="p-3 bg-white hover:bg-slate-50 border border-slate-200/80 rounded-2xl flex items-center justify-between cursor-pointer transition active:scale-98">
+      <div onclick="reportFraud()" class="p-3 bg-white hover:bg-slate-50 border border-slate-200/80 rounded-2xl flex items-center justify-between cursor-pointer transition active:scale-98">
         <div class="flex items-center space-x-3">
           <div class="w-8 h-8 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center text-xs">
             <i class="fa-solid fa-triangle-exclamation"></i>
           </div>
           <div>
-            <span class="font-bold text-slate-900 block">Report Fraud</span>
-            <span class="text-[10px] text-slate-400">Emergency reporting & safety freeze</span>
+            <span class="font-bold text-slate-900 block">Report Fraud or Issue</span>
+            <span class="text-[10px] text-slate-400">Initiate immediate invariant audit</span>
           </div>
         </div>
         <i class="fa-solid fa-chevron-right text-slate-300 text-xs"></i>
       </div>
 
-      <div onclick="openReportIssueModal()" class="p-3 bg-white hover:bg-slate-50 border border-slate-200/80 rounded-2xl flex items-center justify-between cursor-pointer transition active:scale-98">
-        <div class="flex items-center space-x-3">
-          <div class="w-8 h-8 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-xs">
-            <i class="fa-solid fa-circle-exclamation"></i>
-          </div>
-          <div>
-            <span class="font-bold text-slate-900 block">Report Issue</span>
-            <span class="text-[10px] text-slate-400">Submit app bug or transaction inquiry</span>
-          </div>
-        </div>
-        <i class="fa-solid fa-chevron-right text-slate-300 text-xs"></i>
-      </div>
-
-      <div onclick="openAboutModal()" class="p-3 bg-white hover:bg-slate-50 border border-slate-200/80 rounded-2xl flex items-center justify-between cursor-pointer transition active:scale-98">
+      <div onclick="showAboutInfo()" class="p-3 bg-white hover:bg-slate-50 border border-slate-200/80 rounded-2xl flex items-center justify-between cursor-pointer transition active:scale-98">
         <div class="flex items-center space-x-3">
           <div class="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xs">
             <i class="fa-solid fa-circle-info"></i>
@@ -2275,7 +2128,7 @@
     </div>
   </div>
 
-  <!-- ==================== SCREEN 7: PAYMENT SUCCESSFUL ==================== -->
+  <!-- ==================== SCREEN 7: PAYMENT SUCCESSFUL (PHONEPE / GPAY STYLE) ==================== -->
   <div id="screen-success" class="app-screen p-5 hidden bg-gradient-to-b from-emerald-50/70 via-slate-50 to-slate-50">
     <!-- Top Navigation Header -->
     <div class="flex items-center justify-between mb-2">
@@ -2388,7 +2241,7 @@
       </div>
     </div>
 
-    <!-- Cashback Scratch Card Banner -->
+    <!-- Cashback Scratch Card Banner (PhonePe / GPay Style Reward) -->
     <div onclick="openScratchCardModal()" class="bg-gradient-to-r from-amber-500 via-amber-600 to-yellow-500 text-white rounded-3xl p-4 shadow-lg shadow-amber-500/20 mb-4 cursor-pointer active:scale-98 transition flex items-center justify-between group">
       <div class="flex items-center space-x-3">
         <div class="w-12 h-12 rounded-2xl bg-white/20 border border-white/30 flex items-center justify-center text-2xl shadow-inner group-hover:rotate-12 transition">
@@ -2433,7 +2286,7 @@
       </button>
     </div>
 
-    <!-- Customer Support & Brand Footer -->
+    <!-- Customer Support & Brand Footer (PhonePe Inspiration) -->
     <div class="bg-white border border-slate-200/90 rounded-3xl p-4 shadow-sm mb-4">
       <div class="flex items-center justify-between">
         <div class="flex items-center space-x-3">
@@ -2573,7 +2426,7 @@
         <i class="fa-solid fa-chevron-right text-rose-400 text-xs"></i>
       </div>
 
-      <div onclick="openAboutModal()" class="p-3 bg-white hover:bg-slate-50 border border-slate-200/80 rounded-2xl flex items-center justify-between cursor-pointer active:scale-98 transition">
+      <div onclick="showAboutInfo()" class="p-3 bg-white hover:bg-slate-50 border border-slate-200/80 rounded-2xl flex items-center justify-between cursor-pointer active:scale-98 transition">
         <div class="flex items-center space-x-3">
           <div class="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
             <i class="fa-solid fa-circle-info"></i>
@@ -2593,172 +2446,6 @@
     </button>
   </div>
 
-  
-  <!-- ==================== MODAL: ABOUT DATACORE ==================== -->
-  <div id="modal-about-datacore" class="modal-sheet p-6">
-    <div class="flex justify-between items-center pb-3 border-b border-slate-100 mb-4">
-      <div class="flex items-center space-x-2.5">
-        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-blue-700 to-indigo-600 text-white flex items-center justify-center font-bold text-lg shadow-sm">
-          <i class="fa-solid fa-bolt"></i>
-        </div>
-        <div>
-          <h3 class="text-sm font-black text-slate-900">About DataCore Pay</h3>
-          <p class="text-[10px] text-slate-400">v1.5.0 • High-Concurrency Edition</p>
-        </div>
-      </div>
-      <button onclick="closeAllModals()" class="text-slate-400 hover:text-slate-600 p-1">
-        <i class="fa-solid fa-xmark text-base"></i>
-      </button>
-    </div>
-
-    <div class="space-y-3.5 text-xs text-slate-700">
-      <div class="p-3.5 bg-blue-50/70 border border-blue-200/80 rounded-2xl space-y-1">
-        <span class="text-[10px] font-bold text-blue-700 uppercase tracking-wider block">Real-Time Transaction Architecture</span>
-        <p class="text-xs text-slate-800 font-semibold leading-relaxed">
-          DataCore is an enterprise-grade real-time transaction engine engineered with double-entry cryptographic ledger invariants and canonical row-level locks (<code class="font-mono text-blue-800">SELECT FOR UPDATE</code>) to guarantee zero race conditions under extreme concurrency.
-        </p>
-      </div>
-
-      <div class="space-y-2">
-        <div class="flex justify-between items-center py-1.5 border-b border-slate-100">
-          <span class="text-slate-500 font-medium">Core Platform Version</span>
-          <span class="font-mono font-bold text-slate-900">v1.5.0 Production</span>
-        </div>
-        <div class="flex justify-between items-center py-1.5 border-b border-slate-100">
-          <span class="text-slate-500 font-medium">Ledger Model</span>
-          <span class="font-bold text-slate-900">Double-Entry Cryptographic</span>
-        </div>
-        <div class="flex justify-between items-center py-1.5 border-b border-slate-100">
-          <span class="text-slate-500 font-medium">Concurrency Guarantee</span>
-          <span class="font-bold text-emerald-600">Zero Race Conditions (100%)</span>
-        </div>
-        <div class="flex justify-between items-center py-1.5 border-b border-slate-100">
-          <span class="text-slate-500 font-medium">Backend Cluster</span>
-          <span class="font-mono text-[10px] text-blue-600">datacore-backend-wktd.onrender.com</span>
-        </div>
-        <div class="flex justify-between items-center py-1.5">
-          <span class="text-slate-500 font-medium">Compliance & Standards</span>
-          <span class="font-bold text-slate-900">NPCI UPI 2.0 & BBPS Certified</span>
-        </div>
-      </div>
-
-      <button onclick="closeAllModals()" class="w-full py-3 bg-slate-900 text-white rounded-xl font-bold text-xs hover:bg-slate-800 transition active:scale-98">
-        Close Information
-      </button>
-    </div>
-  </div>
-
-  <!-- ==================== MODAL: REPORT FRAUD ==================== -->
-  <div id="modal-report-fraud" class="modal-sheet p-6">
-    <div class="flex justify-between items-center pb-3 border-b border-slate-100 mb-4">
-      <div class="flex items-center space-x-2.5">
-        <div class="w-10 h-10 rounded-2xl bg-rose-50 text-rose-600 flex items-center justify-center font-bold text-lg shadow-sm">
-          <i class="fa-solid fa-triangle-exclamation"></i>
-        </div>
-        <div>
-          <h3 class="text-sm font-black text-slate-900">Report Fraud</h3>
-          <p class="text-[10px] text-slate-400">Emergency Security Response & Freezing</p>
-        </div>
-      </div>
-      <button onclick="closeAllModals()" class="text-slate-400 hover:text-slate-600 p-1">
-        <i class="fa-solid fa-xmark text-base"></i>
-      </button>
-    </div>
-
-    <form id="fraud-report-form" onsubmit="event.preventDefault(); submitReportFraud();" class="space-y-3.5">
-      <div>
-        <label class="text-[10px] font-bold text-slate-600 uppercase tracking-wider block mb-1">Incident Type</label>
-        <select id="fraud-incident-type" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs font-bold text-slate-900 focus:outline-none focus:border-rose-500">
-          <option value="Unauthorized Transaction">Unauthorized Transaction</option>
-          <option value="Phishing or Impersonation">Phishing / UPI Impersonation Scam</option>
-          <option value="Account Compromise">Suspected Account Compromise</option>
-          <option value="Suspicious QR / Link">Suspicious QR Code / Malicious Payment Link</option>
-          <option value="Double Debit / Unknown Recipient">Double Debit to Unknown Recipient</option>
-        </select>
-      </div>
-
-      <div>
-        <label class="text-[10px] font-bold text-slate-600 uppercase tracking-wider block mb-1">Suspected Transaction ID or Recipient UPI</label>
-        <input id="fraud-target-id" type="text" placeholder="e.g. UTR-9820192840 or name@dc" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs font-semibold text-slate-900 focus:outline-none focus:border-rose-500">
-      </div>
-
-      <div>
-        <label class="text-[10px] font-bold text-slate-600 uppercase tracking-wider block mb-1">Incident Details / Description</label>
-        <textarea id="fraud-description" rows="3" placeholder="Provide any details about what occurred (minimum 10 characters)..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs font-medium text-slate-900 focus:outline-none focus:border-rose-500"></textarea>
-      </div>
-
-      <!-- Emergency Safety Option -->
-      <div class="p-3 bg-rose-50/70 border border-rose-200/80 rounded-2xl flex items-start space-x-2.5">
-        <input id="fraud-lock-checkbox" type="checkbox" checked class="mt-0.5 rounded text-rose-600 focus:ring-rose-500">
-        <div>
-          <label for="fraud-lock-checkbox" class="text-xs font-bold text-rose-900 block cursor-pointer">Freeze outgoing debits immediately</label>
-          <span class="text-[10px] text-rose-700/80 block">Temporarily locks outgoing wallet transfers until your incident is verified.</span>
-        </div>
-      </div>
-
-      <div class="pt-1 flex space-x-2">
-        <button type="button" onclick="closeAllModals()" class="flex-1 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition">
-          Cancel
-        </button>
-        <button id="fraud-submit-btn" type="submit" class="flex-1 py-3 bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs rounded-xl shadow-md shadow-rose-600/30 active:scale-98 transition flex items-center justify-center space-x-1.5">
-          <i class="fa-solid fa-shield-halved text-xs"></i>
-          <span>Submit Fraud Report</span>
-        </button>
-      </div>
-    </form>
-  </div>
-
-  <!-- ==================== MODAL: REPORT ISSUE ==================== -->
-  <div id="modal-report-issue" class="modal-sheet p-6">
-    <div class="flex justify-between items-center pb-3 border-b border-slate-100 mb-4">
-      <div class="flex items-center space-x-2.5">
-        <div class="w-10 h-10 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold text-lg shadow-sm">
-          <i class="fa-solid fa-circle-exclamation"></i>
-        </div>
-        <div>
-          <h3 class="text-sm font-black text-slate-900">Report Issue</h3>
-          <p class="text-[10px] text-slate-400">Technical Support & Platform Ticket</p>
-        </div>
-      </div>
-      <button onclick="closeAllModals()" class="text-slate-400 hover:text-slate-600 p-1">
-        <i class="fa-solid fa-xmark text-base"></i>
-      </button>
-    </div>
-
-    <form id="issue-report-form" onsubmit="event.preventDefault(); submitReportIssue();" class="space-y-3.5">
-      <div>
-        <label class="text-[10px] font-bold text-slate-600 uppercase tracking-wider block mb-1">Issue Category</label>
-        <select id="issue-category" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs font-bold text-slate-900 focus:outline-none focus:border-amber-500">
-          <option value="Payment Failure">Payment or Transfer Failure</option>
-          <option value="Services or Recharge">Bill Payment / Recharge Issue</option>
-          <option value="Balance Discrepancy">Balance or Ledger Inconsistency</option>
-          <option value="App Bug or Glitch">App Bug or UI Glitch</option>
-          <option value="Account or Login">Login or Session Issue</option>
-        </select>
-      </div>
-
-      <div>
-        <label class="text-[10px] font-bold text-slate-600 uppercase tracking-wider block mb-1">Summary of Issue</label>
-        <input id="issue-summary" type="text" placeholder="Short description of what went wrong" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs font-semibold text-slate-900 focus:outline-none focus:border-amber-500">
-      </div>
-
-      <div>
-        <label class="text-[10px] font-bold text-slate-600 uppercase tracking-wider block mb-1">Detailed Description & Steps</label>
-        <textarea id="issue-description" rows="3" placeholder="Explain the steps to reproduce or what error occurred..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs font-medium text-slate-900 focus:outline-none focus:border-amber-500"></textarea>
-      </div>
-
-      <div class="pt-1 flex space-x-2">
-        <button type="button" onclick="closeAllModals()" class="flex-1 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition">
-          Cancel
-        </button>
-        <button id="issue-submit-btn" type="submit" class="flex-1 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-xl shadow-md shadow-blue-500/30 active:scale-98 transition flex items-center justify-center space-x-1.5">
-          <i class="fa-solid fa-paper-plane text-xs"></i>
-          <span>Submit Ticket</span>
-        </button>
-      </div>
-    </form>
-  </div>
-
   <!-- ==================== RECEIVE QR MODAL ==================== -->
   <div id="modal-receive" class="modal-sheet p-6 text-center">
     <div class="w-10 h-1 bg-slate-200 rounded-full mx-auto mb-4"></div>
@@ -2768,7 +2455,7 @@
         <i class="fa-solid fa-xmark text-sm"></i>
       </button>
     </div>
-    <p class="text-xs text-slate-500 mb-4">Scan with any UPI App: Google Pay, Paytm, BHIM, DataCore Pay</p>
+    <p class="text-xs text-slate-500 mb-4">Scan with any UPI App: PhonePe, Google Pay, Paytm, BHIM</p>
 
     <!-- Real Dynamic QR Container with User Avatar in Center -->
     <div class="relative w-56 h-56 bg-white border-2 border-slate-200/90 rounded-3xl mx-auto p-3 shadow-md flex items-center justify-center mb-4 qr-container">
@@ -2880,7 +2567,7 @@
       </div>
     </div>
 
-    <!-- Quick Action Grid -->
+    <!-- Quick Action Grid (PhonePe Style) -->
     <div class="grid grid-cols-4 gap-2 mb-3">
       <button onclick="repeatPaymentFromReceipt()" class="p-2 rounded-xl border border-slate-200 bg-slate-50 hover:bg-blue-50 text-slate-700 flex flex-col items-center justify-center active:scale-95 transition">
         <i class="fa-solid fa-rotate-right text-blue-600 text-sm mb-1"></i>
@@ -2925,7 +2612,7 @@
     <div class="flex justify-between items-center mb-3">
       <div class="flex items-center space-x-2">
         <h3 class="text-base font-bold text-slate-900">Scan Any UPI QR</h3>
-        <span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[9px] font-bold border border-emerald-200">BHIM / UPI 2.0 / GPay</span>
+        <span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[9px] font-bold border border-emerald-200">BHIM / PhonePe / GPay</span>
       </div>
       <button onclick="toggleFlashlight()" id="torch-btn" class="p-2 text-slate-600 hover:text-blue-600 text-xs font-bold flex items-center space-x-1">
         <i id="torch-icon" class="fa-solid fa-bolt text-xs"></i>
@@ -3638,8 +3325,8 @@
     </div>
   </div>
 
-  <!-- Bottom Navigation Bar -->
-  <div id="bottom-nav" class="absolute bottom-0 left-0 right-0 h-16 bg-white border-t border-slate-200 flex justify-around items-center px-2 z-30">
+  <!-- Bottom Navigation Bar (PhonePe / GPay Style) -->
+  <div id="bottom-nav" class="absolute bottom-0 left-0 right-0 h-16 bg-white/95 backdrop-blur-md border-t border-slate-200/80 flex justify-around items-center px-2 z-30 shadow-[0_-4px_20px_rgba(0,0,0,0.03)]">
     <!-- Tab 1: Home -->
     <button onclick="navigateTo('home')" id="tab-home" class="tab-btn active flex flex-col items-center text-slate-400 hover:text-blue-600 transition px-2 py-1">
       <i class="fa-solid fa-house text-lg"></i>
@@ -3708,13 +3395,59 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
   }
 
   // Factory Default Test Accounts with Realistic Indian UPI Balances & History
-  const DEFAULT_INITIAL_WALLETS = {};
+  const DEFAULT_INITIAL_WALLETS = {
+    'yash@datacore': {
+      upiId: 'yash@dc',
+      mobileUpiId: '9820192840@dc',
+      id: 'usr_yash',
+      name: 'Yash Sharma',
+      email: 'yash@datacore',
+      mobile: '9820192840',
+      accountNo: 'DC-6812-3923',
+      initial: 'Y',
+      role: 'Prime Savings A/C',
+      color: 'blue',
+      balance: 10000.00,
+      dailyLimit: 100000.00,
+      password: 'yash1234',
+      pin: '1234',
+      upiPin: '1234',
+      upiLiteBalance: 0.00,
+      isTransfersLocked: false,
+      transactions: [
+        {
+          id: '100000000001',
+          utr: '900000000001',
+          type: 'CREDIT',
+          to: 'welcome@dc',
+          toName: 'Opening Balance Deposit',
+          amount: 10000.00,
+          desc: 'Initial Account Provisioning',
+          date: 'Today',
+          fullDateTime: '14 Nov 2026, 09:00 AM',
+          status: 'COMPLETED',
+          strategy: 'ATOMIC_CONDITIONAL',
+          latency: '2.1 ms'
+        }
+      ],
+      notifications: [
+        {
+          id: 'n1',
+          title: 'Protected Ledger Active',
+          msg: 'Welcome Yash Sharma! Your wallet is provisioned with flat ₹10,000.00. Your primary UPI handle is yash@dc (and 9820192840@dc).',
+          unread: true,
+          time: 'Just now'
+        }
+      ],
+      payees: []
+    }
+  };
 
     // ================= LOAD PERSISTENT WALLETS =================
   let wallets = {};
   try {
     const saved = localStorage.getItem(STORAGE_KEYS.WALLETS);
-    wallets = saved ? JSON.parse(saved) : {};
+    wallets = saved ? JSON.parse(saved) : JSON.parse(JSON.stringify(DEFAULT_INITIAL_WALLETS));
   } catch (_) {
     wallets = JSON.parse(JSON.stringify(DEFAULT_INITIAL_WALLETS));
   }
@@ -3827,7 +3560,7 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
     return `${day} ${month} ${year}, ${hours}:${minutes} ${ampm}`;
   }
 
-  // ================= AUDIO CHIME =================
+  // ================= AUDIO CHIME (PHONEPE / GPAY INSPIRATION) =================
   function playSuccessChime() {
     if (!isSoundEnabled) return;
     try {
@@ -3967,32 +3700,6 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
     currentUser.balance = balance;
     currentUser.upiLiteBalance = currentLite + amt;
     saveCurrentWalletState();
-
-    // Asynchronous Cloud Sync with Render PostgreSQL Database
-    try {
-      const apiToken = localStorage.getItem('datacore_api_token');
-      if (apiToken) {
-        fetch(`${API_BASE_URL}/api/transactions/`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${apiToken}`,
-            'Idempotency-Key': exact12TxId
-          },
-          body: JSON.stringify({
-            receiver_identifier: recipient,
-            amount: amt.toFixed(2),
-            description: note,
-            concurrency_strategy: selectedStrategy || 'PESSIMISTIC'
-          })
-        }).then(r => r.json()).then(data => {
-          if (data && data.latency_ms) {
-            console.log('PostgreSQL atomic double-entry recorded:', data.id, 'latency:', data.latency_ms + 'ms');
-          }
-        }).catch(err => console.warn('Render transaction sync (offline/local fallback):', err));
-      }
-    } catch (_) {}
-
     renderBalance();
     closeAllModals();
 
@@ -4008,32 +3715,6 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
     currentUser.balance = balance;
     currentUser.upiLiteBalance = 0.00;
     saveCurrentWalletState();
-
-    // Asynchronous Cloud Sync with Render PostgreSQL Database
-    try {
-      const apiToken = localStorage.getItem('datacore_api_token');
-      if (apiToken) {
-        fetch(`${API_BASE_URL}/api/transactions/`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${apiToken}`,
-            'Idempotency-Key': exact12TxId
-          },
-          body: JSON.stringify({
-            receiver_identifier: recipient,
-            amount: amt.toFixed(2),
-            description: note,
-            concurrency_strategy: selectedStrategy || 'PESSIMISTIC'
-          })
-        }).then(r => r.json()).then(data => {
-          if (data && data.latency_ms) {
-            console.log('PostgreSQL atomic double-entry recorded:', data.id, 'latency:', data.latency_ms + 'ms');
-          }
-        }).catch(err => console.warn('Render transaction sync (offline/local fallback):', err));
-      }
-    } catch (_) {}
-
     renderBalance();
     closeAllModals();
 
@@ -4093,32 +3774,6 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
 
     transactions.unshift(debitTx);
     saveCurrentWalletState();
-
-    // Asynchronous Cloud Sync with Render PostgreSQL Database
-    try {
-      const apiToken = localStorage.getItem('datacore_api_token');
-      if (apiToken) {
-        fetch(`${API_BASE_URL}/api/transactions/`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${apiToken}`,
-            'Idempotency-Key': exact12TxId
-          },
-          body: JSON.stringify({
-            receiver_identifier: recipient,
-            amount: amt.toFixed(2),
-            description: note,
-            concurrency_strategy: selectedStrategy || 'PESSIMISTIC'
-          })
-        }).then(r => r.json()).then(data => {
-          if (data && data.latency_ms) {
-            console.log('PostgreSQL atomic double-entry recorded:', data.id, 'latency:', data.latency_ms + 'ms');
-          }
-        }).catch(err => console.warn('Render transaction sync (offline/local fallback):', err));
-      }
-    } catch (_) {}
-
     renderBalance();
     renderTransactions();
 
@@ -4885,32 +4540,6 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
     });
 
     saveCurrentWalletState();
-
-    // Asynchronous Cloud Sync with Render PostgreSQL Database
-    try {
-      const apiToken = localStorage.getItem('datacore_api_token');
-      if (apiToken) {
-        fetch(`${API_BASE_URL}/api/transactions/`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${apiToken}`,
-            'Idempotency-Key': exact12TxId
-          },
-          body: JSON.stringify({
-            receiver_identifier: recipient,
-            amount: amt.toFixed(2),
-            description: note,
-            concurrency_strategy: selectedStrategy || 'PESSIMISTIC'
-          })
-        }).then(r => r.json()).then(data => {
-          if (data && data.latency_ms) {
-            console.log('PostgreSQL atomic double-entry recorded:', data.id, 'latency:', data.latency_ms + 'ms');
-          }
-        }).catch(err => console.warn('Render transaction sync (offline/local fallback):', err));
-      }
-    } catch (_) {}
-
     renderBalance();
     renderTransactions();
     renderNotifications();
@@ -4983,32 +4612,6 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
     });
 
     saveCurrentWalletState();
-
-    // Asynchronous Cloud Sync with Render PostgreSQL Database
-    try {
-      const apiToken = localStorage.getItem('datacore_api_token');
-      if (apiToken) {
-        fetch(`${API_BASE_URL}/api/transactions/`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${apiToken}`,
-            'Idempotency-Key': exact12TxId
-          },
-          body: JSON.stringify({
-            receiver_identifier: recipient,
-            amount: amt.toFixed(2),
-            description: note,
-            concurrency_strategy: selectedStrategy || 'PESSIMISTIC'
-          })
-        }).then(r => r.json()).then(data => {
-          if (data && data.latency_ms) {
-            console.log('PostgreSQL atomic double-entry recorded:', data.id, 'latency:', data.latency_ms + 'ms');
-          }
-        }).catch(err => console.warn('Render transaction sync (offline/local fallback):', err));
-      }
-    } catch (_) {}
-
     renderBalance();
     renderTransactions();
     renderNotifications();
@@ -5097,7 +4700,7 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
     triggerHaptic();
   }
 
-  async async function handlePhonePinLogin() {
+  async function handlePhonePinLogin() {
     hideAuthError();
     const phoneOrId = (document.getElementById('login-phone-input')?.value || '').trim();
     const secret = (document.getElementById('login-pin-input')?.value || '').trim();
@@ -5121,7 +4724,7 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
       if (
         (digitsOnly && w.mobile && (w.mobile === digitsOnly || w.mobile.replace(/[^0-9]/g, '') === digitsOnly)) ||
         w.email.toLowerCase() === clean ||
-        (w.accountNo && w.accountNo.toLowerCase() === clean) ||
+        w.accountNo.toLowerCase() === clean ||
         (w.upiId && w.upiId.toLowerCase() === clean) ||
         (w.mobileUpiId && w.mobileUpiId.toLowerCase() === clean) ||
         (w.name && w.name.toLowerCase() === clean)
@@ -5130,134 +4733,124 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
       }
     });
 
-    // Check against local wallet if found
-    if (matchedEmail && wallets[matchedEmail]) {
-      const userWallet = wallets[matchedEmail];
-      const expectedPassword = userWallet.password;
-      const expectedPin = userWallet.pin || userWallet.upiPin || '1234';
-
-      const isMatch = (expectedPassword && secret === expectedPassword) ||
-                      (expectedPin && secret === expectedPin);
-
-      if (isMatch) {
-        playSuccessChime();
-        triggerSuccessHaptic();
-        localStorage.setItem('datacore_has_logged_out', 'false');
-        loginAs(matchedEmail);
-        showToast(`Welcome back, ${userWallet.name || matchedEmail}!`);
-        syncUserWithBackendLogin(userWallet.email, secret);
-        return;
+    if (!matchedEmail) {
+      if (clean === '9820192840' || clean.includes('yash') || digitsOnly === '9820192840') {
+        matchedEmail = 'yash@datacore';
       }
     }
 
-    // Authenticate directly against backend
-    const targetEmail = clean.includes('@') ? clean : (digitsOnly ? `${digitsOnly}@datacore.io` : `${clean}@datacore.io`);
-    try {
-      const ctrl = new AbortController();
-      const t = setTimeout(() => ctrl.abort(), 7000);
-      const res = await fetch(`${API_BASE_URL}/api/auth/login/`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: targetEmail,
-          password: secret
-        }),
-        signal: ctrl.signal
-      });
-      clearTimeout(t);
-
-      if (res.ok) {
-        const data = await res.json();
-        if (data.access) {
-          localStorage.setItem('datacore_api_token', data.access);
-          if (data.refresh) localStorage.setItem('datacore_api_refresh', data.refresh);
-        }
-        
-        let userName = targetEmail.split('@')[0];
-        let userUpi = `${userName}@dc`;
-        let userBal = 10000.00;
-        let userAccNo = `DC-${Math.floor(1000+Math.random()*9000)}-${Math.floor(1000+Math.random()*9000)}`;
-
-        if (data.user) {
-          userName = data.user.full_name || userName;
-        }
-
-        // Fetch accounts
-        try {
-          const accRes = await fetch(`${API_BASE_URL}/api/accounts/`, {
-            headers: { 'Authorization': `Bearer ${data.access}` }
-          });
-          if (accRes.ok) {
-            const accList = await accRes.json();
-            const primaryAcc = Array.isArray(accList) ? accList[0] : (accList.results ? accList.results[0] : null);
-            if (primaryAcc) {
-              if (primaryAcc.account_number) userAccNo = primaryAcc.account_number;
-              if (primaryAcc.upi_id) userUpi = primaryAcc.upi_id;
-              if (primaryAcc.balance !== undefined) userBal = parseFloat(primaryAcc.balance) || userBal;
-            }
-          }
-        } catch (accErr) {
-          console.warn('Account fetch error:', accErr);
-        }
-
-        const cleanSlug = userName.toLowerCase().split(' ')[0].replace(/[^a-z0-9]/g, '');
-        if (!userUpi) userUpi = `${cleanSlug || 'user'}@dc`;
-
-        const newWallet = {
-          id: `usr_${Date.now()}`,
-          name: userName,
-          email: targetEmail,
-          mobile: digitsOnly || '9876543210',
-          password: secret,
-          pin: '1234',
-          upiPin: '1234',
-          upiId: userUpi,
-          mobileUpiId: digitsOnly ? `${digitsOnly}@dc` : `${cleanSlug}@dc`,
-          biometricEnabled: false,
-          accountNo: userAccNo,
-          initial: userName.charAt(0).toUpperCase(),
-          role: 'Prime Savings A/C',
-          color: 'blue',
-          balance: userBal,
-          dailyLimit: 100000.00,
-          upiLiteBalance: 0.00,
-          isTransfersLocked: false,
-          scratchCards: [],
-          transactions: [],
-          notifications: [
-            {
-              id: `n-${Date.now()}`,
-              title: 'Session Authenticated',
-              msg: `Welcome back ${userName}! Connected to DataCore Protected Ledger.`,
-              unread: true,
-              time: 'Just now'
-            }
-          ],
-          payees: []
-        };
-
-        wallets[targetEmail] = newWallet;
-        saveCurrentWalletState();
-        localStorage.setItem('datacore_has_logged_out', 'false');
-        playSuccessChime();
-        triggerSuccessHaptic();
-        loginAs(targetEmail);
-        showToast(`Welcome back, ${userName}!`);
-        return;
-      } else {
-        const errData = await res.json().catch(() => ({}));
-        const errMsg = errData.detail || errData.error || 'Incorrect email, phone or password. Please verify credentials.';
-        triggerErrorHaptic();
-        showAuthError(errMsg);
-        return;
+    if (!matchedEmail) {
+      triggerErrorHaptic();
+      showAuthError(`No account found for "${phoneOrId}". Please verify your credentials or tap 'Create Account' above.`);
+      showToast(`No account found for "${phoneOrId}"!`, false);
+      const phoneEl = document.getElementById('login-phone-input');
+      if (phoneEl) {
+        phoneEl.classList.add('border-rose-500', 'bg-rose-50');
+        setTimeout(() => phoneEl.classList.remove('border-rose-500', 'bg-rose-50'), 2500);
       }
-    } catch (networkErr) {
-      console.warn('Backend login network error:', networkErr);
+      return;
     }
 
-    triggerErrorHaptic();
-    showAuthError(`Invalid credentials for "${phoneOrId}". Please verify your credentials or tap 'Create Account' above.`);
-    showToast('Invalid credentials. Please verify your password.', false);
+    const userWallet = wallets[matchedEmail];
+    const expectedPassword = userWallet.password;
+    const expectedPin = userWallet.pin || userWallet.upiPin || '1234';
+
+    // Verify against password OR UPI PIN
+    const isMatch = (expectedPassword && secret === expectedPassword) ||
+                    (expectedPin && secret === expectedPin);
+
+    if (!isMatch) {
+      triggerErrorHaptic();
+      showAuthError('Incorrect password or UPI PIN! Please check and try again.');
+      const pinEl = document.getElementById('login-pin-input');
+      if (pinEl) {
+        pinEl.classList.add('border-rose-500', 'bg-rose-50');
+        setTimeout(() => pinEl.classList.remove('border-rose-500', 'bg-rose-50'), 2500);
+      }
+      return showToast('Incorrect password or UPI PIN! Please try again.', false);
+    }
+
+    // Success: Login
+    hideAuthError();
+    localStorage.setItem('datacore_is_logged_in', 'true');
+
+    // Attempt cloud backend login in background
+    syncUserWithBackendLogin(userWallet.email, expectedPassword || secret);
+
+    loginAs(matchedEmail);
+  }
+
+  // ================= LOGIN & LOGOUT LIFECYCLE =================
+  function loginAs(email) {
+    if (!wallets[email]) {
+      showToast('Wallet not found for this account', false);
+      return;
+    }
+
+    closeAllModals();
+    activeUserEmail = email;
+    setSavedActiveUserEmail(email);
+    localStorage.setItem('datacore_is_logged_in', 'true');
+
+    currentUser = wallets[email];
+    balance = (typeof currentUser.balance === 'number') ? currentUser.balance : 10000.00;
+    dailyLimit = currentUser.dailyLimit || 100000.00;
+    transactions = Array.isArray(currentUser.transactions) ? currentUser.transactions : [];
+    notifications = Array.isArray(currentUser.notifications) ? currentUser.notifications : [];
+    payees = Array.isArray(currentUser.payees) ? currentUser.payees : [];
+    isTransfersLocked = !!currentUser.isTransfersLocked;
+
+    currentUser.balance = balance;
+    currentUser.transactions = transactions;
+    currentUser.notifications = notifications;
+    currentUser.payees = payees;
+
+    saveCurrentWalletState();
+
+    const lockCheckbox = document.getElementById('lock-transfers');
+    if (lockCheckbox) lockCheckbox.checked = isTransfersLocked;
+
+    const nav = document.getElementById('bottom-nav');
+    if (nav) nav.classList.remove('hidden');
+
+    applyTheme();
+    updateUserBindings();
+    renderBalance();
+    renderPayees();
+    renderTransactions();
+    renderNotifications();
+
+    navigateTo('home');
+    showToast(`Signed into ${currentUser.name}'s wallet`);
+    triggerHaptic();
+  }
+
+  function logout(isInitialBoot = false) {
+    // IMPORTANT: Never saveCurrentWalletState() during logout to avoid overwriting stored ledger!
+    localStorage.setItem('datacore_is_logged_in', 'false');
+    activeUserEmail = '';
+    currentUser = null;
+
+    closeAllModals();
+
+    const nav = document.getElementById('bottom-nav');
+    if (nav) nav.classList.add('hidden');
+
+    ['home', 'transfer', 'services', 'history', 'statement', 'notifications', 'profile', 'success'].forEach(id => {
+      const screen = document.getElementById(`screen-${id}`);
+      if (screen) screen.classList.add('hidden');
+      const tab = document.getElementById(`tab-${id}`);
+      if (tab) tab.classList.remove('active');
+    });
+
+    const loginScreen = document.getElementById('screen-login');
+    if (loginScreen) loginScreen.classList.remove('hidden');
+
+    switchAuthTab('signup');
+    if (!isInitialBoot) {
+      showToast('Signed out from wallet');
+      triggerHaptic();
+    }
   }
 
   function handleManualLogin() {
@@ -5649,238 +5242,10 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
     });
   }
 
-  
-
-  
-  function openAboutModal() {
-    closeAllModals();
-    const bd = document.getElementById('backdrop');
-    const modal = document.getElementById('modal-about-datacore');
-    if (bd) bd.classList.add('active');
-    if (modal) modal.classList.add('active');
-    triggerHaptic();
-  }
-
-  function openReportFraudModal() {
-    closeAllModals();
-    const bd = document.getElementById('backdrop');
-    const modal = document.getElementById('modal-report-fraud');
-    if (bd) bd.classList.add('active');
-    if (modal) modal.classList.add('active');
-    triggerHaptic();
-  }
-
-  function openReportIssueModal() {
-    closeAllModals();
-    const bd = document.getElementById('backdrop');
-    const modal = document.getElementById('modal-report-issue');
-    if (bd) bd.classList.add('active');
-    if (modal) modal.classList.add('active');
-    triggerHaptic();
-  }
-
   function showAboutInfo() {
-    openAboutModal();
-  }
-
-  function reportFraud() {
-    openReportFraudModal();
-  }
-
-  async function submitReportFraud() {
-    const type = document.getElementById('fraud-incident-type')?.value || 'Unauthorized Transaction';
-    const target = (document.getElementById('fraud-target-id')?.value || '').trim();
-    const desc = (document.getElementById('fraud-description')?.value || '').trim();
-    const shouldLock = document.getElementById('fraud-lock-checkbox')?.checked || false;
-
-    if (!desc || desc.length < 10) {
-      showToast('Please provide at least 10 characters describing the incident.', false);
-      return;
-    }
-
-    const btn = document.getElementById('fraud-submit-btn');
-    if (btn) {
-      btn.disabled = true;
-      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1"></i> Submitting...';
-    }
-
-    if (shouldLock) {
-      toggleTransferLock(true);
-      const lockBox = document.getElementById('lock-transfers');
-      if (lockBox) lockBox.checked = true;
-    }
-
-    let incidentId = `INC-${Date.now().toString().slice(-6)}`;
-    try {
-      const token = localStorage.getItem('datacore_api_token');
-      const headers = { 'Content-Type': 'application/json' };
-      if (token) headers['Authorization'] = `Bearer ${token}`;
-
-      const res = await fetch(`${API_BASE_URL}/api/admin/incidents/`, {
-        method: 'POST',
-        headers: headers,
-        body: JSON.stringify({
-          title: `[FRAUD REPORT] ${type} - ${activeUserEmail || 'Customer'}`,
-          description: `Target/Tx: ${target || 'Unspecified'}. Details: ${desc}. Auto-freeze applied: ${shouldLock}`,
-          severity: 'CRITICAL',
-          status: 'INVESTIGATING',
-          affected_service: 'UPI Payment Gateway'
-        })
-      });
-      if (res.ok) {
-        const data = await res.json();
-        if (data && data.id) incidentId = data.id.slice(0, 8).toUpperCase();
-      }
-    } catch (e) {
-      console.warn('Incident reported locally (cloud syncing):', e);
-    }
-
-    if (currentUser && Array.isArray(currentUser.notifications)) {
-      currentUser.notifications.unshift({
-        id: `n_fraud_${Date.now()}`,
-        title: 'Fraud Investigation Opened',
-        msg: `Your fraud report #${incidentId} has been registered with Security Ops. Outgoing debits status: ${shouldLock ? 'FROZEN' : 'ACTIVE'}.`,
-        unread: true,
-        time: 'Just now'
-      });
-      saveCurrentWalletState();
-    }
-
     closeAllModals();
-    showToast(`Fraud report #${incidentId} submitted! Security audit initiated.`);
-    if (shouldLock) {
-      setTimeout(() => showToast('Outgoing wallet debits frozen for your safety.', false), 1800);
-    }
-
-    if (btn) {
-      btn.disabled = false;
-      btn.innerHTML = '<i class="fa-solid fa-shield-halved text-xs"></i><span>Submit Fraud Report</span>';
-    }
+    alert('DataCore Pay Mobile\nVersion: 1.5.0 (High-Concurrency Edition)\nLedger Engine: Double-Entry Cryptographic Invariant\nConcurrency Model: Canonical Row-Locks (SELECT FOR UPDATE)\nAssurance: 100% Invariant Guarantee (0 Race Conditions)');
   }
-
-  async function submitReportIssue() {
-    const category = document.getElementById('issue-category')?.value || 'Technical Issue';
-    const summary = (document.getElementById('issue-summary')?.value || '').trim();
-    const desc = (document.getElementById('issue-description')?.value || '').trim();
-
-    if (!summary || summary.length < 3) {
-      showToast('Please enter a brief summary of the issue.', false);
-      return;
-    }
-    if (!desc || desc.length < 8) {
-      showToast('Please describe the issue in more detail.', false);
-      return;
-    }
-
-    const btn = document.getElementById('issue-submit-btn');
-    if (btn) {
-      btn.disabled = true;
-      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1"></i> Submitting...';
-    }
-
-    let ticketId = `TKT-${Date.now().toString().slice(-6)}`;
-    try {
-      const token = localStorage.getItem('datacore_api_token');
-      const headers = { 'Content-Type': 'application/json' };
-      if (token) headers['Authorization'] = `Bearer ${token}`;
-
-      const res = await fetch(`${API_BASE_URL}/api/admin/incidents/`, {
-        method: 'POST',
-        headers: headers,
-        body: JSON.stringify({
-          title: `[USER ISSUE] ${category}: ${summary}`,
-          description: `${desc}. Reported by: ${activeUserEmail || 'Customer'}`,
-          severity: 'MEDIUM',
-          status: 'DETECTED',
-          affected_service: 'Customer Mobile App'
-        })
-      });
-      if (res.ok) {
-        const data = await res.json();
-        if (data && data.id) ticketId = data.id.slice(0, 8).toUpperCase();
-      }
-    } catch (e) {
-      console.warn('Issue ticket registered locally:', e);
-    }
-
-    if (currentUser && Array.isArray(currentUser.notifications)) {
-      currentUser.notifications.unshift({
-        id: `n_issue_${Date.now()}`,
-        title: 'Support Ticket Created',
-        msg: `Your issue ticket #${ticketId} (${summary}) has been received. Our engineering team is reviewing it.`,
-        unread: true,
-        time: 'Just now'
-      });
-      saveCurrentWalletState();
-    }
-
-    closeAllModals();
-    showToast(`Support ticket #${ticketId} created successfully!`);
-
-    if (btn) {
-      btn.disabled = false;
-      btn.innerHTML = '<i class="fa-solid fa-paper-plane text-xs"></i><span>Submit Ticket</span>';
-    }
-  }
-
-  function payGenericBill(serviceName, providerInputId, accountInputId, amountInputId) {
-    const provEl = document.getElementById(providerInputId);
-    const provider = provEl ? (provEl.options ? provEl.options[provEl.selectedIndex].text : provEl.value) : serviceName;
-    const accEl = document.getElementById(accountInputId);
-    const accNo = accEl ? accEl.value.trim() : '';
-    const amtEl = document.getElementById(amountInputId);
-    const amt = amtEl ? (parseFloat(amtEl.value) || 0) : 0;
-
-    if (!accNo || accNo.length < 3) {
-      return showToast('Please enter a valid account / policy number', false);
-    }
-    if (amt <= 0) {
-      return showToast('Please enter a valid payment amount', false);
-    }
-    if (currentUser && currentUser.isTransfersLocked) {
-      return showToast('Transfers are currently locked for your protection', false);
-    }
-    if (amt > balance) {
-      return showToast('Insufficient account balance!', false);
-    }
-
-    promptUpiPinKeypad(
-      `${serviceName}: ${provider}`,
-      amt,
-      () => {
-        balance -= amt;
-        renderBalance();
-
-        const txId = generateRandomDigits(12);
-        const utr = generateRandomDigits(12);
-        const now = new Date();
-        const dateStr = now.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
-        const timeStr = now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
-
-        const tx = {
-          id: txId,
-          utr: utr,
-          type: 'DEBIT',
-          to: `${serviceName.toLowerCase().replace(/[^a-z]/g, '')}@bbps`,
-          toName: `${serviceName} - ${provider}`,
-          amount: amt,
-          desc: `BBPS Payment Ref: ${accNo}`,
-          date: 'Today',
-          fullDateTime: `${dateStr}, ${timeStr}`,
-          status: 'COMPLETED',
-          strategy: 'ATOMIC_CONDITIONAL',
-          latency: '2.4 ms'
-        };
-
-        transactions.unshift(tx);
-        saveCurrentWalletState();
-        renderTransactions();
-        openReceipt(tx);
-        showToast(`${serviceName} payment of ₹${amt.toFixed(2)} successful!`);
-      }
-    );
-  }
-
 
   function updateClock() {
     const d = new Date();
@@ -6007,14 +5372,6 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
   function navigateTo(screenId) {
     closeAllModals();
 
-    if (screenId !== 'login') {
-      const isAuth = localStorage.getItem('datacore_is_logged_in') === 'true';
-      if (!isAuth || !activeUserEmail || !currentUser) {
-        showToast('Please sign in to access your wallet', false);
-        return navigateTo('login');
-      }
-    }
-
     if (screenId === 'statement') {
       navigateTo('history');
       switchHistorySubTab('stmt');
@@ -6125,7 +5482,7 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
       const displayPartner = tx.toName ? `${tx.toName} (${tx.to})` : tx.to;
 
       homeHtml += `
-        <div onclick="openReceipt('${tx.id}')" class="bg-white border border-slate-200 rounded-2xl p-3 flex items-center justify-between shadow-sm cursor-pointer active:scale-98 transition hover:border-blue-300">
+        <div onclick="openReceipt('${tx.id}')" class="bg-white border border-slate-200 rounded-2xl p-3 flex items-center justify-between shadow-sm cursor-pointer card-touch hover:border-blue-300">
           <div class="flex items-center space-x-3">
             <div class="w-10 h-10 rounded-xl ${bg} flex items-center justify-center text-sm font-bold">
               <i class="fa-solid ${icon}"></i>
@@ -6282,7 +5639,7 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
       const displayPartner = tx.toName ? `${tx.toName} (${tx.to})` : tx.to;
 
       html += `
-        <div onclick="openReceipt('${tx.id}')" class="bg-white border border-slate-200 rounded-2xl p-3 flex items-center justify-between shadow-sm cursor-pointer active:scale-98 transition">
+        <div onclick="openReceipt('${tx.id}')" class="bg-white border border-slate-200 rounded-2xl p-3 flex items-center justify-between shadow-sm cursor-pointer card-touch hover:border-blue-300">
           <div class="flex items-center space-x-3">
             <div class="w-10 h-10 rounded-xl ${bg} flex items-center justify-center font-bold">
               <i class="fa-solid ${icon}"></i>
@@ -6621,7 +5978,7 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
     if (activeBtn) activeBtn.className = 'p-2.5 rounded-xl border border-blue-600 bg-blue-600 text-white text-center transition';
   }
 
-  // ================= CROSS-WALLET TRANSFER EXECUTION WITH DATACORE SUCCESS SCREEN =================
+  // ================= CROSS-WALLET TRANSFER EXECUTION WITH PHONEPE SUCCESS SCREEN =================
   let lastNavScreenBeforeSuccess = 'home';
 
   function handleSuccessBack() {
@@ -6838,32 +6195,6 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
     }
 
     saveCurrentWalletState();
-
-    // Asynchronous Cloud Sync with Render PostgreSQL Database
-    try {
-      const apiToken = localStorage.getItem('datacore_api_token');
-      if (apiToken) {
-        fetch(`${API_BASE_URL}/api/transactions/`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${apiToken}`,
-            'Idempotency-Key': exact12TxId
-          },
-          body: JSON.stringify({
-            receiver_identifier: recipient,
-            amount: amt.toFixed(2),
-            description: note,
-            concurrency_strategy: selectedStrategy || 'PESSIMISTIC'
-          })
-        }).then(r => r.json()).then(data => {
-          if (data && data.latency_ms) {
-            console.log('PostgreSQL atomic double-entry recorded:', data.id, 'latency:', data.latency_ms + 'ms');
-          }
-        }).catch(err => console.warn('Render transaction sync (offline/local fallback):', err));
-      }
-    } catch (_) {}
-
     renderBalance();
     renderTransactions();
     renderNotifications();
@@ -7025,7 +6356,12 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
     }, 550);
   }
 
-  
+  function reportFraud() {
+    alert('Security Notice:\n\nIf you suspect unauthorized activity, your wallet will instantly freeze outgoing debits.\n\nFreezing outgoing transfers now for your safety.');
+    toggleTransferLock(true);
+    const lockCheckbox = document.getElementById('lock-transfers');
+    if (lockCheckbox) lockCheckbox.checked = true;
+  }
 
   // ================= SECURITY PIN SETUP =================
   function openChangePinModal() {
@@ -7342,32 +6678,6 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
     });
 
     saveCurrentWalletState();
-
-    // Asynchronous Cloud Sync with Render PostgreSQL Database
-    try {
-      const apiToken = localStorage.getItem('datacore_api_token');
-      if (apiToken) {
-        fetch(`${API_BASE_URL}/api/transactions/`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${apiToken}`,
-            'Idempotency-Key': exact12TxId
-          },
-          body: JSON.stringify({
-            receiver_identifier: recipient,
-            amount: amt.toFixed(2),
-            description: note,
-            concurrency_strategy: selectedStrategy || 'PESSIMISTIC'
-          })
-        }).then(r => r.json()).then(data => {
-          if (data && data.latency_ms) {
-            console.log('PostgreSQL atomic double-entry recorded:', data.id, 'latency:', data.latency_ms + 'ms');
-          }
-        }).catch(err => console.warn('Render transaction sync (offline/local fallback):', err));
-      }
-    } catch (_) {}
-
     renderBalance();
     renderTransactions();
     renderNotifications();
@@ -7394,7 +6704,7 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
     renderScratchCardBanner();
   }
 
-  // ================= MULTI-STATE ELECTRICITY BILLS =================
+  // ================= MULTI-STATE ELECTRICITY BILLS (PHONEPE STYLE) =================
   const ELECTRICITY_BOARDS = {
     "Uttarakhand": [
       { id: "UPCL", name: "UPCL - Uttarakhand Power Corporation Limited", sample: "1019284012", digits: 10 }
@@ -7654,7 +6964,7 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
     );
   }
 
-  // ================= REAL MOBILE RECHARGE =================
+  // ================= REAL MOBILE RECHARGE (PHONEPE STYLE) =================
   const RECHARGE_PLANS = [
     { id: 'p299', amount: 299, validity: '28 Days', data: '1.5 GB/Day', calls: 'Unlimited Calls', sms: '100 SMS/day', category: 'POPULAR', ott: 'JioTV, JioCinema, HelloTunes', tag: 'Most Popular' },
     { id: 'p349', amount: 349, validity: '28 Days', data: '2.0 GB/Day', calls: 'Unlimited Calls', sms: '100 SMS/day', category: 'TRUE5G', ott: 'Unlimited True 5G Data Included', tag: 'True 5G' },
@@ -7988,21 +7298,11 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
 
   function openServiceDetail(viewName) {
     const dir = document.getElementById('services-hub-directory');
-    const allViews = [
-      'electricity', 'mobile', 'dth', 'fastag', 'water', 'gas', 
-      'creditcard', 'broadband', 'loan', 'insurance', 'tax', 'googleplay'
-    ];
+    const views = ['electricity', 'mobile', 'dth', 'fastag', 'water', 'gas', 'creditcard', 'broadband'];
 
-    // Handle aliases
-    let target = (viewName || 'directory').toLowerCase().trim();
-    if (target === 'recharge') target = 'mobile';
-    if (target === 'utilities') target = 'electricity';
-    if (target === 'finance' || target === 'credit card' || target === 'credit-card') target = 'creditcard';
-    if (target === 'transit') target = 'fastag';
-
-    if (target === 'directory') {
+    if (viewName === 'directory') {
       if (dir) dir.classList.remove('hidden');
-      allViews.forEach(v => {
+      views.forEach(v => {
         const el = document.getElementById(`service-view-${v}`);
         if (el) el.classList.add('hidden');
       });
@@ -8010,10 +7310,10 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
     }
 
     if (dir) dir.classList.add('hidden');
-    allViews.forEach(v => {
+    views.forEach(v => {
       const el = document.getElementById(`service-view-${v}`);
       if (el) {
-        if (v === target) {
+        if (v === viewName) {
           el.classList.remove('hidden');
         } else {
           el.classList.add('hidden');
@@ -8021,122 +7321,37 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
       }
     });
 
-    if (target === 'mobile') {
+    if (viewName === 'mobile') {
       handleRechargeMobileInput(document.getElementById('recharge-mobile-input')?.value || '9820192840');
       renderRechargePlans();
-    } else if (target === 'electricity') {
+    } else if (viewName === 'electricity') {
       handleElectricityStateChange();
     }
     triggerHaptic();
   }
 
   function filterServicesCategory(cat) {
-    // Keep directory visible
-    openServiceDetail('directory');
-
-    const catKey = (cat || 'ALL').toUpperCase();
-    const btnMap = {
-      'ALL': 'cat-btn-all',
-      'UTILITIES': 'cat-btn-util',
-      'RECHARGE': 'cat-btn-rech',
-      'FINANCE': 'cat-btn-fin',
-      'TRANSIT': 'cat-btn-tran'
-    };
-
-    // Update tab button highlights
-    Object.keys(btnMap).forEach(k => {
-      const btn = document.getElementById(btnMap[k]);
-      if (btn) {
-        if (k === catKey) {
-          btn.className = 'px-3.5 py-1.5 rounded-full bg-purple-700 text-white shrink-0 shadow-sm transition active:scale-95';
-        } else {
-          btn.className = 'px-3.5 py-1.5 rounded-full bg-white text-slate-700 border border-slate-200 shrink-0 hover:border-purple-400 transition active:scale-95';
-        }
-      }
-    });
-
-    // Filter service cards and sections
-    const secUtil = document.getElementById('section-utilities');
-    const secRech = document.getElementById('section-recharge');
-    const secFin = document.getElementById('section-finance');
-    const emptyState = document.getElementById('services-empty-state');
-
-    const container = document.getElementById('services-grid-container');
-    if (!container) return;
-    const cards = container.querySelectorAll('.service-card');
-
-    let visibleCount = 0;
-    cards.forEach(c => {
-      const cCat = (c.getAttribute('data-service-category') || '').toUpperCase();
-      let match = false;
-      if (catKey === 'ALL') {
-        match = true;
-      } else if (catKey === 'UTILITIES' && (cCat === 'UTILITIES' || cCat === 'UTILITY')) {
-        match = true;
-      } else if (catKey === 'RECHARGE' && cCat === 'RECHARGE') {
-        match = true;
-      } else if (catKey === 'FINANCE' && cCat === 'FINANCE') {
-        match = true;
-      } else if (catKey === 'TRANSIT' && cCat === 'TRANSIT') {
-        match = true;
-      }
-
-      if (match) {
-        c.style.display = '';
-        visibleCount++;
-      } else {
-        c.style.display = 'none';
-      }
-    });
-
-    // Update section container visibility
-    if (secUtil) secUtil.style.display = (catKey === 'ALL' || catKey === 'UTILITIES') ? '' : 'none';
-    if (secRech) secRech.style.display = (catKey === 'ALL' || catKey === 'RECHARGE' || catKey === 'TRANSIT') ? '' : 'none';
-    if (secFin) secFin.style.display = (catKey === 'ALL' || catKey === 'FINANCE') ? '' : 'none';
-
-    if (emptyState) {
-      if (visibleCount === 0) {
-        emptyState.classList.remove('hidden');
-      } else {
-        emptyState.classList.add('hidden');
-      }
+    if (cat === 'ALL') {
+      openServiceDetail('directory');
+      filterServicesDirectory('');
+    } else {
+      openServiceDetail(cat.toLowerCase());
     }
   }
 
   function filterServicesDirectory(query) {
     const q = (query || '').toLowerCase().trim();
     const container = document.getElementById('services-grid-container');
-    const emptyState = document.getElementById('services-empty-state');
     if (!container) return;
-
-    const cards = container.querySelectorAll('.service-card');
-    let visibleCount = 0;
-
+    const cards = container.querySelectorAll('[onclick^="openServiceDetail"]');
     cards.forEach(c => {
       const text = c.innerText.toLowerCase();
       if (!q || text.includes(q)) {
         c.style.display = '';
-        visibleCount++;
       } else {
         c.style.display = 'none';
       }
     });
-
-    const secUtil = document.getElementById('section-utilities');
-    const secRech = document.getElementById('section-recharge');
-    const secFin = document.getElementById('section-finance');
-    if (secUtil) secUtil.style.display = '';
-    if (secRech) secRech.style.display = '';
-    if (secFin) secFin.style.display = '';
-
-    if (emptyState) {
-      if (visibleCount === 0) {
-        emptyState.classList.remove('hidden');
-      } else {
-        emptyState.classList.add('hidden');
-      }
-    }
-  });
   }
 
   // ================= UTILITY & BILL PAYMENTS =================
@@ -8558,7 +7773,7 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
 
     if (clean.includes('@ybl') || clean.includes('@ibl') || clean.includes('@axl')) {
       badge.className = 'mt-1.5 inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full bg-purple-50 border border-purple-200 text-purple-700 text-[10px] font-bold';
-      badge.innerHTML = '<i class="fa-solid fa-circle-check text-purple-600"></i><span>🟣 Verified UPI Handle</span>';
+      badge.innerHTML = '<i class="fa-solid fa-circle-check text-purple-600"></i><span>🟣 PhonePe UPI Verified</span>';
     } else if (clean.includes('@oksbi') || clean.includes('@okhdfcbank') || clean.includes('@okaxis') || clean.includes('@okicici')) {
       badge.className = 'mt-1.5 inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-[10px] font-bold';
       badge.innerHTML = '<i class="fa-solid fa-circle-check text-emerald-600"></i><span>🟢 Google Pay Verified</span>';
@@ -8925,38 +8140,45 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
   // ================= BOOTSTRAP INITIAL VIEW (PRESERVE SESSION ON REFRESH) =================
   applyTheme();
 
-  const isUserLoggedIn = localStorage.getItem('datacore_is_logged_in') === 'true';
-  const hasUserLoggedOut = localStorage.getItem('datacore_has_logged_out') === 'true';
-  const savedEmail = getSavedActiveUserEmail();
+  activeUserEmail = getSavedActiveUserEmail() || 'yash@datacore';
+  if (!wallets[activeUserEmail]) {
+    const keys = Object.keys(wallets);
+    if (keys.length > 0) {
+      activeUserEmail = keys[0];
+    } else {
+      wallets['yash@datacore'] = JSON.parse(JSON.stringify(DEFAULT_INITIAL_WALLETS['yash@datacore']));
+      activeUserEmail = 'yash@datacore';
+      saveCurrentWalletState();
+    }
+  }
 
-  checkBackendHealth();
+  currentUser = wallets[activeUserEmail];
+  balance = (typeof currentUser.balance === 'number') ? currentUser.balance : 10000.00;
+  dailyLimit = currentUser.dailyLimit || 100000.00;
+  transactions = Array.isArray(currentUser.transactions) ? currentUser.transactions : [];
+  notifications = Array.isArray(currentUser.notifications) ? currentUser.notifications : [];
+  payees = Array.isArray(currentUser.payees) ? currentUser.payees : [];
+  isTransfersLocked = !!currentUser.isTransfersLocked;
+
+  updateUserBindings();
+  renderBalance();
+  renderPayees();
+  renderTransactions();
+  renderNotifications();
   initServicesHub();
 
-  if (isUserLoggedIn && savedEmail && wallets[savedEmail]) {
-    // Keep user logged in across page refreshes
-    activeUserEmail = savedEmail;
-    currentUser = wallets[activeUserEmail];
-    balance = (typeof currentUser.balance === 'number') ? currentUser.balance : 0.00;
-    dailyLimit = currentUser.dailyLimit || 100000.00;
-    transactions = Array.isArray(currentUser.transactions) ? currentUser.transactions : [];
-    notifications = Array.isArray(currentUser.notifications) ? currentUser.notifications : [];
-    payees = Array.isArray(currentUser.payees) ? currentUser.payees : [];
-    isTransfersLocked = !!currentUser.isTransfersLocked;
+  const storedLoginStatus = localStorage.getItem('datacore_is_logged_in');
+  // Default to logged-in as active user unless user explicitly logged out
+  const isUserLoggedIn = storedLoginStatus !== 'false';
 
-    updateUserBindings();
-    renderBalance();
-    renderPayees();
-    renderTransactions();
-    renderNotifications();
+  checkBackendHealth();
+
+  if (isUserLoggedIn && wallets[activeUserEmail]) {
+    // Keep user logged in across page refreshes!
     loginAs(activeUserEmail);
   } else {
-    // Show clean authentication screen (first-time user or logged out)
+    // Show clean login screen (first time or logged out) - defaults to Sign Up first
     logout(true);
-    if (hasUserLoggedOut) {
-      switchAuthTab('signin');
-    } else {
-      switchAuthTab('signup');
-    }
   }
 </script>
 
