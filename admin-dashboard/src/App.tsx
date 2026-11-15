@@ -23,7 +23,7 @@ const ProtectedLayout: React.FC = () => {
   }
 
   return (
-    <div className="flex min-h-screen bg-void-950 text-slate-100 selection:bg-aurora-cyan/30 selection:text-white aurora-canvas">
+    <div className="flex min-h-screen bg-slate-50 text-slate-900 selection:bg-indigo-500/15 selection:text-indigo-900 light-canvas">
       <Sidebar userEmail={user?.email} />
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         <Header title="DataCore Administration" subtitle="Centralized Real-Time Engine Observability" />
@@ -59,6 +59,7 @@ export const App: React.FC = () => {
         <Route path="/customer" element={<CustomerSimulator />} />
         <Route path="/app" element={<CustomerSimulator />} />
 
+        {/* Fallback */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>

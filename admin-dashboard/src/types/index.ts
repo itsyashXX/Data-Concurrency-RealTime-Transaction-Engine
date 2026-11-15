@@ -232,6 +232,7 @@ export interface FinancialConsistency {
 export interface OverviewResponse {
   metrics: OverviewMetrics;
   financial_consistency: FinancialConsistency;
+  ledger_consistency?: FinancialConsistency;
 }
 
 export interface ConcurrencyExperiment {

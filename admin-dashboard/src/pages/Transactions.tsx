@@ -6,15 +6,11 @@ import {
   CheckCircle2,
   XCircle,
   Clock,
-  Eye,
   Scale,
   RotateCcw,
   Download,
   Search,
   ShieldCheck,
-  Zap,
-  TrendingUp,
-  FileSpreadsheet
 } from 'lucide-react';
 import { api } from '../services/api';
 import { Transaction } from '../types';
@@ -58,39 +54,39 @@ export const Transactions: React.FC = () => {
       const detail = await api.getTransactionDetail(id);
       setSelectedTx(detail);
     } catch (err) {
-      console.error('Failed to fetch tx detail', err);
+      console.error('Failed to inspect transaction', err);
     }
   };
 
   const handleReverse = async (id: string) => {
+    if (!window.confirm('Trigger compensating reversal for transaction ' + id + '?')) return;
     setReversingId(id);
+    setActionMessage(null);
     try {
-      await api.reverseTransaction(id, 'Admin manual corrective reversal');
-      setActionMessage(`Transaction ${id.substring(0, 8)} successfully reversed with compensating entries.`);
-      fetchTransactions(false);
+      await api.reverseTransaction(id, 'Compensating administrative reversal');
+      setActionMessage(`Transaction ${id.substring(0, 8)}... reversed successfully.`);
+      fetchTransactions();
     } catch (err: any) {
-      setActionMessage(err.response?.data?.error || 'Reversal failed or not supported.');
+      setActionMessage(err.response?.data?.error || 'Reversal failed.');
     } finally {
       setReversingId(null);
-      setTimeout(() => setActionMessage(null), 5000);
     }
   };
 
   const exportCSV = () => {
     if (transactions.length === 0) return;
-    const headers = ['ID', 'Correlation ID', 'Sender', 'Receiver', 'Amount', 'Strategy', 'Status', 'Latency MS', 'Created At'];
-    const rows = transactions.map(t => [
+    const headers = ['ID', 'Sender', 'Receiver', 'Amount', 'Strategy', 'Status', 'LatencyMs', 'CreatedAt'];
+    const rows = transactions.map((t) => [
       t.id,
-      t.correlation_id || '',
-      t.sender_account_number,
-      t.receiver_account_number,
+      t.sender_account_number || '',
+      t.receiver_account_number || '',
       t.amount,
       t.concurrency_strategy,
       t.status,
       t.latency_ms,
       t.created_at
     ]);
-    const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
+    const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map((e) => e.join(','))].join('\n');
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement('a');
     link.setAttribute('href', encodedUri);
@@ -103,37 +99,36 @@ export const Transactions: React.FC = () => {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'COMPLETED':
-      case 'SUCCESS':
         return (
-          <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+          <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
             <CheckCircle2 className="w-3 h-3" />
             <span>COMPLETED</span>
           </span>
         );
       case 'REVERSED':
         return (
-          <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-purple-500/15 text-purple-300 border border-purple-500/30">
+          <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200">
             <RotateCcw className="w-3 h-3" />
             <span>REVERSED</span>
           </span>
         );
       case 'FAILED':
         return (
-          <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-rose-500/15 text-rose-400 border border-rose-500/30">
+          <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-rose-50 text-rose-700 border border-rose-200">
             <XCircle className="w-3 h-3" />
             <span>FAILED</span>
           </span>
         );
       case 'ROLLED_BACK':
         return (
-          <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-amber-500/15 text-amber-400 border border-amber-500/30">
+          <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-amber-50 text-amber-700 border border-amber-200">
             <Scale className="w-3 h-3" />
             <span>ROLLED_BACK</span>
           </span>
         );
       default:
         return (
-          <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-cyan-500/15 text-cyan-400 border border-cyan-500/30">
+          <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-sky-50 text-sky-700 border border-sky-200">
             <Clock className="w-3 h-3" />
             <span>{status || 'PENDING'}</span>
           </span>
@@ -145,25 +140,25 @@ export const Transactions: React.FC = () => {
     switch (strat) {
       case 'PESSIMISTIC':
         return (
-          <span className="px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-brand-500/15 text-brand-300 border border-brand-500/30">
+          <span className="px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200">
             Pessimistic Locking
           </span>
         );
       case 'OPTIMISTIC':
         return (
-          <span className="px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-cyan-500/15 text-cyan-300 border border-cyan-500/30">
+          <span className="px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-sky-50 text-sky-700 border border-sky-200">
             Optimistic Version
           </span>
         );
       case 'ATOMIC_CONDITIONAL':
         return (
-          <span className="px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-purple-500/15 text-purple-300 border border-purple-500/30">
+          <span className="px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-purple-50 text-purple-700 border border-purple-200">
             Atomic Conditional
           </span>
         );
       default:
         return (
-          <span className="px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-amber-500/15 text-amber-300 border border-amber-500/30">
+          <span className="px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-amber-50 text-amber-700 border border-amber-200">
             {strat}
           </span>
         );
@@ -188,18 +183,18 @@ export const Transactions: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <div className="flex items-center space-x-2.5">
-            <h1 className="text-xl font-bold text-white flex items-center space-x-2.5 tracking-tight">
-              <div className="p-2 rounded-xl bg-brand-500/15 text-brand-400 border border-brand-500/30 shadow-glow-brand">
+            <h1 className="text-xl font-bold text-slate-900 flex items-center space-x-2.5 tracking-tight">
+              <div className="p-2 rounded-xl bg-indigo-50 text-indigo-700 border border-indigo-200">
                 <ArrowLeftRight className="w-5 h-5" />
               </div>
               <span>Live Transaction Monitor</span>
             </h1>
-            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 flex items-center">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse mr-1.5"></span>
+            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center shadow-sm">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse mr-1.5"></span>
               Real-Time Feed
             </span>
           </div>
-          <p className="text-xs text-slate-400 mt-1 max-w-xl">
+          <p className="text-xs text-slate-500 mt-1 max-w-xl">
             PostgreSQL row-level locking operations, double-entry audit records, database latency, and compensating transaction controls.
           </p>
         </div>
@@ -207,83 +202,83 @@ export const Transactions: React.FC = () => {
         <div className="flex items-center space-x-2.5">
           <button
             onClick={exportCSV}
-            className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl border border-white/[0.08] bg-void-900 hover:bg-void-850 text-xs font-semibold text-slate-300 transition-colors shadow-sm"
+            className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-xs font-semibold text-slate-700 transition-colors shadow-sm"
           >
-            <Download className="w-3.5 h-3.5 text-brand-400" />
+            <Download className="w-3.5 h-3.5 text-indigo-600" />
             <span>Export CSV</span>
           </button>
 
           <button
             onClick={() => fetchTransactions(true)}
-            className="p-2 bg-void-900 hover:bg-void-850 text-slate-300 rounded-xl border border-white/[0.08] transition-colors shadow-sm"
+            className="p-2 bg-white hover:bg-slate-50 text-slate-700 rounded-xl border border-slate-200 transition-colors shadow-sm"
             title="Refresh transactions"
           >
-            <RefreshCw className={`w-4 h-4 ${isRefreshing ? 'animate-spin text-brand-400' : ''}`} />
+            <RefreshCw className={`w-4 h-4 ${isRefreshing ? 'animate-spin text-indigo-600' : ''}`} />
           </button>
         </div>
       </div>
 
       {actionMessage && (
-        <div className="p-3 bg-brand-500/15 border border-brand-500/30 rounded-xl flex items-center justify-between text-xs text-brand-200">
+        <div className="p-3 bg-indigo-50 border border-indigo-200 rounded-xl flex items-center justify-between text-xs text-indigo-800">
           <div className="flex items-center space-x-2">
-            <ShieldCheck className="w-4 h-4 text-brand-400 shrink-0" />
+            <ShieldCheck className="w-4 h-4 text-indigo-600 shrink-0" />
             <span>{actionMessage}</span>
           </div>
-          <button onClick={() => setActionMessage(null)} className="text-slate-400 hover:text-white">✕</button>
+          <button onClick={() => setActionMessage(null)} className="text-slate-400 hover:text-slate-700">✕</button>
         </div>
       )}
 
       {/* Filter and Search Controls */}
-      <div className="bg-void-900/80 border border-white/[0.08] rounded-2xl p-3.5 flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-md">
+      <div className="bg-white border border-slate-200/90 rounded-2xl p-3.5 flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-sm">
         <div className="relative flex-1">
-          <Search className="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
+          <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             placeholder="Search by Transaction ID, Account Number, Amount..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 text-xs rounded-xl bg-void-950 border border-white/[0.08] text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 font-mono transition-colors"
+            className="w-full pl-10 pr-4 py-2 text-xs rounded-xl bg-slate-50 border border-slate-200 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 font-mono transition-colors"
           />
         </div>
 
         <div className="flex items-center space-x-2.5">
-          <div className="flex items-center space-x-2 bg-void-950 border border-white/[0.08] rounded-xl px-3 py-1.5 text-xs text-slate-300">
+          <div className="flex items-center space-x-2 bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-700">
             <Filter className="w-3.5 h-3.5 text-slate-500" />
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="bg-transparent text-white focus:outline-none font-mono text-xs"
+              className="bg-transparent text-slate-800 focus:outline-none font-mono text-xs cursor-pointer"
             >
-              <option value="" className="bg-void-950">All Statuses</option>
-              <option value="COMPLETED" className="bg-void-950">COMPLETED</option>
-              <option value="REVERSED" className="bg-void-950">REVERSED</option>
-              <option value="FAILED" className="bg-void-950">FAILED</option>
-              <option value="ROLLED_BACK" className="bg-void-950">ROLLED_BACK</option>
-              <option value="PENDING" className="bg-void-950">PENDING</option>
+              <option value="" className="bg-white">All Statuses</option>
+              <option value="COMPLETED" className="bg-white">COMPLETED</option>
+              <option value="REVERSED" className="bg-white">REVERSED</option>
+              <option value="FAILED" className="bg-white">FAILED</option>
+              <option value="ROLLED_BACK" className="bg-white">ROLLED_BACK</option>
+              <option value="PENDING" className="bg-white">PENDING</option>
             </select>
           </div>
 
-          <div className="flex items-center space-x-2 bg-void-950 border border-white/[0.08] rounded-xl px-3 py-1.5 text-xs text-slate-300">
+          <div className="flex items-center space-x-2 bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-700">
             <select
               value={strategyFilter}
               onChange={(e) => setStrategyFilter(e.target.value)}
-              className="bg-transparent text-white focus:outline-none font-mono text-xs"
+              className="bg-transparent text-slate-800 focus:outline-none font-mono text-xs cursor-pointer"
             >
-              <option value="" className="bg-void-950">All Strategies</option>
-              <option value="PESSIMISTIC" className="bg-void-950">Pessimistic</option>
-              <option value="OPTIMISTIC" className="bg-void-950">Optimistic</option>
-              <option value="ATOMIC_CONDITIONAL" className="bg-void-950">Atomic Conditional</option>
-              <option value="UNSAFE_BASELINE" className="bg-void-950">Unsafe Baseline</option>
+              <option value="" className="bg-white">All Strategies</option>
+              <option value="PESSIMISTIC" className="bg-white">Pessimistic</option>
+              <option value="OPTIMISTIC" className="bg-white">Optimistic</option>
+              <option value="ATOMIC_CONDITIONAL" className="bg-white">Atomic Conditional</option>
+              <option value="UNSAFE_BASELINE" className="bg-white">Unsafe Baseline</option>
             </select>
           </div>
         </div>
       </div>
 
       {/* Transactions Table */}
-      <div className="bg-void-900/90 border border-white/[0.08] rounded-2xl overflow-hidden shadow-xl">
+      <div className="bg-white border border-slate-200/90 rounded-2xl overflow-hidden shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-void-950/80 border-b border-white/[0.06] text-slate-400 uppercase tracking-wider font-mono text-[11px]">
+            <thead className="bg-slate-50 border-b border-slate-200 text-slate-500 uppercase tracking-wider font-mono text-[11px]">
               <tr>
                 <th className="px-5 py-4 font-semibold">Transaction ID</th>
                 <th className="px-5 py-4 font-semibold">Sender</th>
@@ -296,53 +291,53 @@ export const Transactions: React.FC = () => {
                 <th className="px-5 py-4 font-semibold text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/[0.05] text-slate-200">
+            <tbody className="divide-y divide-slate-100 text-slate-700">
               {loading && transactions.length === 0 ? (
                 <tr>
-                  <td colSpan={9} className="px-5 py-14 text-center text-slate-400">
-                    <RefreshCw className="w-6 h-6 animate-spin mx-auto mb-2.5 text-brand-400" />
+                  <td colSpan={9} className="px-5 py-14 text-center text-slate-500">
+                    <RefreshCw className="w-6 h-6 animate-spin mx-auto mb-2.5 text-indigo-600" />
                     <span className="font-mono text-xs">Loading live transaction stream...</span>
                   </td>
                 </tr>
               ) : filteredTransactions.length === 0 ? (
                 <tr>
-                  <td colSpan={9} className="px-5 py-14 text-center text-slate-400">
-                    <ArrowLeftRight className="w-7 h-7 mx-auto mb-2 text-slate-600" />
-                    <p className="font-semibold text-white text-sm">No transactions match selected criteria</p>
+                  <td colSpan={9} className="px-5 py-14 text-center text-slate-500">
+                    <ArrowLeftRight className="w-7 h-7 mx-auto mb-2 text-slate-400" />
+                    <p className="font-semibold text-slate-800 text-sm">No transactions match selected criteria</p>
                     <p className="text-xs text-slate-500 mt-1">Execute a transfer in the Customer App to view it here.</p>
                   </td>
                 </tr>
               ) : (
                 filteredTransactions.map((tx) => (
-                  <tr key={tx.id} className="hover:bg-void-850/60 transition-colors">
-                    <td className="px-5 py-4 font-mono font-semibold text-brand-300">
+                  <tr key={tx.id} className="hover:bg-slate-50/80 transition-colors">
+                    <td className="px-5 py-4 font-mono font-semibold text-indigo-700">
                       {tx.id.substring(0, 8)}...
                     </td>
                     <td className="px-5 py-4">
-                      <div className="font-medium font-mono text-white">{tx.sender_account_number || 'Initial Pool'}</div>
+                      <div className="font-medium font-mono text-slate-900">{tx.sender_account_number || 'Initial Pool'}</div>
                       <div className="text-[10px] text-slate-400 font-mono">{tx.sender_email}</div>
                     </td>
                     <td className="px-5 py-4">
-                      <div className="font-medium font-mono text-white">{tx.receiver_account_number}</div>
+                      <div className="font-medium font-mono text-slate-900">{tx.receiver_account_number}</div>
                       <div className="text-[10px] text-slate-400 font-mono">{tx.receiver_email}</div>
                     </td>
-                    <td className="px-5 py-4 font-bold text-white font-mono text-sm">
+                    <td className="px-5 py-4 font-bold text-slate-900 font-mono text-sm">
                       ₹{tx.amount}
                     </td>
                     <td className="px-5 py-4">
                       {getStrategyBadge(tx.concurrency_strategy)}
                     </td>
                     <td className="px-5 py-4">{getStatusBadge(tx.status)}</td>
-                    <td className="px-5 py-4 font-mono text-slate-300">
+                    <td className="px-5 py-4 font-mono text-slate-600">
                       {tx.latency_ms} ms
                     </td>
-                    <td className="px-5 py-4 text-slate-400 font-mono text-xs">
+                    <td className="px-5 py-4 text-slate-500 font-mono text-xs">
                       {new Date(tx.created_at).toLocaleTimeString()}
                     </td>
                     <td className="px-5 py-4 text-right space-x-1.5 whitespace-nowrap">
                       <button
                         onClick={() => inspectTransaction(tx.id)}
-                        className="px-2.5 py-1.5 bg-void-950 hover:bg-brand-600/20 text-slate-300 hover:text-brand-300 rounded-xl border border-white/[0.08] hover:border-brand-500/40 text-[11px] font-mono transition-all"
+                        className="px-2.5 py-1.5 bg-slate-50 hover:bg-indigo-50 text-slate-700 hover:text-indigo-700 rounded-xl border border-slate-200 hover:border-indigo-200 text-[11px] font-mono transition-all"
                       >
                         Inspect Ledger
                       </button>
@@ -350,7 +345,7 @@ export const Transactions: React.FC = () => {
                         <button
                           disabled={reversingId === tx.id}
                           onClick={() => handleReverse(tx.id)}
-                          className="px-2 py-1.5 bg-purple-500/10 hover:bg-purple-500/20 text-purple-300 rounded-xl border border-purple-500/25 text-[11px] font-mono transition-all inline-flex items-center space-x-1"
+                          className="px-2 py-1.5 bg-purple-50 hover:bg-purple-100 text-purple-700 rounded-xl border border-purple-200 text-[11px] font-mono transition-all inline-flex items-center space-x-1"
                           title="Trigger Compensating Reversal"
                         >
                           <RotateCcw className="w-2.5 h-2.5" />
@@ -368,38 +363,38 @@ export const Transactions: React.FC = () => {
 
       {/* Ledger Modal Inspector */}
       {selectedTx && (
-        <div className="fixed inset-0 bg-black/75 backdrop-blur-md z-50 flex items-center justify-center p-4">
-          <div className="bg-void-900 border border-white/[0.08] rounded-3xl w-full max-w-2xl max-h-[85vh] overflow-y-auto p-6 shadow-2xl text-white">
-            <div className="flex items-center justify-between pb-4 border-b border-white/[0.06] mb-4">
+        <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white border border-slate-200 rounded-3xl w-full max-w-2xl max-h-[85vh] overflow-y-auto p-6 shadow-2xl text-slate-900">
+            <div className="flex items-center justify-between pb-4 border-b border-slate-200 mb-4">
               <div className="flex items-center space-x-3">
-                <div className="p-2.5 rounded-xl bg-brand-500/15 text-brand-400 border border-brand-500/30">
+                <div className="p-2.5 rounded-xl bg-indigo-50 text-indigo-700 border border-indigo-200">
                   <Scale className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-white tracking-tight">Double-Entry Ledger Audit</h3>
-                  <p className="text-xs text-slate-400 font-mono">TX ID: {selectedTx.id}</p>
+                  <h3 className="text-base font-bold text-slate-900 tracking-tight">Double-Entry Ledger Audit</h3>
+                  <p className="text-xs text-slate-500 font-mono">TX ID: {selectedTx.id}</p>
                 </div>
               </div>
               <button
                 onClick={() => setSelectedTx(null)}
-                className="p-1 rounded-lg text-slate-400 hover:text-white bg-void-950 border border-white/[0.06]"
+                className="p-1 rounded-lg text-slate-400 hover:text-slate-700 bg-slate-100 border border-slate-200"
               >
                 ✕
               </button>
             </div>
 
             <div className="grid grid-cols-2 gap-3 mb-5 text-xs font-mono">
-              <div className="p-3 bg-void-950 rounded-xl border border-white/[0.06]">
-                <span className="text-slate-400 text-[10px] uppercase">Transaction Status</span>
+              <div className="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                <span className="text-slate-500 text-[10px] uppercase font-bold">Transaction Status</span>
                 <div className="mt-1">{getStatusBadge(selectedTx.status)}</div>
               </div>
-              <div className="p-3 bg-void-950 rounded-xl border border-white/[0.06]">
-                <span className="text-slate-400 text-[10px] uppercase">Concurrency Strategy</span>
-                <div className="mt-1 font-semibold text-slate-200">{selectedTx.concurrency_strategy}</div>
+              <div className="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                <span className="text-slate-500 text-[10px] uppercase font-bold">Concurrency Strategy</span>
+                <div className="mt-1 font-semibold text-slate-800">{selectedTx.concurrency_strategy}</div>
               </div>
             </div>
 
-            <h4 className="text-xs font-mono font-bold uppercase text-slate-400 tracking-wider mb-2.5">
+            <h4 className="text-xs font-mono font-bold uppercase text-slate-500 tracking-wider mb-2.5">
               Authoritative Double-Entry Records
             </h4>
 
@@ -408,27 +403,27 @@ export const Transactions: React.FC = () => {
                 selectedTx.ledger_entries.map((entry) => (
                   <div
                     key={entry.id}
-                    className="p-3.5 bg-void-950 border border-white/[0.06] rounded-xl flex items-center justify-between text-xs"
+                    className="p-3.5 bg-slate-50 border border-slate-200/80 rounded-xl flex items-center justify-between text-xs"
                   >
                     <div>
                       <span
                         className={`font-mono font-bold mr-2 text-xs ${
-                          entry.entry_type === 'DEBIT' ? 'text-rose-400' : 'text-emerald-400'
+                          entry.entry_type === 'DEBIT' ? 'text-rose-600' : 'text-emerald-600'
                         }`}
                       >
                         [{entry.entry_type}]
                       </span>
-                      <span className="font-mono text-slate-200">{entry.account_number}</span>
-                      <p className="text-[11px] text-slate-400 mt-0.5">{entry.description}</p>
+                      <span className="font-mono text-slate-800 font-medium">{entry.account_number}</span>
+                      <p className="text-[11px] text-slate-500 mt-0.5">{entry.description}</p>
                     </div>
                     <div className="text-right font-mono">
-                      <div className="font-bold text-white text-sm">₹{entry.amount}</div>
-                      <div className="text-[10px] text-slate-400">Balance: ₹{entry.balance_after}</div>
+                      <div className="font-bold text-slate-900 text-sm">₹{entry.amount}</div>
+                      <div className="text-[10px] text-slate-500">Balance: ₹{entry.balance_after}</div>
                     </div>
                   </div>
                 ))
               ) : (
-                <div className="text-xs text-slate-400 p-5 text-center bg-void-950 rounded-xl border border-white/[0.06]">
+                <div className="text-xs text-slate-500 p-5 text-center bg-slate-50 rounded-xl border border-slate-200">
                   No ledger entries recorded (transaction rolled back or bypassed).
                 </div>
               )}
@@ -436,7 +431,7 @@ export const Transactions: React.FC = () => {
 
             <button
               onClick={() => setSelectedTx(null)}
-              className="w-full py-2.5 bg-void-950 hover:bg-void-850 text-slate-200 text-xs font-mono font-semibold rounded-xl border border-white/[0.08] transition-colors"
+              className="w-full py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-mono font-semibold rounded-xl border border-slate-200 transition-colors"
             >
               Close Ledger Audit
             </button>
