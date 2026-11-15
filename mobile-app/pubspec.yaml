@@ -1,7 +1,7 @@
 name: datacore_mobile
 description: "DataCore - Real-Time Data Concurrency & Transaction Engine Customer Mobile App"
 publish_to: "none"
-version: 1.1.0+2
+version: 1.2.0+3
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
