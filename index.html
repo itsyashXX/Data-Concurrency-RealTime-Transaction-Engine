@@ -815,122 +815,78 @@
 
     <!-- ================= VIEW 0: MAIN DIRECTORY OF SERVICES ================= -->
     <div id="services-hub-directory">
-      <!-- Header with PhonePe Royal Purple styling -->
-      <div class="flex items-center justify-between mb-4">
+      <!-- Header: Search & Services -->
+      <div class="flex items-center justify-between mb-3">
         <div class="flex items-center">
-          <button onclick="navigateTo('home')" class="p-2 -ml-2 text-slate-700 hover:text-purple-700 active:scale-95 transition">
+          <button onclick="navigateTo('home')" class="p-2 -ml-2 text-slate-700 hover:text-blue-600 active:scale-95 transition">
             <i class="fa-solid fa-arrow-left text-base"></i>
           </button>
           <div>
-            <h2 class="text-base font-bold text-slate-900 ml-1">Recharge & Pay Bills</h2>
-            <p class="text-[10px] text-slate-500 ml-1">Bharat BillPay (BBPS) Official Directory</p>
+            <h2 class="text-base font-bold text-slate-900 ml-1">Search & Services</h2>
+            <p class="text-[10px] text-slate-500 ml-1">Recharges, Bills, AutoPay & Transit</p>
           </div>
         </div>
-        <div class="flex items-center space-x-1 px-2.5 py-1 rounded-full bg-purple-50 border border-purple-200 text-purple-700 text-[10px] font-bold shadow-sm">
-          <i class="fa-solid fa-shield-halved text-[10px] text-purple-600"></i>
+        <div class="flex items-center space-x-1 px-2.5 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-[10px] font-bold shadow-sm">
+          <i class="fa-solid fa-shield-check text-[10px] text-blue-600"></i>
           <span>NPCI Assured</span>
         </div>
       </div>
 
-      <!-- PhonePe-Style Interactive Promotional Offers Carousel -->
-      <div class="relative mb-4 overflow-hidden rounded-3xl shadow-lg shadow-purple-900/15 group">
-        <!-- Slides Track -->
-        <div id="services-offers-carousel" class="flex transition-transform duration-500 ease-out" style="transform: translateX(0%);">
-          <!-- Slide 1: Electricity Cashback -->
-          <div onclick="openServiceDetail('electricity')" class="w-full shrink-0 bg-gradient-to-r from-purple-700 via-indigo-600 to-purple-800 p-4 text-white relative cursor-pointer active:scale-[0.99] transition">
-            <div class="flex items-start justify-between relative z-10">
-              <div>
-                <span class="inline-block px-2 py-0.5 rounded-full bg-white/20 text-[9px] font-black uppercase tracking-wider mb-1.5 backdrop-blur-sm">⚡ BBPS Assured • Code: POWER50</span>
-                <h3 class="text-sm font-black leading-tight">Flat ₹50 Instant Cashback</h3>
-                <p class="text-[11px] text-purple-100/90 mt-1">On Electricity & Water bills above ₹300. Tap to pay now &rarr;</p>
-              </div>
-              <div class="w-10 h-10 rounded-2xl bg-white/20 flex items-center justify-center text-xl shrink-0 ml-2 shadow-inner">⚡</div>
-            </div>
-          </div>
-          <!-- Slide 2: Metro QR Tickets -->
-          <div onclick="openServiceDetail('metro')" class="w-full shrink-0 bg-gradient-to-r from-blue-700 via-cyan-600 to-teal-700 p-4 text-white relative cursor-pointer active:scale-[0.99] transition">
-            <div class="flex items-start justify-between relative z-10">
-              <div>
-                <span class="inline-block px-2 py-0.5 rounded-full bg-white/20 text-[9px] font-black uppercase tracking-wider mb-1.5 backdrop-blur-sm">🚇 Transit Pass • DMRC & Mumbai Metro</span>
-                <h3 class="text-sm font-black leading-tight">10% Off on Turnstile QR Tickets</h3>
-                <p class="text-[11px] text-cyan-100/90 mt-1">Skip station token queues. Instant turnstile scanner QR &rarr;</p>
-              </div>
-              <div class="w-10 h-10 rounded-2xl bg-white/20 flex items-center justify-center text-xl shrink-0 ml-2 shadow-inner">🚇</div>
-            </div>
-          </div>
-          <!-- Slide 3: 24K Digital Gold -->
-          <div onclick="openServiceDetail('gold')" class="w-full shrink-0 bg-gradient-to-r from-amber-600 via-yellow-600 to-amber-700 p-4 text-white relative cursor-pointer active:scale-[0.99] transition">
-            <div class="flex items-start justify-between relative z-10">
-              <div>
-                <span class="inline-block px-2 py-0.5 rounded-full bg-white/20 text-[9px] font-black uppercase tracking-wider mb-1.5 backdrop-blur-sm">🪙 MMTC-PAMP • 99.9% Pure 24K</span>
-                <h3 class="text-sm font-black leading-tight">Zero Making Charges on Gold</h3>
-                <p class="text-[11px] text-amber-100/90 mt-1">Start SIP or buy starting at ₹10. Insured vault storage &rarr;</p>
-              </div>
-              <div class="w-10 h-10 rounded-2xl bg-white/20 flex items-center justify-center text-xl shrink-0 ml-2 shadow-inner">🪙</div>
-            </div>
-          </div>
-          <!-- Slide 4: Credit Card Bill Pay -->
-          <div onclick="openServiceDetail('creditcard')" class="w-full shrink-0 bg-gradient-to-r from-emerald-700 via-teal-700 to-emerald-800 p-4 text-white relative cursor-pointer active:scale-[0.99] transition">
-            <div class="flex items-start justify-between relative z-10">
-              <div>
-                <span class="inline-block px-2 py-0.5 rounded-full bg-white/20 text-[9px] font-black uppercase tracking-wider mb-1.5 backdrop-blur-sm">💳 RuPay & Visa • Instant Clearance</span>
-                <h3 class="text-sm font-black leading-tight">500 Bonus Reward Points</h3>
-                <p class="text-[11px] text-emerald-100/90 mt-1">Pay HDFC, SBI, ICICI card bills with zero processing fee &rarr;</p>
-              </div>
-              <div class="w-10 h-10 rounded-2xl bg-white/20 flex items-center justify-center text-xl shrink-0 ml-2 shadow-inner">💳</div>
-            </div>
-          </div>
-        </div>
-        <!-- Dot Navigation Indicators -->
-        <div class="absolute bottom-2 left-0 right-0 flex justify-center space-x-1.5 z-20 pointer-events-none">
-          <span id="offer-dot-0" class="w-2 h-1.5 rounded-full bg-white transition-all duration-300"></span>
-          <span id="offer-dot-1" class="w-1.5 h-1.5 rounded-full bg-white/40 transition-all duration-300"></span>
-          <span id="offer-dot-2" class="w-1.5 h-1.5 rounded-full bg-white/40 transition-all duration-300"></span>
-          <span id="offer-dot-3" class="w-1.5 h-1.5 rounded-full bg-white/40 transition-all duration-300"></span>
-        </div>
-      </div>
-
-      <!-- Real-Time Search Bar -->
+      <!-- Universal Real-Time Search Bar -->
       <div class="relative mb-4">
         <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-slate-400 text-xs"></i>
-        <input id="services-search-input" oninput="filterServicesDirectory(this.value)" type="text" class="w-full bg-white border border-slate-200 rounded-2xl pl-9 pr-8 py-2.5 text-xs text-slate-900 focus:outline-none focus:border-purple-600 shadow-sm" placeholder="Search billers (e.g. Jio, BESCOM, Tata Play, FASTag...)">
+        <input id="services-search-input" oninput="filterServicesDirectory(this.value)" type="text" class="w-full bg-white border border-slate-200 rounded-2xl pl-9 pr-8 py-2.5 text-xs text-slate-900 focus:outline-none focus:border-blue-600 shadow-sm" placeholder="Search bills, recharges, AutoPay, fastag, gold...">
         <button type="button" onclick="document.getElementById('services-search-input').value=''; filterServicesDirectory('');" class="absolute right-3 top-3 text-slate-400 hover:text-slate-600 text-xs">
           <i class="fa-solid fa-circle-xmark"></i>
         </button>
       </div>
 
-      <!-- Quick Category Tabs (PhonePe Multi-Category Suite) -->
-      <div class="flex space-x-2 overflow-x-auto pb-1 mb-4 text-xs font-semibold scrollbar-none">
-        <button id="cat-btn-all" onclick="filterServicesCategory('ALL')" class="px-3.5 py-1.5 rounded-full bg-purple-700 text-white shrink-0 shadow-sm transition active:scale-95">All Services</button>
-        <button id="cat-btn-util" onclick="filterServicesCategory('UTILITIES')" class="px-3.5 py-1.5 rounded-full bg-white text-slate-700 border border-slate-200 shrink-0 hover:border-purple-400 transition active:scale-95">⚡ Utilities</button>
-        <button id="cat-btn-rech" onclick="filterServicesCategory('RECHARGE')" class="px-3.5 py-1.5 rounded-full bg-white text-slate-700 border border-slate-200 shrink-0 hover:border-purple-400 transition active:scale-95">📱 Recharge</button>
-        <button id="cat-btn-tran" onclick="filterServicesCategory('TRANSIT')" class="px-3.5 py-1.5 rounded-full bg-white text-slate-700 border border-slate-200 shrink-0 hover:border-purple-400 transition active:scale-95">🚇 Transit & Travel</button>
-        <button id="cat-btn-wealth" onclick="filterServicesCategory('WEALTH')" class="px-3.5 py-1.5 rounded-full bg-white text-slate-700 border border-slate-200 shrink-0 hover:border-purple-400 transition active:scale-95">🪙 Gold & Wealth</button>
-        <button id="cat-btn-fin" onclick="filterServicesCategory('FINANCE')" class="px-3.5 py-1.5 rounded-full bg-white text-slate-700 border border-slate-200 shrink-0 hover:border-purple-400 transition active:scale-95">💳 Credit & Loan</button>
-        <button id="cat-btn-subs" onclick="filterServicesCategory('SUBSCRIPTIONS')" class="px-3.5 py-1.5 rounded-full bg-white text-slate-700 border border-slate-200 shrink-0 hover:border-purple-400 transition active:scale-95">🎟️ Gift Cards & OTT</button>
-      </div>
-
-      <!-- Quick Saved / Due Bills Section -->
-      <div class="mb-4">
-        <div class="flex items-center justify-between mb-2">
-          <span class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Due & Recent Bills</span>
-          <span class="text-[10px] font-bold text-purple-700">Auto-Fetched</span>
+      <!-- 🔄 AUTOPAY & RECURRING MANDATES (IN SERVICES) -->
+      <div id="services-autopay-card" class="bg-white border border-slate-200/90 rounded-3xl p-4 shadow-sm mb-4 space-y-3">
+        <div class="flex justify-between items-center">
+          <div class="flex items-center space-x-2">
+            <div class="w-8 h-8 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center text-xs font-bold">
+              <i class="fa-solid fa-arrows-rotate"></i>
+            </div>
+            <div>
+              <h4 class="text-xs font-black text-slate-900">AutoPay & Mandates</h4>
+              <span class="text-[10px] text-slate-400">Recurring automatic debits</span>
+            </div>
+          </div>
+          <span class="text-[10px] font-bold text-purple-700 bg-purple-50 px-2.5 py-0.5 rounded-full border border-purple-200">2 Active</span>
         </div>
-        <div class="space-y-2">
-          <!-- Sample Bill 1: Electricity -->
-          <div class="p-3 bg-white border border-slate-200 rounded-2xl flex items-center justify-between shadow-sm hover:border-purple-300 transition">
-            <div class="flex items-center space-x-3">
-              <div class="w-10 h-10 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-lg border border-amber-200/60 shadow-sm">
-                ⚡
-              </div>
+
+        <div class="grid grid-cols-2 gap-2 text-xs">
+          <!-- Active Mandate 1: Netflix -->
+          <div class="p-2.5 bg-slate-50 border border-slate-200/80 rounded-2xl flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <div class="w-7 h-7 rounded-lg bg-red-600 text-white font-black text-xs flex items-center justify-center shadow-sm">N</div>
               <div>
-                <div class="flex items-center space-x-1.5">
-                  <span class="text-xs font-bold text-slate-900">UPCL Power</span>
-                  <span class="px-1.5 py-0.2 rounded text-[8px] font-black bg-rose-100 text-rose-700">DUE SOON</span>
-                </div>
-                <span class="text-[10px] text-slate-500 font-mono block">CA: 015520938472</span>
+                <span class="text-xs font-bold text-slate-900 block leading-tight">Netflix 4K</span>
+                <span class="text-[9px] text-slate-400">₹649/mo</span>
               </div>
             </div>
+            <button onclick="manageMandate('Netflix Premium 4K')" class="text-[10px] text-blue-600 font-bold hover:underline">Manage</button>
+          </div>
+
+          <!-- Active Mandate 2: JioFiber -->
+          <div class="p-2.5 bg-slate-50 border border-slate-200/80 rounded-2xl flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <div class="w-7 h-7 rounded-lg bg-blue-600 text-white font-black text-xs flex items-center justify-center shadow-sm">Jio</div>
+              <div>
+                <span class="text-xs font-bold text-slate-900 block leading-tight">JioFiber</span>
+                <span class="text-[9px] text-slate-400">₹943/mo</span>
+              </div>
+            </div>
+            <button onclick="manageMandate('JioFiber Broadband')" class="text-[10px] text-blue-600 font-bold hover:underline">Manage</button>
+          </div>
+        </div>
+
+        <button onclick="showToast('To set up AutoPay, choose AutoPay at checkout on your favorite apps')" class="w-full py-2 bg-slate-50 hover:bg-slate-100 text-slate-700 rounded-xl text-xs font-bold transition flex items-center justify-center space-x-1.5 border border-slate-200">
+          <i class="fa-solid fa-plus text-[10px]"></i>
+          <span>Setup New AutoPay Mandate</span>
+        </button>
+      </div>
             <div class="text-right">
               <span class="text-xs font-bold text-slate-900 block font-mono">₹1,450.00</span>
               <button onclick="openServiceDetail('electricity')" class="mt-0.5 px-3 py-1 rounded-xl bg-purple-700 hover:bg-purple-800 text-white text-[10px] font-bold shadow-sm active:scale-95 transition">
@@ -2244,117 +2200,112 @@
 
   <!-- ==================== SCREEN 2: TRANSFER ==================== -->
   <div id="screen-transfer" class="app-screen p-5 hidden">
-    <div class="flex items-center mb-5">
-      <button onclick="navigateTo('home')" class="p-2 -ml-2 text-slate-700 hover:text-blue-600">
-        <i class="fa-solid fa-arrow-left text-base"></i>
+    <!-- Clean Header -->
+    <div class="flex items-center justify-between mb-4">
+      <div class="flex items-center">
+        <button onclick="navigateTo('home')" class="p-2 -ml-2 text-slate-700 hover:text-blue-600 active:scale-95 transition">
+          <i class="fa-solid fa-arrow-left text-base"></i>
+        </button>
+        <h2 class="text-base font-bold text-slate-900 ml-1">Send Money</h2>
+      </div>
+      <button onclick="openScannerModal()" class="p-2 text-blue-600 hover:bg-blue-50 rounded-xl text-xs font-bold flex items-center space-x-1.5 transition">
+        <i class="fa-solid fa-qrcode text-sm"></i>
+        <span>Scan QR</span>
       </button>
-      <h2 class="text-base font-bold text-slate-900 ml-2">Transfer Funds</h2>
     </div>
 
-    <!-- Frequent Contacts -->
+    <!-- Frequent Contacts (Quick Select) -->
     <div class="mb-4">
       <div class="flex justify-between items-center mb-2">
-        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Frequent Payees</span>
+        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Quick Send to Contacts</span>
         <button onclick="openAddPayeeModal()" class="text-xs font-bold text-blue-600 hover:underline flex items-center space-x-1">
           <i class="fa-solid fa-plus text-[10px]"></i>
-          <span>Add Contact</span>
+          <span>Add</span>
         </button>
       </div>
-      <div id="payees-carousel" class="flex space-x-3 overflow-x-auto pb-1">
+      <div id="payees-carousel" class="flex space-x-3 overflow-x-auto pb-1 scrollbar-none">
         <!-- Injected by JS -->
       </div>
     </div>
 
-    <!-- Recipient Input -->
-    <div class="mb-4">
-      <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1.5">Recipient (UPI ID, PhonePe @ybl, GPay @oksbi, Paytm, Bank A/C or Mobile)</label>
+    <!-- Recipient Input Card -->
+    <div class="bg-white border border-slate-200/90 rounded-3xl p-4 shadow-sm mb-4">
+      <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5">Recipient Details</label>
       <div class="relative">
-        <i class="fa-regular fa-user absolute left-3.5 top-3.5 text-slate-400 text-sm"></i>
-        <input id="transfer-recipient" oninput="handleRecipientInput(this.value)" type="text" value="" class="w-full bg-white border border-slate-200 rounded-2xl pl-10 pr-4 py-3 text-xs text-slate-900 font-medium focus:outline-none focus:border-blue-600 shadow-sm" placeholder="e.g. 9876543210@ybl, rahul@oksbi, DC-1519-6941">
+        <i class="fa-solid fa-at absolute left-3.5 top-3.5 text-slate-400 text-sm"></i>
+        <input id="transfer-recipient" oninput="handleRecipientInput(this.value)" type="text" class="w-full bg-slate-50 border border-slate-200 rounded-2xl pl-10 pr-4 py-3 text-xs text-slate-900 font-bold focus:outline-none focus:border-blue-600 transition" placeholder="Enter UPI ID, Mobile Number or Account...">
       </div>
-      <div id="transfer-provider-badge" class="mt-1.5 flex items-center space-x-1.5 hidden"></div>
-      <div class="flex flex-wrap gap-1.5 mt-2">
-        <button onclick="appendUpiHandle('@dc')" class="px-2.5 py-1 bg-blue-50 hover:bg-blue-100 text-[10px] font-bold text-blue-700 rounded-lg border border-blue-200 transition">+ @dc (DataCore)</button>
-        <button onclick="appendUpiHandle('@ybl')" class="px-2 py-0.5 bg-slate-100 hover:bg-blue-50 text-[10px] font-bold text-slate-600 hover:text-blue-600 rounded-lg border border-slate-200 transition">+ @ybl (PhonePe)</button>
-        <button onclick="appendUpiHandle('@oksbi')" class="px-2 py-0.5 bg-slate-100 hover:bg-blue-50 text-[10px] font-bold text-slate-600 hover:text-blue-600 rounded-lg border border-slate-200 transition">+ @oksbi (GPay)</button>
-        <button onclick="appendUpiHandle('@paytm')" class="px-2 py-0.5 bg-slate-100 hover:bg-blue-50 text-[10px] font-bold text-slate-600 hover:text-blue-600 rounded-lg border border-slate-200 transition">+ @paytm</button>
-        <button onclick="appendUpiHandle('@okhdfcbank')" class="px-2 py-0.5 bg-slate-100 hover:bg-blue-50 text-[10px] font-bold text-slate-600 hover:text-blue-600 rounded-lg border border-slate-200 transition">+ @okhdfcbank</button>
-        <button onclick="appendUpiHandle('@ibl')" class="px-2 py-0.5 bg-slate-100 hover:bg-blue-50 text-[10px] font-bold text-slate-600 hover:text-blue-600 rounded-lg border border-slate-200 transition">+ @ibl</button>
-        <button onclick="appendUpiHandle('@apl')" class="px-2 py-0.5 bg-slate-100 hover:bg-blue-50 text-[10px] font-bold text-slate-600 hover:text-blue-600 rounded-lg border border-slate-200 transition">+ @apl (Amazon)</button>
-      </div>
-      </div>
-
-    <!-- Amount Input -->
-    <div class="mb-3">
-      <div class="flex justify-between items-center mb-1.5">
-        <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Amount (₹)</label>
-        <span id="transfer-avail" class="text-[11px] font-semibold text-blue-600">Available: ₹10,000.00</span>
-      </div>
-      <div class="relative">
-        <span class="absolute left-4 top-2.5 text-xl font-bold text-blue-600">₹</span>
-        <input id="transfer-amount" oninput="checkUpiLiteEligibility()" type="number" step="0.01" value="250.00" class="w-full bg-white border border-slate-200 rounded-2xl pl-10 pr-4 py-2.5 text-2xl font-bold text-slate-900 focus:outline-none focus:border-blue-600 shadow-sm" placeholder="0.00">
+      <div id="transfer-provider-badge" class="mt-2 flex items-center space-x-1.5 hidden"></div>
+      
+      <!-- Clean handle shortcuts -->
+      <div class="flex flex-wrap gap-1.5 mt-2.5">
+        <button type="button" onclick="appendUpiHandle('@dc')" class="px-2.5 py-1 bg-blue-50 hover:bg-blue-100 text-[10px] font-bold text-blue-700 rounded-lg border border-blue-200 transition">+ @dc</button>
+        <button type="button" onclick="appendUpiHandle('@oksbi')" class="px-2.5 py-1 bg-slate-100 hover:bg-blue-50 text-[10px] font-bold text-slate-600 rounded-lg border border-slate-200 transition">+ @oksbi</button>
+        <button type="button" onclick="appendUpiHandle('@okhdfcbank')" class="px-2.5 py-1 bg-slate-100 hover:bg-blue-50 text-[10px] font-bold text-slate-600 rounded-lg border border-slate-200 transition">+ @okhdfcbank</button>
+        <button type="button" onclick="appendUpiHandle('@icici')" class="px-2.5 py-1 bg-slate-100 hover:bg-blue-50 text-[10px] font-bold text-slate-600 rounded-lg border border-slate-200 transition">+ @icici</button>
       </div>
     </div>
 
-    <!-- Quick Amount Chips -->
-    <div class="flex flex-wrap gap-2 mb-4">
-      <button onclick="addAmount(100)" class="px-3 py-1.5 bg-white border border-slate-200 rounded-xl text-xs font-bold text-slate-700 hover:border-blue-500 shadow-sm">+₹100</button>
-      <button onclick="addAmount(500)" class="px-3 py-1.5 bg-white border border-slate-200 rounded-xl text-xs font-bold text-slate-700 hover:border-blue-500 shadow-sm">+₹500</button>
-      <button onclick="addAmount(1000)" class="px-3 py-1.5 bg-white border border-slate-200 rounded-xl text-xs font-bold text-slate-700 hover:border-blue-500 shadow-sm">+₹1,000</button>
-      <button onclick="addAmount(2500)" class="px-3 py-1.5 bg-white border border-slate-200 rounded-xl text-xs font-bold text-slate-700 hover:border-blue-500 shadow-sm">+₹2,500</button>
-      <button onclick="fillMaxAmount()" class="px-3 py-1.5 bg-white border border-slate-200 rounded-xl text-xs font-bold text-blue-600 hover:border-blue-500 shadow-sm">Max</button>
-    </div>
-
-    <!-- Concurrency Strategy Selector -->
-    <div class="mb-4">
-      <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1.5">Concurrency Strategy</label>
-      <div class="grid grid-cols-3 gap-2">
-        <button id="strat-pessimistic" onclick="setStrategy('PESSIMISTIC')" class="p-2.5 rounded-xl border border-blue-600 bg-blue-600 text-white text-center transition">
-          <div class="text-xs font-bold">Pessimistic</div>
-          <div class="text-[9px] text-white/80">Row Lock</div>
-        </button>
-        <button id="strat-optimistic" onclick="setStrategy('OPTIMISTIC')" class="p-2.5 rounded-xl border border-slate-200 bg-white text-slate-800 text-center transition">
-          <div class="text-xs font-bold">Optimistic</div>
-          <div class="text-[9px] text-slate-400">Versioned</div>
-        </button>
-        <button id="strat-atomic" onclick="setStrategy('ATOMIC_CONDITIONAL')" class="p-2.5 rounded-xl border border-slate-200 bg-white text-slate-800 text-center transition">
-          <div class="text-xs font-bold">Atomic</div>
-          <div class="text-[9px] text-slate-400">Conditional</div>
-        </button>
+    <!-- Amount Card -->
+    <div class="bg-white border border-slate-200/90 rounded-3xl p-4 shadow-sm mb-4">
+      <div class="flex justify-between items-center mb-1">
+        <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Amount to Transfer</label>
+        <span id="transfer-avail" class="text-[11px] font-bold text-blue-600">Balance: ₹10,000.00</span>
+      </div>
+      <div class="relative mb-3">
+        <span class="absolute left-3.5 top-2.5 text-2xl font-black text-slate-800">₹</span>
+        <input id="transfer-amount" type="number" step="1" value="500" class="w-full bg-slate-50 border border-slate-200 rounded-2xl pl-10 pr-4 py-3 text-2xl font-black text-slate-900 focus:outline-none focus:border-blue-600 transition font-mono" placeholder="0">
+      </div>
+      <!-- Quick Amount Chips -->
+      <div class="flex flex-wrap gap-2">
+        <button type="button" onclick="setTransferAmount(100)" class="px-3 py-1.5 bg-slate-100 hover:bg-blue-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 active:scale-95 transition">+₹100</button>
+        <button type="button" onclick="setTransferAmount(500)" class="px-3 py-1.5 bg-slate-100 hover:bg-blue-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 active:scale-95 transition">+₹500</button>
+        <button type="button" onclick="setTransferAmount(1000)" class="px-3 py-1.5 bg-slate-100 hover:bg-blue-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 active:scale-95 transition">+₹1,000</button>
+        <button type="button" onclick="setTransferAmount(2000)" class="px-3 py-1.5 bg-slate-100 hover:bg-blue-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 active:scale-95 transition">+₹2,000</button>
       </div>
     </div>
 
-    <!-- Note Input -->
-    <div class="mb-6">
-      <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1.5">Description (Optional)</label>
-      <div class="relative">
-        <i class="fa-regular fa-comment-dots absolute left-3.5 top-3.5 text-slate-400 text-sm"></i>
-        <input id="transfer-note" type="text" value="Dinner split" class="w-full bg-white border border-slate-200 rounded-2xl pl-10 pr-4 py-3 text-xs text-slate-900 font-medium focus:outline-none focus:border-blue-600 shadow-sm" placeholder="What is this for?">
-      </div>
-    </div>
-
-    <!-- UPI Lite Instant 1-Tap Strip (appears when amt <= 500 & upiLite balance >= amt) -->
-    <div id="transfer-upi-lite-strip" class="hidden mb-3 p-3.5 rounded-2xl bg-amber-50 border-2 border-amber-300 flex items-center justify-between shadow-sm">
-      <div class="flex items-center space-x-2.5">
-        <span class="w-8 h-8 rounded-xl bg-amber-500 text-white flex items-center justify-center text-sm font-bold shadow-sm">⚡</span>
+    <!-- Debited From Account Selection -->
+    <div class="bg-white border border-slate-200/90 rounded-3xl p-3.5 shadow-sm mb-4 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-base shadow-sm">
+          <i class="fa-solid fa-building-columns"></i>
+        </div>
         <div>
-          <span class="text-xs font-black text-amber-950 block leading-tight">Pay with UPI Lite</span>
-          <span class="text-[10px] font-semibold text-amber-700">Instant 1-Tap • Zero PIN Required</span>
+          <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Debiting From</span>
+          <span class="text-xs font-black text-slate-900 block">State Bank of India •••• 9104</span>
+          <span class="text-[10px] text-emerald-600 font-bold flex items-center space-x-1">
+            <i class="fa-solid fa-shield-check text-[9px]"></i>
+            <span>Verified Primary UPI Account</span>
+          </span>
         </div>
       </div>
-      <button type="button" onclick="executeUpiLiteTransfer()" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold text-xs shadow-md shadow-amber-500/25 active:scale-95 transition">
-        Pay Instant
+      <i class="fa-solid fa-circle-check text-emerald-500 text-base"></i>
+    </div>
+
+    <!-- Optional Note -->
+    <div class="mb-5">
+      <input id="transfer-note" type="text" class="w-full bg-white border border-slate-200/90 rounded-2xl px-4 py-2.5 text-xs text-slate-800 focus:outline-none focus:border-blue-600 shadow-sm" placeholder="Add a note (e.g. Dinner, Rent, Grocery)...">
+    </div>
+
+    <!-- Two Big Modern Action Buttons: Fingerprint & UPI PIN -->
+    <div class="space-y-2.5">
+      <button type="button" onclick="triggerFingerprintPaymentFromTransfer()" class="w-full py-4 bg-gradient-to-r from-indigo-600 via-blue-600 to-indigo-700 hover:from-indigo-700 hover:to-blue-700 text-white rounded-2xl font-bold text-sm shadow-xl shadow-indigo-500/25 active:scale-98 transition flex items-center justify-center space-x-2.5 cursor-pointer">
+        <i class="fa-solid fa-fingerprint text-lg"></i>
+        <span>Pay with Custom Fingerprint</span>
+      </button>
+
+      <button type="button" onclick="triggerPinPaymentFromTransfer()" class="w-full py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-2xl font-bold text-xs active:scale-98 transition flex items-center justify-center space-x-2">
+        <i class="fa-solid fa-key text-xs text-slate-600"></i>
+        <span>Pay with 4-Digit UPI PIN</span>
       </button>
     </div>
 
-    <!-- Submit Button with UPI PIN Flow -->
-    <button onclick="initiateTransferAuth()" class="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-bold text-sm shadow-lg shadow-blue-600/30 active:scale-98 transition flex items-center justify-center space-x-2">
-      <i class="fa-solid fa-shield-halved text-xs"></i>
-      <span>Review & Enter UPI PIN</span>
-    </button>
+    <!-- Bottom Spacer -->
+    <div class="h-16 w-full shrink-0" aria-hidden="true"></div>
   </div>
 
-  <!-- ==================== SCREEN 3: HISTORY ==================== -->
+  <!-- ==================== SCREEN 3: HISTORY<!-- ==================== SCREEN 3: HISTORY ==================== -->
   <div id="screen-history" class="app-screen p-5 hidden">
     <div class="flex items-center justify-between mb-4">
       <div class="flex items-center">
@@ -2686,7 +2637,7 @@
         </span>
       </div>
 
-      <p class="text-[11px] text-slate-500 mb-3">Scan with PhonePe, Google Pay, Paytm or BHIM to pay</p>
+      <p class="text-[11px] text-slate-500 mb-3">Scan with any UPI App: BHIM, GPay, Paytm, or Bank App to pay</p>
 
       <!-- Dynamic QR Container with Animated Laser Line & Centered Avatar -->
       <div class="relative w-56 h-56 bg-white border-2 border-slate-200/90 rounded-3xl mx-auto p-3 shadow-md flex items-center justify-center mb-3 qr-container overflow-hidden">
@@ -2721,19 +2672,32 @@
       </div>
     </div>
 
-    <!-- NEW: 🌍 UPI INTERNATIONAL (CROSS-BORDER PAYMENTS) -->
-    <div class="bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 text-white rounded-3xl p-4.5 shadow-md animate-card-entry stagger-3 relative overflow-hidden">
-      <div class="absolute -right-8 -bottom-8 w-28 h-28 bg-blue-500/10 rounded-full blur-xl pointer-events-none"></div>
-      <div class="flex justify-between items-start mb-2">
-        <div class="flex items-center space-x-2.5">
-          <div class="w-9 h-9 rounded-xl bg-blue-500/20 border border-blue-400/30 flex items-center justify-center text-lg">
-            🌍
+    <!-- 🔒 BIOMETRIC SECURITY & CUSTOM FINGERPRINT -->
+    <div class="bg-white border border-slate-200/90 rounded-3xl p-4.5 shadow-sm space-y-3.5 card-touch">
+      <div class="flex justify-between items-center">
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-lg shadow-sm">
+            <i class="fa-solid fa-fingerprint"></i>
           </div>
           <div>
-            <h4 class="text-xs font-black tracking-wide">UPI International</h4>
-            <span class="text-[10px] text-blue-200/80">Scan & Pay at global merchant QRs</span>
+            <h4 class="text-xs font-black text-slate-900">Biometric & Fingerprint Security</h4>
+            <span id="profile-fp-status-label" class="text-[10px] text-emerald-600 font-bold flex items-center space-x-1">
+              <i class="fa-solid fa-circle-check text-[9px]"></i>
+              <span id="profile-fp-status-text">Custom Fingerprint: Active</span>
+            </span>
           </div>
         </div>
+        <button onclick="openFingerprintEnrollment()" class="px-3 py-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 rounded-xl text-xs font-bold transition active:scale-95 border border-indigo-200">
+          Re-enroll Fingerprint
+        </button>
+      </div>
+      <p class="text-[11px] text-slate-500 leading-relaxed">
+        Authorize instant transfers and bill payments with your enrolled custom fingerprint without typing your UPI PIN every time.
+      </p>
+    </div>
+
+
+    
         <div id="switch-upi-intl" onclick="toggleUpiInternational()" class="interactive-switch active">
           <div class="interactive-switch-knob"></div>
         </div>
@@ -2749,95 +2713,9 @@
       </div>
     </div>
 
-    <!-- NEW: 🔄 AUTOPAY & RECURRING MANDATES -->
-    <div class="bg-white border border-slate-200/90 rounded-3xl p-4.5 shadow-sm space-y-3 animate-card-entry stagger-4 card-touch">
-      <div class="flex justify-between items-center">
-        <div class="flex items-center space-x-2">
-          <div class="w-8 h-8 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center text-xs font-bold">
-            <i class="fa-solid fa-arrows-rotate"></i>
-          </div>
-          <div>
-            <h4 class="text-xs font-bold text-slate-900">AutoPay & Mandates</h4>
-            <span class="text-[10px] text-slate-400">Recurring automatic debits</span>
-          </div>
-        </div>
-        <span class="text-[10px] font-bold text-purple-700 bg-purple-50 px-2.5 py-0.5 rounded-full border border-purple-200">2 Active</span>
-      </div>
+    
 
-      <!-- Active Mandate 1: Netflix -->
-      <div class="p-3 bg-slate-50 border border-slate-200/80 rounded-2xl flex items-center justify-between">
-        <div class="flex items-center space-x-2.5">
-          <div class="w-8 h-8 rounded-lg bg-red-50 text-red-600 flex items-center justify-center text-xs font-black">
-            N
-          </div>
-          <div>
-            <span class="text-xs font-bold text-slate-900 block leading-tight">Netflix Premium 4K</span>
-            <span class="text-[9px] text-slate-400">Next debit: 28 Nov • Monthly</span>
-          </div>
-        </div>
-        <div class="text-right">
-          <span class="text-xs font-bold text-slate-900 font-mono block">₹649/mo</span>
-          <button onclick="manageMandate('Netflix Premium 4K')" class="text-[10px] text-blue-600 font-bold hover:underline">Manage</button>
-        </div>
-      </div>
-
-      <!-- Active Mandate 2: JioFiber -->
-      <div class="p-3 bg-slate-50 border border-slate-200/80 rounded-2xl flex items-center justify-between">
-        <div class="flex items-center space-x-2.5">
-          <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xs font-black">
-            Jio
-          </div>
-          <div>
-            <span class="text-xs font-bold text-slate-900 block leading-tight">JioFiber Broadband</span>
-            <span class="text-[9px] text-slate-400">Next debit: 02 Dec • Monthly</span>
-          </div>
-        </div>
-        <div class="text-right">
-          <span class="text-xs font-bold text-slate-900 font-mono block">₹943/mo</span>
-          <button onclick="manageMandate('JioFiber Broadband')" class="text-[10px] text-blue-600 font-bold hover:underline">Manage</button>
-        </div>
-      </div>
-
-      <button onclick="showToast('To create a new mandate, select AutoPay at checkout on merchant apps')" class="w-full py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition flex items-center justify-center space-x-1.5">
-        <i class="fa-solid fa-plus text-[10px]"></i>
-        <span>Add New AutoPay Mandate</span>
-      </button>
-    </div>
-
-    <!-- NEW: 🔊 SMART SOUNDBOX VOICE SETTINGS -->
-    <div class="bg-white border border-slate-200/90 rounded-3xl p-4.5 shadow-sm space-y-3.5 card-touch">
-      <div class="flex justify-between items-center">
-        <div class="flex items-center space-x-2">
-          <div class="w-8 h-8 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-xs font-bold">
-            <i class="fa-solid fa-volume-high"></i>
-          </div>
-          <div>
-            <h4 class="text-xs font-bold text-slate-900">Smart Soundbox Alerts</h4>
-            <span class="text-[10px] text-slate-400">Spoken payment confirmations</span>
-          </div>
-        </div>
-        <div id="switch-soundbox-voice" onclick="toggleSoundboxVoice()" class="interactive-switch active">
-          <div class="interactive-switch-knob"></div>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-3 gap-2 text-xs">
-        <button type="button" onclick="setSoundboxLang('Hindi')" id="sb-lang-hi" class="p-2 rounded-xl border border-blue-600 bg-blue-50 text-center font-bold text-blue-700 transition">
-          हिंदी Voice
-        </button>
-        <button type="button" onclick="setSoundboxLang('English')" id="sb-lang-en" class="p-2 rounded-xl border border-slate-200 bg-slate-50 text-center font-bold text-slate-700 transition">
-          English Voice
-        </button>
-        <button type="button" onclick="setSoundboxLang('Hinglish')" id="sb-lang-hng" class="p-2 rounded-xl border border-slate-200 bg-slate-50 text-center font-bold text-slate-700 transition">
-          Hinglish Mix
-        </button>
-      </div>
-
-      <button onclick="testSoundboxVoiceAlert()" class="w-full py-2.5 bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-800 rounded-xl text-xs font-bold transition flex items-center justify-center space-x-2 active:scale-98">
-        <i class="fa-solid fa-play text-[10px]"></i>
-        <span>Play Sample Soundbox Voice Announcement</span>
-      </button>
-    </div>
+    
 
     <!-- Linked Bank Accounts & Payment Methods -->
     <div class="bg-white border border-slate-200/90 rounded-3xl p-4.5 shadow-sm space-y-3 card-touch">
@@ -2980,16 +2858,7 @@
     <div class="bg-white border border-slate-200/90 rounded-3xl p-4.5 shadow-sm space-y-3.5 card-touch">
       <h4 class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">App Preferences</h4>
 
-      <!-- Sound & Chimes Toggle -->
-      <div class="flex justify-between items-center">
-        <div>
-          <span class="text-xs font-bold text-slate-800 block">Sound & Payment Chimes</span>
-          <span class="text-[10px] text-slate-400">Play PhonePe audio chime on success</span>
-        </div>
-        <div id="switch-sound" onclick="toggleSoundInteractive()" class="interactive-switch active">
-          <div class="interactive-switch-knob"></div>
-        </div>
-      </div>
+      
 
       <!-- Hide Balance on App Open -->
       <div class="flex justify-between items-center pt-3 border-t border-slate-100">
@@ -3396,46 +3265,53 @@
 
   <!-- ==================== RECEIVE QR MODAL ==================== -->
   <div id="modal-receive" class="modal-sheet p-6 text-center">
-    <div class="w-10 h-1 bg-slate-200 rounded-full mx-auto mb-4"></div>
-    <div class="flex justify-between items-center mb-1">
-      <h3 class="text-base font-bold text-slate-900">Receive Money via UPI QR</h3>
+    <div class="w-10 h-1 bg-slate-200 rounded-full mx-auto mb-3"></div>
+    
+    <div class="flex justify-between items-center mb-2">
+      <div class="flex items-center space-x-1.5">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        <h3 class="text-sm font-black text-slate-900 tracking-wide">BHIM UPI QR CODE</h3>
+      </div>
       <button onclick="closeAllModals()" class="p-1 text-slate-400 hover:text-slate-700">
         <i class="fa-solid fa-xmark text-sm"></i>
       </button>
     </div>
-    <p class="text-xs text-slate-500 mb-4">Scan with any UPI App: PhonePe, Google Pay, Paytm, BHIM</p>
+    <p class="text-xs text-slate-500 mb-3">Scan with any UPI app to receive instant payment</p>
 
-    <!-- Real Dynamic QR Container with User Avatar in Center -->
-    <div class="relative w-56 h-56 bg-white border-2 border-slate-200/90 rounded-3xl mx-auto p-3 shadow-md flex items-center justify-center mb-4 qr-container">
-      <div id="receive-qrcode-render" class="flex items-center justify-center">
-        <!-- Pure JS QR rendered here dynamically -->
+    <!-- Crisp High-Contrast QR Code Card -->
+    <div class="bg-white border-2 border-slate-200 rounded-3xl p-4 shadow-md max-w-[240px] mx-auto mb-3 relative">
+      <div id="receive-qrcode-render" class="flex items-center justify-center min-h-[190px]">
+        <!-- Dynamic QR rendered by JS -->
       </div>
-      <!-- Center User Avatar Badge -->
-      <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div id="qr-center-avatar" class="w-10 h-10 rounded-full bg-blue-600 text-white font-black text-sm border-2 border-white shadow-md flex items-center justify-center overflow-hidden">
-          A
-        </div>
+      <div class="mt-2 text-center">
+        <span id="receive-user-name" class="text-xs font-black text-slate-900 block leading-tight">Yash Sharma</span>
+        <span id="receive-account-no" class="font-mono text-[10px] text-slate-500 block">yash@datacore</span>
       </div>
     </div>
 
-    <!-- Account Details Box -->
-    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-3 mb-4 text-left">
-      <div class="flex justify-between items-center mb-1">
-        <span class="text-[10px] font-bold text-slate-400 uppercase">Primary UPI Handle</span>
-        <button onclick="copyToClipboard(getUserUpiId(currentUser), 'UPI handle copied!')" class="text-blue-600 text-xs font-bold hover:underline">Copy</button>
+    <!-- Custom Amount Option -->
+    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-2.5 mb-3 flex items-center justify-between">
+      <div class="text-left">
+        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider block">Set Requested Amount</span>
+        <input id="receive-custom-amt" oninput="updateReceiveQrAmount(this.value)" type="number" placeholder="Optional (e.g. 500)" class="bg-transparent text-xs font-mono font-bold text-slate-900 focus:outline-none w-36">
       </div>
-      <div class="flex items-center space-x-2">
-        <span id="receive-account-no" class="font-mono text-xs font-bold text-slate-800">DC-6812-3923@datacore</span>
-        <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-700 font-bold text-[9px]">NPCI 2.0</span>
-      </div>
+      <span class="text-[10px] font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded">UPI Instant</span>
     </div>
 
-    <button id="receive-share-btn"  onclick="copyToClipboard('DataCore: ' + currentUser.accountNo + ' (' + currentUser.email + ')', 'Payment handle copied!')" class="w-full py-3.5 bg-blue-600 text-white rounded-2xl font-bold text-xs shadow-md">
-      Share Payment Handle
-    </button>
+    <!-- Actions -->
+    <div class="grid grid-cols-2 gap-2 mb-2">
+      <button onclick="copyToClipboard(getUserUpiId(currentUser), 'UPI ID copied to clipboard!')" class="py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition flex items-center justify-center space-x-1.5 shadow-md active:scale-95">
+        <i class="fa-regular fa-copy text-xs"></i>
+        <span>Copy UPI ID</span>
+      </button>
+      <button onclick="shareUserQRCode()" class="py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl text-xs font-bold transition flex items-center justify-center space-x-1.5 active:scale-95">
+        <i class="fa-solid fa-share-nodes text-xs"></i>
+        <span>Share QR</span>
+      </button>
+    </div>
   </div>
 
-  <!-- ==================== TRANSACTION RECEIPT & TRACE MODAL ==================== -->
+  <!-- ==================== TRANSACTION RECEIPT<!-- ==================== TRANSACTION RECEIPT & TRACE MODAL ==================== -->
   <div id="modal-receipt" class="modal-sheet p-5 text-center max-h-[85vh] overflow-y-auto">
     <div class="w-10 h-1 bg-slate-200 rounded-full mx-auto mb-3"></div>
     
@@ -3560,7 +3436,7 @@
     <div class="flex justify-between items-center mb-3">
       <div class="flex items-center space-x-2">
         <h3 class="text-base font-bold text-slate-900">Scan Any UPI QR</h3>
-        <span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[9px] font-bold border border-emerald-200">BHIM / PhonePe / GPay</span>
+        <span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[9px] font-bold border border-emerald-200">BHIM UPI Assured</span>
       </div>
       <button onclick="toggleFlashlight()" id="torch-btn" class="p-2 text-slate-600 hover:text-blue-600 text-xs font-bold flex items-center space-x-1">
         <i id="torch-icon" class="fa-solid fa-bolt text-xs"></i>
@@ -4012,35 +3888,45 @@
   <!-- ==================== BIOMETRIC FINGERPRINT ENROLLMENT MODAL ==================== -->
   <div id="modal-fingerprint" class="modal-sheet p-6 text-center">
     <div class="w-10 h-1 bg-slate-200 rounded-full mx-auto mb-4"></div>
-    <h3 class="text-base font-bold text-slate-900 mb-1">Biometric Fingerprint Sensor</h3>
-    <p class="text-xs text-slate-500 mb-6">Touch the sensor below to verify or enroll your fingerprint</p>
+    <div class="flex justify-between items-center mb-1">
+      <h3 class="text-base font-bold text-slate-900">Custom Fingerprint Sensor</h3>
+      <button onclick="closeAllModals()" class="p-1 text-slate-400 hover:text-slate-700">
+        <i class="fa-solid fa-xmark text-sm"></i>
+      </button>
+    </div>
+    <p id="fp-enroll-desc" class="text-xs text-slate-500 mb-5">Touch the sensor below to scan and enroll your custom fingerprint</p>
 
-    <!-- Fingerprint Touch Sensor Graphic -->
-    <div onclick="simulateFingerprintScan()" class="relative w-28 h-28 mx-auto rounded-full bg-blue-50 border-2 border-blue-200 flex items-center justify-center cursor-pointer active:scale-95 transition mb-6 group">
-      <div class="w-20 h-20 rounded-full bg-blue-600 text-white flex items-center justify-center text-4xl shadow-lg shadow-blue-500/40 animate-fp-pulse">
+    <!-- Fingerprint Touch Sensor Graphic with Ripple -->
+    <div onclick="scanFingerprintStep()" class="relative w-32 h-32 mx-auto rounded-full bg-indigo-50 border-4 border-indigo-200 flex items-center justify-center cursor-pointer active:scale-95 transition mb-4 group shadow-md">
+      <div id="fp-scan-aura" class="w-24 h-24 rounded-full bg-gradient-to-tr from-indigo-600 to-blue-600 text-white flex items-center justify-center text-4xl shadow-xl shadow-indigo-500/40 animate-fp-pulse">
         <i id="fp-modal-icon" class="fa-solid fa-fingerprint"></i>
       </div>
     </div>
 
-    <p id="fp-modal-status" class="text-xs font-bold text-slate-700 mb-4">Tap sensor to authenticate</p>
-
-    <div class="grid grid-cols-2 gap-2 mb-2">
-      <button onclick="shareReceiptWhatsApp()" class="py-2.5 px-3 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 font-bold text-xs rounded-xl transition flex items-center justify-center space-x-1.5">
-        <i class="fa-brands fa-whatsapp text-emerald-600 text-sm"></i>
-        <span>WhatsApp Share</span>
-      </button>
-      <button onclick="downloadReceipt()" class="py-2.5 px-3 bg-blue-50 hover:bg-blue-100 text-blue-800 border border-blue-200 font-bold text-xs rounded-xl transition flex items-center justify-center space-x-1.5">
-        <i class="fa-solid fa-file-invoice text-blue-600 text-sm"></i>
-        <span>Download Slip</span>
-      </button>
+    <!-- Progress Ring / Percentage Indicator -->
+    <div class="max-w-[200px] mx-auto mb-4">
+      <div class="flex justify-between text-[11px] font-bold text-slate-600 mb-1">
+        <span>Ridge Scan Progress</span>
+        <span id="fp-scan-pct">0%</span>
+      </div>
+      <div class="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
+        <div id="fp-scan-bar" class="h-full bg-indigo-600 rounded-full transition-all duration-300" style="width: 0%;"></div>
+      </div>
     </div>
 
-    <button onclick="closeAllModals()" class="w-full py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition">
-      Done
-    </button>
+    <p id="fp-modal-status" class="text-xs font-bold text-indigo-700 mb-4">Place your thumb or finger on sensor to begin</p>
+
+    <div class="flex space-x-2">
+      <button onclick="resetFingerprintEnrollment()" class="flex-1 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition">
+        Reset
+      </button>
+      <button onclick="saveEnrolledFingerprint()" id="fp-done-btn" class="flex-1 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl transition disabled:opacity-50" disabled>
+        Save Fingerprint
+      </button>
+    </div>
   </div>
 
-    <!-- ==================== BIOMETRIC PAYMENT TOUCH SENSOR MODAL ==================== -->
+  <!-- ==================== BIOMETRIC PAYMENT TOUCH SENSOR MODAL<!-- ==================== BIOMETRIC PAYMENT TOUCH SENSOR MODAL ==================== -->
   <div id="modal-biometric-pay" class="modal-sheet p-6 text-center">
     <div class="w-10 h-1 bg-slate-200 rounded-full mx-auto mb-4"></div>
     <div class="mb-3">
@@ -4283,8 +4169,8 @@
 
     <!-- Tab 2: Services / Bills (Right next to Home) -->
     <button onclick="navigateTo('services')" id="tab-services" class="tab-btn flex flex-col items-center text-slate-400 hover:text-blue-600 transition px-2 py-1">
-      <i class="fa-solid fa-layer-group text-lg"></i>
-      <span class="text-[10px] font-bold mt-1">Services</span>
+      <i class="fa-solid fa-magnifying-glass text-lg"></i>
+      <span class="text-[10px] font-bold mt-1">Search</span>
     </button>
 
     <!-- Tab 3: Center Floating Scan QR Button -->
@@ -4538,7 +4424,7 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
   let payees = currentUser ? (currentUser.payees || []) : [];
   let isTransfersLocked = currentUser ? !!currentUser.isTransfersLocked : false;
   let isBalanceHidden = false;
-  let isSoundEnabled = localStorage.getItem(STORAGE_KEYS.SOUND_ENABLED) !== 'false';
+  let isSoundEnabled = true;
   let isDarkTheme = localStorage.getItem(STORAGE_KEYS.DARK_THEME) === 'true';
   let selectedStrategy = 'PESSIMISTIC';
   let activeHistoryFilter = 'ALL';
@@ -8458,16 +8344,27 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
   function filterServicesDirectory(query) {
     const q = (query || '').toLowerCase().trim();
     const container = document.getElementById('services-grid-container');
-    if (!container) return;
-    const cards = container.querySelectorAll('[onclick^="openServiceDetail"]');
-    cards.forEach(c => {
-      const text = c.innerText.toLowerCase();
-      if (!q || text.includes(q)) {
-        c.style.display = '';
+    const autopayCard = document.getElementById('services-autopay-card');
+    
+    if (autopayCard) {
+      if (!q || autopayCard.innerText.toLowerCase().includes(q)) {
+        autopayCard.style.display = '';
       } else {
-        c.style.display = 'none';
+        autopayCard.style.display = 'none';
       }
-    });
+    }
+
+    if (container) {
+      const cards = container.querySelectorAll('[onclick^="openServiceDetail"]');
+      cards.forEach(c => {
+        const text = c.innerText.toLowerCase();
+        if (!q || text.includes(q)) {
+          c.style.display = '';
+        } else {
+          c.style.display = 'none';
+        }
+      });
+    }
   }
 
 
@@ -8795,7 +8692,124 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
     );
   }
 
-    // ================= AUDIO TACTILE FEEDBACK ENGINE =================
+      // ================= CUSTOM FINGERPRINT ENROLLMENT & PAYMENT ENGINE =================
+  let fingerprintScanProgress = 0;
+  let isCustomFingerprintEnrolled = localStorage.getItem('datacore_custom_fp_enrolled') === 'true';
+
+  function openFingerprintEnrollment() {
+    closeAllModals();
+    fingerprintScanProgress = 0;
+    updateFingerprintUI();
+    document.getElementById('backdrop').classList.add('active');
+    document.getElementById('modal-fingerprint').classList.add('active');
+    playTapSound();
+  }
+
+  function scanFingerprintStep() {
+    if (fingerprintScanProgress >= 100) return;
+    fingerprintScanProgress += 25;
+    playTapSound();
+    triggerHaptic();
+    updateFingerprintUI();
+
+    if (fingerprintScanProgress >= 100) {
+      playSuccessChime();
+      triggerSuccessHaptic();
+      const statusEl = document.getElementById('fp-modal-status');
+      if (statusEl) statusEl.innerText = 'Custom Fingerprint Captured 100%! Ready to save.';
+      const doneBtn = document.getElementById('fp-done-btn');
+      if (doneBtn) doneBtn.disabled = false;
+      showDynamicIsland('Fingerprint Ridge Scan 100%', 'success');
+    }
+  }
+
+  function updateFingerprintUI() {
+    const pctEl = document.getElementById('fp-scan-pct');
+    const barEl = document.getElementById('fp-scan-bar');
+    const statusEl = document.getElementById('fp-modal-status');
+    const doneBtn = document.getElementById('fp-done-btn');
+
+    if (pctEl) pctEl.innerText = `${fingerprintScanProgress}%`;
+    if (barEl) barEl.style.width = `${fingerprintScanProgress}%`;
+    if (statusEl && fingerprintScanProgress < 100) {
+      if (fingerprintScanProgress === 0) statusEl.innerText = 'Touch sensor with your thumb or finger';
+      else if (fingerprintScanProgress === 25) statusEl.innerText = 'Outer ridges scanned. Tap again...';
+      else if (fingerprintScanProgress === 50) statusEl.innerText = 'Core patterns captured. Keep tapping...';
+      else if (fingerprintScanProgress === 75) statusEl.innerText = 'Almost done! Tap once more for edges...';
+    }
+    if (doneBtn) doneBtn.disabled = (fingerprintScanProgress < 100);
+  }
+
+  function resetFingerprintEnrollment() {
+    fingerprintScanProgress = 0;
+    updateFingerprintUI();
+    playTapSound();
+  }
+
+  function saveEnrolledFingerprint() {
+    isCustomFingerprintEnrolled = true;
+    localStorage.setItem('datacore_custom_fp_enrolled', 'true');
+    closeAllModals();
+    playSuccessChime();
+    showToast('Custom Fingerprint registered & active!');
+    showDynamicIsland('Custom Fingerprint Enrolled', 'success');
+    const statusTxt = document.getElementById('profile-fp-status-text');
+    if (statusTxt) statusTxt.innerText = 'Custom Fingerprint: Active';
+  }
+
+  function triggerFingerprintPaymentFromTransfer() {
+    const amt = parseFloat(document.getElementById('transfer-amount')?.value) || 0;
+    const recipient = (document.getElementById('transfer-recipient')?.value || '').trim() || 'merchant@datacore';
+    if (amt <= 0) return showToast('Please enter a valid transfer amount', false);
+
+    pendingTransferCallback = () => {
+      executeTransfer();
+    };
+    pendingPaymentRecipient = recipient;
+    pendingPaymentAmount = amt;
+
+    // Open biometric payment modal
+    closeAllModals();
+    const bioRecip = document.getElementById('bio-pay-recipient');
+    const bioAmt = document.getElementById('bio-pay-amt');
+    if (bioRecip) bioRecip.innerText = `Paying ${recipient}`;
+    if (bioAmt) bioAmt.innerText = `₹${amt.toFixed(2)}`;
+    document.getElementById('backdrop').classList.add('active');
+    document.getElementById('modal-biometric-pay').classList.add('active');
+    playTapSound();
+  }
+
+  function triggerPinPaymentFromTransfer() {
+    const amt = parseFloat(document.getElementById('transfer-amount')?.value) || 0;
+    const recipient = (document.getElementById('transfer-recipient')?.value || '').trim() || 'merchant@datacore';
+    if (amt <= 0) return showToast('Please enter a valid transfer amount', false);
+
+    promptUpiPinKeypad(
+      `Paying ${recipient}`,
+      amt,
+      () => {
+        executeTransfer();
+      }
+    );
+  }
+
+  function setTransferAmount(amt) {
+    const el = document.getElementById('transfer-amount');
+    if (el) el.value = amt;
+    playTapSound();
+  }
+
+  function updateReceiveQrAmount(amt) {
+    const parsed = parseFloat(amt);
+    if (!isNaN(parsed) && parsed > 0) {
+      renderUserDynamicQRCode(parsed);
+    } else {
+      renderUserDynamicQRCode();
+    }
+  }
+
+  
+  // ================= AUDIO TACTILE FEEDBACK ENGINE =================
   function playTapSound() {
     if (!isSoundEnabled) return;
     try {
@@ -9335,7 +9349,7 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
 
     if (clean.includes('@ybl') || clean.includes('@ibl') || clean.includes('@axl')) {
       badge.className = 'mt-1.5 inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full bg-purple-50 border border-purple-200 text-purple-700 text-[10px] font-bold';
-      badge.innerHTML = '<i class="fa-solid fa-circle-check text-purple-600"></i><span>🟣 PhonePe UPI Verified</span>';
+      badge.innerHTML = '<i class="fa-solid fa-circle-check text-purple-600"></i><span>🟣 BHIM UPI Verified</span>';
     } else if (clean.includes('@oksbi') || clean.includes('@okhdfcbank') || clean.includes('@okaxis') || clean.includes('@okicici')) {
       badge.className = 'mt-1.5 inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-[10px] font-bold';
       badge.innerHTML = '<i class="fa-solid fa-circle-check text-emerald-600"></i><span>🟢 Google Pay Verified</span>';
@@ -9369,7 +9383,9 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
 
   // ================= NEW USER REGISTRATION FLOW (STRICT UNIQUENESS ENFORCED) =================
   // ================= CLOUD BACKEND INTEGRATION (RENDER) =================
-  const API_BASE_URL = 'https://datacore-backend-wktd.onrender.com';
+  const API_BASE_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+    ? 'http://localhost:8000'
+    : 'https://datacore-backend-wktd.onrender.com';
   let isCloudConnected = false;
 
   async function syncUserWithBackendRegister(name, email, password, confirmPassword) {
