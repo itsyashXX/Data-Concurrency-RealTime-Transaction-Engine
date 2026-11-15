@@ -77,7 +77,14 @@
       width: 0px;
       height: 0px;
     }
+    .hidden {
+      display: none !important;
+    }
+    .app-screen.hidden {
+      display: none !important;
+    }
     .app-screen:not(.hidden) {
+      display: block !important;
       animation: screenFadeIn 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
     @keyframes screenFadeIn {
@@ -887,34 +894,7 @@
           <span>Setup New AutoPay Mandate</span>
         </button>
       </div>
-            <div class="text-right">
-              <span class="text-xs font-bold text-slate-900 block font-mono">₹1,450.00</span>
-              <button onclick="openServiceDetail('electricity')" class="mt-0.5 px-3 py-1 rounded-xl bg-purple-700 hover:bg-purple-800 text-white text-[10px] font-bold shadow-sm active:scale-95 transition">
-                Pay Bill
-              </button>
-            </div>
-          </div>
 
-          <!-- Sample Bill 2: Jio Mobile -->
-          <div class="p-3 bg-white border border-slate-200 rounded-2xl flex items-center justify-between shadow-sm hover:border-purple-300 transition">
-            <div class="flex items-center space-x-3">
-              <div class="w-10 h-10 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-lg border border-blue-200/60 shadow-sm">
-                📱
-              </div>
-              <div>
-                <span class="text-xs font-bold text-slate-900 block">Jio 5G Prepaid</span>
-                <span class="text-[10px] text-slate-500 font-mono block">+91 98765 43210</span>
-              </div>
-            </div>
-            <div class="text-right">
-              <span class="text-xs font-bold text-slate-900 block font-mono">₹299.00</span>
-              <button onclick="openServiceDetail('mobile')" class="mt-0.5 px-3 py-1 rounded-xl bg-purple-700 hover:bg-purple-800 text-white text-[10px] font-bold shadow-sm active:scale-95 transition">
-                Recharge
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
 
       <!-- Categorized Full Directory Grid -->
       <div class="space-y-4" id="services-grid-container">
@@ -2698,20 +2678,7 @@
 
 
     
-        <div id="switch-upi-intl" onclick="toggleUpiInternational()" class="interactive-switch active">
-          <div class="interactive-switch-knob"></div>
-        </div>
-      </div>
 
-      <div class="flex flex-wrap gap-1.5 mt-3 pt-2.5 border-t border-white/10 text-[10px] font-bold">
-        <span class="px-2 py-0.5 rounded-full bg-white/10 text-white/90">🇦🇪 UAE</span>
-        <span class="px-2 py-0.5 rounded-full bg-white/10 text-white/90">🇸🇬 Singapore</span>
-        <span class="px-2 py-0.5 rounded-full bg-white/10 text-white/90">🇫🇷 France</span>
-        <span class="px-2 py-0.5 rounded-full bg-white/10 text-white/90">🇲🇺 Mauritius</span>
-        <span class="px-2 py-0.5 rounded-full bg-white/10 text-white/90">🇧🇹 Bhutan</span>
-        <span class="px-2 py-0.5 rounded-full bg-white/10 text-white/90">🇳🇵 Nepal</span>
-      </div>
-    </div>
 
     
 
