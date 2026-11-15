@@ -423,6 +423,14 @@
     </div>
   </div>
 
+  <!-- DYNAMIC ISLAND TOP NOTIFICATION PILL -->
+  <div id="dynamic-island" class="absolute top-2.5 left-1/2 -translate-x-1/2 z-[100000] pointer-events-none transition-all duration-300 -translate-y-12 opacity-0 flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-slate-900/95 backdrop-blur-xl border border-white/20 text-white text-[11px] font-semibold shadow-2xl">
+    <span id="dynamic-island-icon" class="w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[9px]">
+      <i class="fa-solid fa-check"></i>
+    </span>
+    <span id="dynamic-island-text" class="tracking-tight">DataCore Pay Secure</span>
+  </div>
+
   <!-- Toast Alert (High-Visibility Alert System) -->
   <div id="toast" style="z-index: 99999 !important;" class="absolute top-12 left-4 right-4 transform -translate-y-20 opacity-0 transition-all duration-300 pointer-events-none p-3.5 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 border border-emerald-400 text-white text-xs font-bold shadow-2xl shadow-emerald-500/30 flex items-center space-x-2.5">
     <i id="toast-icon" class="fa-solid fa-circle-check text-white text-base"></i>
@@ -824,18 +832,61 @@
         </div>
       </div>
 
-      <!-- Bharat BillPay Hero Promotional Banner -->
-      <div class="bg-gradient-to-r from-purple-700 via-indigo-600 to-purple-800 rounded-3xl p-4 text-white shadow-lg shadow-purple-900/20 mb-4 relative overflow-hidden">
-        <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-white/10 rounded-full blur-xl pointer-events-none"></div>
-        <div class="flex items-start justify-between relative z-10">
-          <div>
-            <span class="inline-block px-2 py-0.5 rounded-full bg-white/20 text-[9px] font-black uppercase tracking-wider mb-1.5 backdrop-blur-sm">⚡ BBPS Assured • 0 Convenience Fee</span>
-            <h3 class="text-sm font-black leading-tight">Pay Bills & Win Scratch Cards</h3>
-            <p class="text-[11px] text-purple-100/90 mt-1">Guaranteed cashback up to ₹100 on your first electricity or recharge bill</p>
+      <!-- PhonePe-Style Interactive Promotional Offers Carousel -->
+      <div class="relative mb-4 overflow-hidden rounded-3xl shadow-lg shadow-purple-900/15 group">
+        <!-- Slides Track -->
+        <div id="services-offers-carousel" class="flex transition-transform duration-500 ease-out" style="transform: translateX(0%);">
+          <!-- Slide 1: Electricity Cashback -->
+          <div onclick="openServiceDetail('electricity')" class="w-full shrink-0 bg-gradient-to-r from-purple-700 via-indigo-600 to-purple-800 p-4 text-white relative cursor-pointer active:scale-[0.99] transition">
+            <div class="flex items-start justify-between relative z-10">
+              <div>
+                <span class="inline-block px-2 py-0.5 rounded-full bg-white/20 text-[9px] font-black uppercase tracking-wider mb-1.5 backdrop-blur-sm">⚡ BBPS Assured • Code: POWER50</span>
+                <h3 class="text-sm font-black leading-tight">Flat ₹50 Instant Cashback</h3>
+                <p class="text-[11px] text-purple-100/90 mt-1">On Electricity & Water bills above ₹300. Tap to pay now &rarr;</p>
+              </div>
+              <div class="w-10 h-10 rounded-2xl bg-white/20 flex items-center justify-center text-xl shrink-0 ml-2 shadow-inner">⚡</div>
+            </div>
           </div>
-          <div class="w-10 h-10 rounded-2xl bg-white/20 flex items-center justify-center text-xl shrink-0 ml-2 shadow-inner">
-            🎁
+          <!-- Slide 2: Metro QR Tickets -->
+          <div onclick="openServiceDetail('metro')" class="w-full shrink-0 bg-gradient-to-r from-blue-700 via-cyan-600 to-teal-700 p-4 text-white relative cursor-pointer active:scale-[0.99] transition">
+            <div class="flex items-start justify-between relative z-10">
+              <div>
+                <span class="inline-block px-2 py-0.5 rounded-full bg-white/20 text-[9px] font-black uppercase tracking-wider mb-1.5 backdrop-blur-sm">🚇 Transit Pass • DMRC & Mumbai Metro</span>
+                <h3 class="text-sm font-black leading-tight">10% Off on Turnstile QR Tickets</h3>
+                <p class="text-[11px] text-cyan-100/90 mt-1">Skip station token queues. Instant turnstile scanner QR &rarr;</p>
+              </div>
+              <div class="w-10 h-10 rounded-2xl bg-white/20 flex items-center justify-center text-xl shrink-0 ml-2 shadow-inner">🚇</div>
+            </div>
           </div>
+          <!-- Slide 3: 24K Digital Gold -->
+          <div onclick="openServiceDetail('gold')" class="w-full shrink-0 bg-gradient-to-r from-amber-600 via-yellow-600 to-amber-700 p-4 text-white relative cursor-pointer active:scale-[0.99] transition">
+            <div class="flex items-start justify-between relative z-10">
+              <div>
+                <span class="inline-block px-2 py-0.5 rounded-full bg-white/20 text-[9px] font-black uppercase tracking-wider mb-1.5 backdrop-blur-sm">🪙 MMTC-PAMP • 99.9% Pure 24K</span>
+                <h3 class="text-sm font-black leading-tight">Zero Making Charges on Gold</h3>
+                <p class="text-[11px] text-amber-100/90 mt-1">Start SIP or buy starting at ₹10. Insured vault storage &rarr;</p>
+              </div>
+              <div class="w-10 h-10 rounded-2xl bg-white/20 flex items-center justify-center text-xl shrink-0 ml-2 shadow-inner">🪙</div>
+            </div>
+          </div>
+          <!-- Slide 4: Credit Card Bill Pay -->
+          <div onclick="openServiceDetail('creditcard')" class="w-full shrink-0 bg-gradient-to-r from-emerald-700 via-teal-700 to-emerald-800 p-4 text-white relative cursor-pointer active:scale-[0.99] transition">
+            <div class="flex items-start justify-between relative z-10">
+              <div>
+                <span class="inline-block px-2 py-0.5 rounded-full bg-white/20 text-[9px] font-black uppercase tracking-wider mb-1.5 backdrop-blur-sm">💳 RuPay & Visa • Instant Clearance</span>
+                <h3 class="text-sm font-black leading-tight">500 Bonus Reward Points</h3>
+                <p class="text-[11px] text-emerald-100/90 mt-1">Pay HDFC, SBI, ICICI card bills with zero processing fee &rarr;</p>
+              </div>
+              <div class="w-10 h-10 rounded-2xl bg-white/20 flex items-center justify-center text-xl shrink-0 ml-2 shadow-inner">💳</div>
+            </div>
+          </div>
+        </div>
+        <!-- Dot Navigation Indicators -->
+        <div class="absolute bottom-2 left-0 right-0 flex justify-center space-x-1.5 z-20 pointer-events-none">
+          <span id="offer-dot-0" class="w-2 h-1.5 rounded-full bg-white transition-all duration-300"></span>
+          <span id="offer-dot-1" class="w-1.5 h-1.5 rounded-full bg-white/40 transition-all duration-300"></span>
+          <span id="offer-dot-2" class="w-1.5 h-1.5 rounded-full bg-white/40 transition-all duration-300"></span>
+          <span id="offer-dot-3" class="w-1.5 h-1.5 rounded-full bg-white/40 transition-all duration-300"></span>
         </div>
       </div>
 
@@ -2819,7 +2870,7 @@
       <div class="p-3 bg-slate-50 border border-slate-200/80 rounded-2xl flex items-center justify-between">
         <div class="flex items-center space-x-3">
           <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center text-sm">
-            <i class="fa-solid fa-server"></i>
+            <i class="fa-solid fa-building-columns"></i>
           </div>
           <div>
             <div class="flex items-center space-x-1.5">
@@ -2829,7 +2880,10 @@
             <span class="text-[10px] text-slate-400 font-mono block">A/C: •••• 9104 • UPI Linked</span>
           </div>
         </div>
-        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-sm animate-pulse" title="Connected"></span>
+        <div class="text-right">
+          <span id="profile-sbi-bal" class="font-mono text-xs font-bold text-slate-900 block">₹34,290.45</span>
+          <button onclick="checkSbiBalanceWithPin()" class="text-[10px] text-purple-600 font-bold hover:underline">Check</button>
+        </div>
       </div>
 
       <button onclick="openAddBankModal()" class="w-full py-2.5 border border-dashed border-slate-300 hover:border-blue-500 hover:bg-blue-50/50 rounded-xl text-xs font-bold text-blue-600 flex items-center justify-center space-x-1.5 transition">
@@ -3022,8 +3076,8 @@
     <div class="h-16 w-full shrink-0" aria-hidden="true"></div>
   </div>
 
-  <!-- ==================== SCREEN 7: PAYMENT SUCCESSFUL (PHONEPE / GPAY STYLE) ====================
-  <div  class="app-screen p-5 hidden bg-gradient-to-b from-emerald-50/70 via-slate-50 to-slate-50">
+  <!-- ==================== SCREEN 7: PAYMENT SUCCESSFUL (PHONEPE / GPAY STYLE) ==================== -->
+  <div id="screen-success" class="app-screen p-5 hidden bg-gradient-to-b from-emerald-50/70 via-slate-50 to-slate-50">
     <!-- Top Navigation Header -->
     <div class="flex items-center justify-between mb-2">
       <button onclick="handleSuccessBack()" class="p-2 -ml-2 text-slate-700 hover:text-blue-600 rounded-full active:scale-95 transition" title="Go Back">
@@ -6258,6 +6312,7 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
   }
 
   function showToast(msg, isSuccess = true) {
+    showDynamicIsland(msg, isSuccess ? 'success' : 'error');
     const toast = document.getElementById('toast');
     const toastMsg = document.getElementById('toast-msg');
     const toastIcon = document.getElementById('toast-icon');
@@ -8740,6 +8795,127 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
     );
   }
 
+    // ================= AUDIO TACTILE FEEDBACK ENGINE =================
+  function playTapSound() {
+    if (!isSoundEnabled) return;
+    try {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return;
+      const ctx = new AudioCtx();
+      if (ctx.state === 'suspended') ctx.resume();
+      const now = ctx.currentTime;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(1400, now);
+      osc.frequency.exponentialRampToValueAtTime(700, now + 0.045);
+      gain.gain.setValueAtTime(0.09, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.045);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.045);
+    } catch (_) {}
+  }
+
+  function playCoinSound() {
+    if (!isSoundEnabled) return;
+    try {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return;
+      const ctx = new AudioCtx();
+      if (ctx.state === 'suspended') ctx.resume();
+      const now = ctx.currentTime;
+      [2093, 2793].forEach((f, idx) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(f, now + idx * 0.08);
+        gain.gain.setValueAtTime(0.18, now + idx * 0.08);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.28);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now + idx * 0.08);
+        osc.stop(now + idx * 0.08 + 0.28);
+      });
+    } catch (_) {}
+  }
+
+  // ================= DYNAMIC ISLAND TOP NOTIFICATION =================
+  function showDynamicIsland(text, type = 'success') {
+    const pill = document.getElementById('dynamic-island');
+    const txt = document.getElementById('dynamic-island-text');
+    const icon = document.getElementById('dynamic-island-icon');
+    if (!pill || !txt) return;
+    txt.innerText = text;
+    if (icon) {
+      if (type === 'success') {
+        icon.className = 'w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[9px] shrink-0';
+        icon.innerHTML = '<i class="fa-solid fa-check"></i>';
+      } else if (type === 'error') {
+        icon.className = 'w-4 h-4 rounded-full bg-rose-500 text-white flex items-center justify-center text-[9px] shrink-0';
+        icon.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+      } else {
+        icon.className = 'w-4 h-4 rounded-full bg-blue-500 text-white flex items-center justify-center text-[9px] shrink-0';
+        icon.innerHTML = '<i class="fa-solid fa-bolt"></i>';
+      }
+    }
+    pill.classList.remove('-translate-y-12', 'opacity-0');
+    pill.classList.add('translate-y-0', 'opacity-100');
+    if (window._islandTimer) clearTimeout(window._islandTimer);
+    window._islandTimer = setTimeout(() => {
+      pill.classList.remove('translate-y-0', 'opacity-100');
+      pill.classList.add('-translate-y-12', 'opacity-0');
+    }, 2800);
+  }
+
+  // ================= PROMOTIONAL OFFERS CAROUSEL AUTO-ROTATE =================
+  let currentOfferSlide = 0;
+  function rotateOffersCarousel() {
+    const carousel = document.getElementById('services-offers-carousel');
+    if (!carousel) return;
+    currentOfferSlide = (currentOfferSlide + 1) % 4;
+    carousel.style.transform = `translateX(-${currentOfferSlide * 100}%)`;
+    for (let i = 0; i < 4; i++) {
+      const dot = document.getElementById(`offer-dot-${i}`);
+      if (dot) {
+        dot.className = (i === currentOfferSlide)
+          ? 'w-2 h-1.5 rounded-full bg-white transition-all duration-300'
+          : 'w-1.5 h-1.5 rounded-full bg-white/40 transition-all duration-300';
+      }
+    }
+  }
+  if (!window._offersInterval) {
+    window._offersInterval = setInterval(rotateOffersCarousel, 4200);
+  }
+
+  // ================= CHECK SBI BALANCE VIA UPI PIN =================
+  function checkSbiBalanceWithPin() {
+    promptUpiPinKeypad(
+      'State Bank of India (A/C: •••• 9104)',
+      0,
+      () => {
+        const balEl = document.getElementById('profile-sbi-bal');
+        if (balEl) balEl.innerText = '₹34,290.45';
+        showToast('SBI Balance Verified: ₹34,290.45');
+        showDynamicIsland('SBI Balance: ₹34,290.45', 'success');
+        playSuccessChime();
+      }
+    );
+  }
+
+  // ================= BBPS TAX INVOICE STATEMENT DOWNLOAD =================
+  function downloadBbpsTaxStatement() {
+    showDynamicIsland('Generating NPCI BBPS Statement...', 'info');
+    showToast('Generating digitally signed BBPS PDF statement...');
+    setTimeout(() => {
+      playSuccessChime();
+      showDynamicIsland('BBPS Statement Downloaded', 'success');
+      showToast('Statement saved to Downloads: DataCore_Statement_2026.pdf');
+    }, 1400);
+  }
+
+  
   // ================= UTILITY & BILL PAYMENTS =================
   function payDthRecharge() {
     const opSelect = document.getElementById('dth-operator-select');
