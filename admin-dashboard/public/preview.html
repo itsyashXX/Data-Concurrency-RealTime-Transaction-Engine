@@ -3967,6 +3967,32 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
     currentUser.balance = balance;
     currentUser.upiLiteBalance = currentLite + amt;
     saveCurrentWalletState();
+
+    // Asynchronous Cloud Sync with Render PostgreSQL Database
+    try {
+      const apiToken = localStorage.getItem('datacore_api_token');
+      if (apiToken) {
+        fetch(`${API_BASE_URL}/api/transactions/`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiToken}`,
+            'Idempotency-Key': exact12TxId
+          },
+          body: JSON.stringify({
+            receiver_identifier: recipient,
+            amount: amt.toFixed(2),
+            description: note,
+            concurrency_strategy: selectedStrategy || 'PESSIMISTIC'
+          })
+        }).then(r => r.json()).then(data => {
+          if (data && data.latency_ms) {
+            console.log('PostgreSQL atomic double-entry recorded:', data.id, 'latency:', data.latency_ms + 'ms');
+          }
+        }).catch(err => console.warn('Render transaction sync (offline/local fallback):', err));
+      }
+    } catch (_) {}
+
     renderBalance();
     closeAllModals();
 
@@ -3982,6 +4008,32 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
     currentUser.balance = balance;
     currentUser.upiLiteBalance = 0.00;
     saveCurrentWalletState();
+
+    // Asynchronous Cloud Sync with Render PostgreSQL Database
+    try {
+      const apiToken = localStorage.getItem('datacore_api_token');
+      if (apiToken) {
+        fetch(`${API_BASE_URL}/api/transactions/`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiToken}`,
+            'Idempotency-Key': exact12TxId
+          },
+          body: JSON.stringify({
+            receiver_identifier: recipient,
+            amount: amt.toFixed(2),
+            description: note,
+            concurrency_strategy: selectedStrategy || 'PESSIMISTIC'
+          })
+        }).then(r => r.json()).then(data => {
+          if (data && data.latency_ms) {
+            console.log('PostgreSQL atomic double-entry recorded:', data.id, 'latency:', data.latency_ms + 'ms');
+          }
+        }).catch(err => console.warn('Render transaction sync (offline/local fallback):', err));
+      }
+    } catch (_) {}
+
     renderBalance();
     closeAllModals();
 
@@ -4041,6 +4093,32 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
 
     transactions.unshift(debitTx);
     saveCurrentWalletState();
+
+    // Asynchronous Cloud Sync with Render PostgreSQL Database
+    try {
+      const apiToken = localStorage.getItem('datacore_api_token');
+      if (apiToken) {
+        fetch(`${API_BASE_URL}/api/transactions/`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiToken}`,
+            'Idempotency-Key': exact12TxId
+          },
+          body: JSON.stringify({
+            receiver_identifier: recipient,
+            amount: amt.toFixed(2),
+            description: note,
+            concurrency_strategy: selectedStrategy || 'PESSIMISTIC'
+          })
+        }).then(r => r.json()).then(data => {
+          if (data && data.latency_ms) {
+            console.log('PostgreSQL atomic double-entry recorded:', data.id, 'latency:', data.latency_ms + 'ms');
+          }
+        }).catch(err => console.warn('Render transaction sync (offline/local fallback):', err));
+      }
+    } catch (_) {}
+
     renderBalance();
     renderTransactions();
 
@@ -4807,6 +4885,32 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
     });
 
     saveCurrentWalletState();
+
+    // Asynchronous Cloud Sync with Render PostgreSQL Database
+    try {
+      const apiToken = localStorage.getItem('datacore_api_token');
+      if (apiToken) {
+        fetch(`${API_BASE_URL}/api/transactions/`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiToken}`,
+            'Idempotency-Key': exact12TxId
+          },
+          body: JSON.stringify({
+            receiver_identifier: recipient,
+            amount: amt.toFixed(2),
+            description: note,
+            concurrency_strategy: selectedStrategy || 'PESSIMISTIC'
+          })
+        }).then(r => r.json()).then(data => {
+          if (data && data.latency_ms) {
+            console.log('PostgreSQL atomic double-entry recorded:', data.id, 'latency:', data.latency_ms + 'ms');
+          }
+        }).catch(err => console.warn('Render transaction sync (offline/local fallback):', err));
+      }
+    } catch (_) {}
+
     renderBalance();
     renderTransactions();
     renderNotifications();
@@ -4879,6 +4983,32 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
     });
 
     saveCurrentWalletState();
+
+    // Asynchronous Cloud Sync with Render PostgreSQL Database
+    try {
+      const apiToken = localStorage.getItem('datacore_api_token');
+      if (apiToken) {
+        fetch(`${API_BASE_URL}/api/transactions/`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiToken}`,
+            'Idempotency-Key': exact12TxId
+          },
+          body: JSON.stringify({
+            receiver_identifier: recipient,
+            amount: amt.toFixed(2),
+            description: note,
+            concurrency_strategy: selectedStrategy || 'PESSIMISTIC'
+          })
+        }).then(r => r.json()).then(data => {
+          if (data && data.latency_ms) {
+            console.log('PostgreSQL atomic double-entry recorded:', data.id, 'latency:', data.latency_ms + 'ms');
+          }
+        }).catch(err => console.warn('Render transaction sync (offline/local fallback):', err));
+      }
+    } catch (_) {}
+
     renderBalance();
     renderTransactions();
     renderNotifications();
@@ -6708,6 +6838,32 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
     }
 
     saveCurrentWalletState();
+
+    // Asynchronous Cloud Sync with Render PostgreSQL Database
+    try {
+      const apiToken = localStorage.getItem('datacore_api_token');
+      if (apiToken) {
+        fetch(`${API_BASE_URL}/api/transactions/`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiToken}`,
+            'Idempotency-Key': exact12TxId
+          },
+          body: JSON.stringify({
+            receiver_identifier: recipient,
+            amount: amt.toFixed(2),
+            description: note,
+            concurrency_strategy: selectedStrategy || 'PESSIMISTIC'
+          })
+        }).then(r => r.json()).then(data => {
+          if (data && data.latency_ms) {
+            console.log('PostgreSQL atomic double-entry recorded:', data.id, 'latency:', data.latency_ms + 'ms');
+          }
+        }).catch(err => console.warn('Render transaction sync (offline/local fallback):', err));
+      }
+    } catch (_) {}
+
     renderBalance();
     renderTransactions();
     renderNotifications();
@@ -7186,6 +7342,32 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
     });
 
     saveCurrentWalletState();
+
+    // Asynchronous Cloud Sync with Render PostgreSQL Database
+    try {
+      const apiToken = localStorage.getItem('datacore_api_token');
+      if (apiToken) {
+        fetch(`${API_BASE_URL}/api/transactions/`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiToken}`,
+            'Idempotency-Key': exact12TxId
+          },
+          body: JSON.stringify({
+            receiver_identifier: recipient,
+            amount: amt.toFixed(2),
+            description: note,
+            concurrency_strategy: selectedStrategy || 'PESSIMISTIC'
+          })
+        }).then(r => r.json()).then(data => {
+          if (data && data.latency_ms) {
+            console.log('PostgreSQL atomic double-entry recorded:', data.id, 'latency:', data.latency_ms + 'ms');
+          }
+        }).catch(err => console.warn('Render transaction sync (offline/local fallback):', err));
+      }
+    } catch (_) {}
+
     renderBalance();
     renderTransactions();
     renderNotifications();

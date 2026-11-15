@@ -17,8 +17,11 @@ import {
   Battery,
   ShieldCheck,
   Zap,
-  ArrowLeft
+  ArrowLeft,
+  QrCode,
+  X
 } from 'lucide-react';
+import { API_BASE_URL } from '../services/api';
 
 interface AccountData {
   id: string;
@@ -28,6 +31,7 @@ interface AccountData {
   balance: string;
   currency: string;
   version: number;
+  upi_id?: string;
 }
 
 interface TransactionData {
@@ -78,8 +82,10 @@ export const CustomerMobileApp: React.FC = () => {
   const [strategy, setStrategy] = useState('PESSIMISTIC');
   const [idempotencyKey, setIdempotencyKey] = useState(() => crypto.randomUUID());
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [showReceiveModal, setShowReceiveModal] = useState(false);
   const [transferLoading, setTransferLoading] = useState(false);
   const [transferFeedback, setTransferFeedback] = useState<{ success: boolean; message: string } | null>(null);
+  const [copiedUpi, setCopiedUpi] = useState(false);
 
   // Re-generate Idempotency Key
   const refreshKey = () => setIdempotencyKey(crypto.randomUUID());
@@ -92,13 +98,13 @@ export const CustomerMobileApp: React.FC = () => {
     setLoadingData(true);
     try {
       const headers = { Authorization: `Bearer ${activeToken}` };
-      const accRes = await axios.get('/api/accounts/', { headers });
+      const accRes = await axios.get(`${API_BASE_URL}/api/accounts/`, { headers });
       const accList = Array.isArray(accRes.data) ? accRes.data : accRes.data.results || [];
       if (accList.length > 0) {
         setAccount(accList[0]);
       }
 
-      const txRes = await axios.get('/api/transactions/', { headers });
+      const txRes = await axios.get(`${API_BASE_URL}/api/transactions/`, { headers });
       const txList = Array.isArray(txRes.data) ? txRes.data : txRes.data.results || [];
       setTransactions(txList);
     } catch (err: any) {
@@ -116,15 +122,16 @@ export const CustomerMobileApp: React.FC = () => {
     }
   }, [token]);
 
-  const handleLogin = async (e?: React.FormEvent, customEmail?: string) => {
+  const handleLogin = async (e?: React.FormEvent, customEmail?: string, customPass?: string) => {
     if (e) e.preventDefault();
     setAuthLoading(true);
     setAuthError(null);
     try {
       const email = customEmail || loginEmail;
-      const res = await axios.post('/api/auth/login/', {
+      const password = customPass || loginPassword;
+      const res = await axios.post(`${API_BASE_URL}/api/auth/login/`, {
         email,
-        password: loginPassword,
+        password,
       });
 
       const { access, user: userData } = res.data;
@@ -145,7 +152,7 @@ export const CustomerMobileApp: React.FC = () => {
     setAuthLoading(true);
     setAuthError(null);
     try {
-      const res = await axios.post('/api/auth/register/', {
+      const res = await axios.post(`${API_BASE_URL}/api/auth/register/`, {
         full_name: regName,
         email: regEmail,
         password: regPassword,
@@ -183,6 +190,13 @@ export const CustomerMobileApp: React.FC = () => {
     }
   };
 
+  const copyUpiId = () => {
+    const upi = account?.upi_id || (user?.email ? `${user.email.split('@')[0]}@dc` : 'wallet@dc');
+    navigator.clipboard.writeText(upi);
+    setCopiedUpi(true);
+    setTimeout(() => setCopiedUpi(false), 2000);
+  };
+
   const handleTransferSubmit = async () => {
     if (!account) return;
     setTransferLoading(true);
@@ -190,7 +204,7 @@ export const CustomerMobileApp: React.FC = () => {
 
     try {
       const res = await axios.post(
-        '/api/transactions/',
+        `${API_BASE_URL}/api/transactions/`,
         {
           sender_account_id: account.id,
           receiver_identifier: recipient.trim(),
@@ -272,6 +286,36 @@ export const CustomerMobileApp: React.FC = () => {
                       <span>{authError}</span>
                     </div>
                   )}
+
+                  {/* Quick 1-Click Demo Accounts */}
+                  <div className="mb-4 p-2 bg-slate-900/80 border border-slate-800 rounded-xl">
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5 flex items-center justify-between">
+                      <span>Quick Demo Sign-In</span>
+                      <span className="text-[9px] text-emerald-400 font-mono">● Render Live</span>
+                    </span>
+                    <div className="grid grid-cols-3 gap-1.5">
+                      {[
+                        { name: 'Alice', email: 'alice@datacore.io', bal: '₹8,750', bg: 'hover:bg-blue-600/20 text-blue-300 border-blue-500/30' },
+                        { name: 'Bob', email: 'bob@datacore.io', bal: '₹7,500', bg: 'hover:bg-emerald-600/20 text-emerald-300 border-emerald-500/30' },
+                        { name: 'Charlie', email: 'charlie@datacore.io', bal: '₹5,000', bg: 'hover:bg-purple-600/20 text-purple-300 border-purple-500/30' },
+                      ].map((demo) => (
+                        <button
+                          key={demo.email}
+                          type="button"
+                          disabled={authLoading}
+                          onClick={() => {
+                            setLoginEmail(demo.email);
+                            setLoginPassword('Password123!');
+                            handleLogin(undefined, demo.email, 'Password123!');
+                          }}
+                          className={`p-1.5 bg-slate-800/80 border ${demo.bg} rounded-lg text-center transition hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50`}
+                        >
+                          <span className="text-[11px] font-bold block">{demo.name}</span>
+                          <span className="text-[9px] text-slate-400 font-mono block">{demo.bal}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
 
                   {!isRegisterMode ? (
                     <form onSubmit={handleLogin} className="space-y-3.5">
@@ -418,42 +462,67 @@ export const CustomerMobileApp: React.FC = () => {
                         ₹{parseFloat(account?.balance || '0.00').toLocaleString('en-IN', { minimumFractionDigits: 2 })}
                       </div>
 
-                      <div className="flex items-center justify-between pt-2 border-t border-white/10 text-[11px]">
-                        <span className="font-mono text-blue-100/90 text-[11px]">
-                          {account?.account_number || 'Loading...'}
-                        </span>
-                        <button
-                          onClick={copyAccountNumber}
-                          className="flex items-center space-x-1 text-[10px] bg-white/10 hover:bg-white/20 px-1.5 py-0.5 rounded transition"
-                        >
-                          {copied ? <Check className="w-3 h-3 text-emerald-300" /> : <Copy className="w-3 h-3" />}
-                          <span>{copied ? 'Copied' : 'Copy'}</span>
-                        </button>
+                      <div className="pt-2 border-t border-white/15 space-y-1 text-[11px]">
+                        <div className="flex items-center justify-between">
+                          <span className="font-mono text-blue-100/90 text-[10px]">
+                            {account?.account_number || 'Loading...'}
+                          </span>
+                          <button
+                            onClick={copyAccountNumber}
+                            className="flex items-center space-x-1 text-[9px] bg-white/10 hover:bg-white/20 px-1.5 py-0.5 rounded transition"
+                          >
+                            {copied ? <Check className="w-3 h-3 text-emerald-300" /> : <Copy className="w-3 h-3" />}
+                            <span>{copied ? 'Copied' : 'Acc No'}</span>
+                          </button>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="font-mono text-emerald-200 text-[10px] font-semibold truncate max-w-[200px]">
+                            UPI: {account?.upi_id || (user?.email ? `${user.email.split('@')[0]}@dc` : 'wallet@dc')}
+                          </span>
+                          <button
+                            onClick={copyUpiId}
+                            className="flex items-center space-x-1 text-[9px] bg-emerald-500/25 hover:bg-emerald-500/35 text-emerald-200 px-1.5 py-0.5 rounded transition"
+                          >
+                            {copiedUpi ? <Check className="w-3 h-3 text-emerald-300" /> : <Copy className="w-3 h-3" />}
+                            <span>{copiedUpi ? 'Copied' : 'UPI ID'}</span>
+                          </button>
+                        </div>
                       </div>
                     </div>
 
-                    {/* Quick Action Tiles */}
-                    <div className="grid grid-cols-2 gap-2.5">
+                    {/* Quick Action Tiles (Send, Receive, History) */}
+                    <div className="grid grid-cols-3 gap-2">
                       <button
                         onClick={() => setCurrentScreen('transfer')}
-                        className="flex flex-col items-center justify-center p-3 bg-slate-900 hover:bg-slate-800/90 border border-slate-800 rounded-xl transition group"
+                        className="flex flex-col items-center justify-center p-2.5 bg-slate-900 hover:bg-slate-800/90 border border-slate-800 rounded-xl transition group"
                       >
-                        <div className="w-9 h-9 rounded-xl bg-blue-600/20 text-blue-400 flex items-center justify-center mb-1.5 group-hover:scale-105 transition">
+                        <div className="w-8 h-8 rounded-xl bg-blue-600/20 text-blue-400 flex items-center justify-center mb-1 group-hover:scale-105 transition">
                           <Send className="w-4 h-4" />
                         </div>
-                        <span className="text-xs font-semibold text-white">Transfer</span>
-                        <span className="text-[10px] text-slate-400">Send money</span>
+                        <span className="text-[11px] font-semibold text-white">Send</span>
+                        <span className="text-[9px] text-slate-400">Transfer</span>
+                      </button>
+
+                      <button
+                        onClick={() => setShowReceiveModal(true)}
+                        className="flex flex-col items-center justify-center p-2.5 bg-slate-900 hover:bg-slate-800/90 border border-slate-800 rounded-xl transition group"
+                      >
+                        <div className="w-8 h-8 rounded-xl bg-emerald-600/20 text-emerald-400 flex items-center justify-center mb-1 group-hover:scale-105 transition">
+                          <QrCode className="w-4 h-4" />
+                        </div>
+                        <span className="text-[11px] font-semibold text-white">Receive</span>
+                        <span className="text-[9px] text-slate-400">QR Code</span>
                       </button>
 
                       <button
                         onClick={() => setCurrentScreen('history')}
-                        className="flex flex-col items-center justify-center p-3 bg-slate-900 hover:bg-slate-800/90 border border-slate-800 rounded-xl transition group"
+                        className="flex flex-col items-center justify-center p-2.5 bg-slate-900 hover:bg-slate-800/90 border border-slate-800 rounded-xl transition group"
                       >
-                        <div className="w-9 h-9 rounded-xl bg-purple-600/20 text-purple-400 flex items-center justify-center mb-1.5 group-hover:scale-105 transition">
+                        <div className="w-8 h-8 rounded-xl bg-purple-600/20 text-purple-400 flex items-center justify-center mb-1 group-hover:scale-105 transition">
                           <History className="w-4 h-4" />
                         </div>
-                        <span className="text-xs font-semibold text-white">History</span>
-                        <span className="text-[10px] text-slate-400">Recent logs</span>
+                        <span className="text-[11px] font-semibold text-white">History</span>
+                        <span className="text-[9px] text-slate-400">Ledger</span>
                       </button>
                     </div>
 
@@ -536,14 +605,41 @@ export const CustomerMobileApp: React.FC = () => {
                     </div>
 
                     <div>
-                      <label className="text-[11px] text-slate-400 block mb-1">Recipient (Email or Account ID)</label>
+                      <div className="flex items-center justify-between mb-1">
+                        <label className="text-[11px] text-slate-400">Recipient</label>
+                        <span className="text-[9px] text-blue-400">Email, UPI or Acc No</span>
+                      </div>
                       <input
                         type="text"
                         value={recipient}
                         onChange={(e) => setRecipient(e.target.value)}
-                        className="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
-                        placeholder="bob@datacore.io or DC-1234-5678"
+                        className="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500 font-mono"
+                        placeholder="bob@datacore.io or bob@dc"
                       />
+                      {/* Fast recipient chips */}
+                      <div className="flex gap-1.5 mt-1.5">
+                        {[
+                          { name: 'Bob', id: 'bob@datacore.io', upi: 'bob@dc' },
+                          { name: 'Charlie', id: 'charlie@datacore.io', upi: 'charlie@dc' },
+                          { name: 'Alice', id: 'alice@datacore.io', upi: 'alice@dc' },
+                        ].map((rec) => (
+                          <button
+                            key={rec.id}
+                            type="button"
+                            onClick={() => {
+                              setRecipient(rec.id);
+                              setNote(`Transfer to ${rec.name}`);
+                            }}
+                            className={`px-2 py-0.5 rounded text-[10px] font-medium border transition ${
+                              recipient === rec.id
+                                ? 'bg-blue-600/30 border-blue-500 text-blue-300'
+                                : 'bg-slate-800 border-slate-700 text-slate-300 hover:bg-slate-700'
+                            }`}
+                          >
+                            {rec.name} ({rec.upi})
+                          </button>
+                        ))}
+                      </div>
                     </div>
 
                     <div>
@@ -802,6 +898,55 @@ export const CustomerMobileApp: React.FC = () => {
                 {transferLoading ? 'Processing...' : 'Authorize'}
               </button>
             </div>
+          </div>
+        </div>
+      )}
+      {/* Receive Money / QR Code Modal */}
+      {showReceiveModal && (
+        <div className="fixed inset-0 bg-black/75 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
+          <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-xs w-full p-6 shadow-2xl text-slate-100 text-center relative">
+            <button
+              onClick={() => setShowReceiveModal(false)}
+              className="absolute top-4 right-4 p-1 rounded-full bg-slate-800 text-slate-400 hover:text-white transition"
+            >
+              <X className="w-4 h-4" />
+            </button>
+
+            <div className="w-12 h-12 mx-auto rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center mb-3">
+              <QrCode className="w-6 h-6" />
+            </div>
+
+            <h3 className="font-bold text-base text-white">Receive Money</h3>
+            <p className="text-xs text-slate-400 mt-0.5">Scan QR or share UPI ID</p>
+
+            {/* Simulated QR Box */}
+            <div className="my-4 mx-auto w-44 h-44 bg-white p-3 rounded-2xl shadow-inner flex flex-col items-center justify-center border-4 border-slate-700">
+              <div className="w-full h-full bg-slate-900 rounded-xl flex flex-col items-center justify-center p-2 relative overflow-hidden">
+                <QrCode className="w-24 h-24 text-white" />
+                <span className="text-[9px] font-mono font-bold text-emerald-400 tracking-wider uppercase mt-1">DataCore UPI</span>
+              </div>
+            </div>
+
+            {/* UPI ID Pill */}
+            <div className="p-2.5 bg-slate-950 rounded-xl border border-slate-800 flex items-center justify-between mb-4">
+              <span className="font-mono text-xs text-emerald-300 font-semibold truncate">
+                {account?.upi_id || (user?.email ? `${user.email.split('@')[0]}@dc` : 'wallet@dc')}
+              </span>
+              <button
+                onClick={copyUpiId}
+                className="flex items-center space-x-1 text-[10px] bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 px-2 py-1 rounded transition"
+              >
+                {copiedUpi ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
+                <span>{copiedUpi ? 'Copied' : 'Copy'}</span>
+              </button>
+            </div>
+
+            <button
+              onClick={() => setShowReceiveModal(false)}
+              className="w-full py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-semibold transition"
+            >
+              Close
+            </button>
           </div>
         </div>
       )}

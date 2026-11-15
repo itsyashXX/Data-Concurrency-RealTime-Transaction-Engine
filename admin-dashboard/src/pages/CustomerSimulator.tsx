@@ -1,6 +1,6 @@
 import React from 'react';
 import { CustomerMobileApp } from '../components/CustomerMobileApp';
-import { Smartphone, Zap, ShieldCheck, ArrowRight, BookOpen, Layers } from 'lucide-react';
+import { Smartphone, Zap, ShieldCheck, ArrowRight, BookOpen, Layers, ExternalLink, Download } from 'lucide-react';
 
 export const CustomerSimulator: React.FC = () => {
   return (
@@ -23,10 +23,19 @@ export const CustomerSimulator: React.FC = () => {
             </p>
           </div>
 
-          <div className="flex items-center gap-2">
-            <span className="flex items-center space-x-1.5 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-medium">
+          <div className="flex flex-wrap items-center gap-2">
+            <a
+              href="/preview.html"
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold shadow-md shadow-blue-500/20 transition"
+            >
+              <ExternalLink className="w-3.5 h-3.5" />
+              <span>Fullscreen Preview</span>
+            </a>
+            <span className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-medium">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-              <span>Backend Connected</span>
+              <span>Render Live</span>
             </span>
           </div>
         </div>
