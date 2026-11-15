@@ -58,3 +58,4 @@ mobile-app/android/app/build/
 *.swo
 .DS_Store
 Thumbs.db
+*.apk
