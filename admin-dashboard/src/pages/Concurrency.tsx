@@ -83,7 +83,7 @@ export const Concurrency: React.FC = () => {
 
         <button
           onClick={() => fetchEvents(true)}
-          className="p-2 bg-obsidian-900 hover:bg-obsidian-850 text-slate-300 rounded-xl border border-white/[0.08] transition-colors self-start sm:self-auto shadow-sm"
+          className="p-2 bg-void-900 hover:bg-void-850 text-slate-300 rounded-xl border border-white/[0.08] transition-colors self-start sm:self-auto shadow-sm"
           title="Refresh event stream"
         >
           <RefreshCw className={`w-4 h-4 ${isRefreshing ? 'animate-spin text-brand-400' : ''}`} />
@@ -91,7 +91,7 @@ export const Concurrency: React.FC = () => {
       </div>
 
       {/* Events Stream List */}
-      <div className="bg-obsidian-900/90 border border-white/[0.08] rounded-2xl p-6 shadow-xl">
+      <div className="bg-void-900/90 border border-white/[0.08] rounded-2xl p-6 shadow-xl">
         <div className="flex items-center justify-between pb-4 border-b border-white/[0.06] mb-5">
           <h3 className="text-xs font-mono font-bold uppercase text-slate-300 tracking-wider">
             Live Concurrency & Lock Acquisition Trace
@@ -116,7 +116,7 @@ export const Concurrency: React.FC = () => {
             {events.map((ev) => (
               <div
                 key={ev.id}
-                className="p-4 bg-obsidian-950/80 border border-white/[0.06] hover:border-brand-500/30 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs transition-all"
+                className="p-4 bg-void-950/80 border border-white/[0.06] hover:border-brand-500/30 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs transition-all"
               >
                 <div className="flex items-center space-x-3">
                   {getEventBadge(ev.event_type)}
@@ -125,7 +125,7 @@ export const Concurrency: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="font-mono text-[11px] text-slate-300 bg-obsidian-900 px-3 py-1.5 rounded-lg border border-white/[0.06] overflow-x-auto max-w-xl">
+                <div className="font-mono text-[11px] text-slate-300 bg-void-900 px-3 py-1.5 rounded-lg border border-white/[0.06] overflow-x-auto max-w-xl">
                   {JSON.stringify(ev.details)}
                 </div>
 

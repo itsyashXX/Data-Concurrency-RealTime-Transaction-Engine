@@ -49,14 +49,14 @@ export const DuplicateDetection: React.FC = () => {
 
         <button
           onClick={() => fetchKeys(true)}
-          className="p-2 bg-obsidian-900 hover:bg-obsidian-850 text-slate-300 rounded-xl border border-white/[0.08] transition-colors self-start sm:self-auto shadow-sm"
+          className="p-2 bg-void-900 hover:bg-void-850 text-slate-300 rounded-xl border border-white/[0.08] transition-colors self-start sm:self-auto shadow-sm"
           title="Refresh idempotency records"
         >
           <RefreshCw className={`w-4 h-4 ${isRefreshing ? 'animate-spin text-brand-400' : ''}`} />
         </button>
       </div>
 
-      <div className="bg-obsidian-900/90 border border-white/[0.08] rounded-2xl p-6 shadow-xl">
+      <div className="bg-void-900/90 border border-white/[0.08] rounded-2xl p-6 shadow-xl">
         <div className="flex items-center justify-between pb-4 border-b border-white/[0.06] mb-5">
           <h3 className="text-xs font-mono font-bold uppercase text-slate-300 tracking-wider">
             Recorded Idempotency Keys & Deduplication Proofs
@@ -81,7 +81,7 @@ export const DuplicateDetection: React.FC = () => {
             {keys.map((k) => (
               <div
                 key={k.id}
-                className="p-4 bg-obsidian-950/80 border border-white/[0.06] hover:border-brand-500/30 rounded-xl space-y-3 transition-all"
+                className="p-4 bg-void-950/80 border border-white/[0.06] hover:border-brand-500/30 rounded-xl space-y-3 transition-all"
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-2 font-mono text-xs text-brand-300 font-semibold">
@@ -111,7 +111,7 @@ export const DuplicateDetection: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="p-2.5 bg-obsidian-900 rounded-lg border border-white/[0.06] flex items-center justify-between text-[11px] font-mono text-slate-400">
+                <div className="p-2.5 bg-void-900 rounded-lg border border-white/[0.06] flex items-center justify-between text-[11px] font-mono text-slate-400">
                   <div className="flex items-center space-x-1.5 truncate">
                     <Hash className="w-3.5 h-3.5 text-cyber-cyan shrink-0" />
                     <span className="text-slate-400">Payload SHA-256:</span>

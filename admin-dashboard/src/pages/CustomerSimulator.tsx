@@ -7,7 +7,7 @@ export const CustomerSimulator: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Top Banner */}
-      <div className="relative overflow-hidden bg-obsidian-900/90 border border-white/[0.08] rounded-2xl p-6 shadow-xl">
+      <div className="relative overflow-hidden bg-void-900/90 border border-white/[0.08] rounded-2xl p-6 shadow-xl">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <div className="flex items-center space-x-2 text-cyber-cyan mb-2">
@@ -43,14 +43,14 @@ export const CustomerSimulator: React.FC = () => {
       {/* Main Grid: Interactive Phone + Side Information & Lab Bridge */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* Left Column: Phone Mockup */}
-        <div className="lg:col-span-6 flex justify-center bg-obsidian-900/40 border border-white/[0.06] rounded-3xl py-6 shadow-2xl">
+        <div className="lg:col-span-6 flex justify-center bg-void-900/40 border border-white/[0.06] rounded-3xl py-6 shadow-2xl">
           <CustomerMobileApp />
         </div>
 
         {/* Right Column: Demonstration Guide & Real-Time Sync Guide */}
         <div className="lg:col-span-6 space-y-4">
           {/* Card 1: How to test */}
-          <div className="bg-obsidian-900/90 border border-white/[0.08] rounded-2xl p-5 space-y-3 shadow-xl">
+          <div className="bg-void-900/90 border border-white/[0.08] rounded-2xl p-5 space-y-3 shadow-xl">
             <div className="flex items-center space-x-2 text-white font-bold text-sm tracking-tight">
               <Zap className="w-4 h-4 text-amber-400" />
               <span>Interactive Demonstration Steps</span>
@@ -72,18 +72,18 @@ export const CustomerSimulator: React.FC = () => {
           </div>
 
           {/* Card 2: Technical Architecture Info */}
-          <div className="bg-obsidian-900/90 border border-white/[0.08] rounded-2xl p-5 space-y-3 shadow-xl">
+          <div className="bg-void-900/90 border border-white/[0.08] rounded-2xl p-5 space-y-3 shadow-xl">
             <div className="flex items-center space-x-2 text-white font-bold text-sm tracking-tight">
               <ShieldCheck className="w-4 h-4 text-emerald-400" />
               <span>Database Guarantees Enforced</span>
             </div>
             <div className="grid grid-cols-2 gap-3 text-xs">
-              <div className="p-3 bg-obsidian-950/80 rounded-xl border border-white/[0.06]">
+              <div className="p-3 bg-void-950/80 rounded-xl border border-white/[0.06]">
                 <span className="text-slate-400 block text-[10px] uppercase font-mono">Ledger Invariant</span>
                 <span className="text-white font-semibold mt-1 block">Debits == Credits</span>
                 <p className="text-[10px] text-slate-500 mt-1">Zero-sum balance invariant</p>
               </div>
-              <div className="p-3 bg-obsidian-950/80 rounded-xl border border-white/[0.06]">
+              <div className="p-3 bg-void-950/80 rounded-xl border border-white/[0.06]">
                 <span className="text-slate-400 block text-[10px] uppercase font-mono">Row Lock Strategy</span>
                 <span className="text-white font-semibold mt-1 block">SELECT FOR UPDATE</span>
                 <p className="text-[10px] text-slate-500 mt-1">Deterministic ordering eliminates deadlocks</p>
@@ -92,14 +92,14 @@ export const CustomerSimulator: React.FC = () => {
           </div>
 
           {/* Card 3: Quick Links */}
-          <div className="bg-obsidian-900/90 border border-white/[0.08] rounded-2xl p-5 shadow-xl">
+          <div className="bg-void-900/90 border border-white/[0.08] rounded-2xl p-5 shadow-xl">
             <span className="text-xs font-mono font-semibold text-slate-300 block mb-3 uppercase tracking-wider">
               Explore Related Observability Views:
             </span>
             <div className="flex flex-wrap gap-2.5">
               <Link
                 to="/transactions"
-                className="inline-flex items-center space-x-2 px-3 py-2 rounded-xl bg-obsidian-950 hover:bg-obsidian-850 border border-white/[0.08] text-xs font-mono text-slate-200 transition"
+                className="inline-flex items-center space-x-2 px-3 py-2 rounded-xl bg-void-950 hover:bg-void-850 border border-white/[0.08] text-xs font-mono text-slate-200 transition"
               >
                 <Layers className="w-3.5 h-3.5 text-brand-400" />
                 <span>Live Transactions</span>
@@ -107,7 +107,7 @@ export const CustomerSimulator: React.FC = () => {
               </Link>
               <Link
                 to="/race-lab"
-                className="inline-flex items-center space-x-2 px-3 py-2 rounded-xl bg-obsidian-950 hover:bg-obsidian-850 border border-white/[0.08] text-xs font-mono text-slate-200 transition"
+                className="inline-flex items-center space-x-2 px-3 py-2 rounded-xl bg-void-950 hover:bg-void-850 border border-white/[0.08] text-xs font-mono text-slate-200 transition"
               >
                 <BookOpen className="w-3.5 h-3.5 text-purple-400" />
                 <span>Race-Condition Lab</span>

@@ -50,7 +50,7 @@ export const Consistency: React.FC = () => {
 
         <button
           onClick={() => fetchConsistency(true)}
-          className="p-2 bg-obsidian-900 hover:bg-obsidian-850 text-slate-300 rounded-xl border border-white/[0.08] transition-colors self-start sm:self-auto shadow-sm"
+          className="p-2 bg-void-900 hover:bg-void-850 text-slate-300 rounded-xl border border-white/[0.08] transition-colors self-start sm:self-auto shadow-sm"
           title="Re-run mathematical verification"
         >
           <RefreshCw className={`w-4 h-4 ${isRefreshing ? 'animate-spin text-brand-400' : ''}`} />
@@ -58,7 +58,7 @@ export const Consistency: React.FC = () => {
       </div>
 
       {/* Main Audit Summary Card */}
-      <div className="bg-obsidian-900/90 border border-white/[0.08] rounded-2xl p-6 shadow-xl space-y-6">
+      <div className="bg-void-900/90 border border-white/[0.08] rounded-2xl p-6 shadow-xl space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-white/[0.06]">
           <div>
             <h3 className="text-sm font-bold text-white tracking-tight">Global Ledger Balance Verification</h3>
@@ -78,7 +78,7 @@ export const Consistency: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div className="p-4.5 bg-obsidian-950/80 border border-white/[0.06] rounded-2xl">
+          <div className="p-4.5 bg-void-950/80 border border-white/[0.06] rounded-2xl">
             <span className="text-[10px] font-mono font-semibold text-slate-400 uppercase tracking-wider block">
               Total System Balance
             </span>
@@ -88,7 +88,7 @@ export const Consistency: React.FC = () => {
             <p className="text-[11px] text-slate-400 mt-1">Sum of all active account balances</p>
           </div>
 
-          <div className="p-4.5 bg-obsidian-950/80 border border-white/[0.06] rounded-2xl">
+          <div className="p-4.5 bg-void-950/80 border border-white/[0.06] rounded-2xl">
             <span className="text-[10px] font-mono font-semibold text-brand-400 uppercase tracking-wider block">
               Total Ledger Debits
             </span>
@@ -98,7 +98,7 @@ export const Consistency: React.FC = () => {
             <p className="text-[11px] text-slate-400 mt-1">Sum of all immutable DEBIT records</p>
           </div>
 
-          <div className="p-4.5 bg-obsidian-950/80 border border-white/[0.06] rounded-2xl">
+          <div className="p-4.5 bg-void-950/80 border border-white/[0.06] rounded-2xl">
             <span className="text-[10px] font-mono font-semibold text-cyber-cyan uppercase tracking-wider block">
               Total Ledger Credits
             </span>
@@ -110,7 +110,7 @@ export const Consistency: React.FC = () => {
         </div>
 
         {/* Ledger Rules & Principles Box */}
-        <div className="p-5 bg-obsidian-950/80 border border-white/[0.06] rounded-2xl space-y-3">
+        <div className="p-5 bg-void-950/80 border border-white/[0.06] rounded-2xl space-y-3">
           <h4 className="text-xs font-mono font-bold text-white uppercase tracking-wider flex items-center space-x-2">
             <ShieldCheck className="w-4 h-4 text-emerald-400" />
             <span>Guaranteed Database Consistency Invariants</span>

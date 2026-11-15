@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Zap, Lock, Mail, AlertCircle, ArrowRight, ShieldCheck } from 'lucide-react';
+import { Zap, Lock, Mail, AlertCircle, ArrowRight, Sparkles } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { api } from '../services/api';
 
 export const Login: React.FC = () => {
@@ -42,95 +43,114 @@ export const Login: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-obsidian-950 flex items-center justify-center p-4 relative overflow-hidden">
-      {/* Background ambient radial glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-brand-500/10 rounded-full blur-[140px] pointer-events-none"></div>
+    <div className="min-h-screen bg-void-950 flex items-center justify-center p-4 relative overflow-hidden aurora-canvas">
+      {/* Background ambient aurora glow orbs */}
+      <div className="absolute top-1/4 -left-20 w-[500px] h-[500px] bg-brand-500/15 rounded-full blur-[140px] pointer-events-none animate-pulse-glow"></div>
+      <div className="absolute bottom-1/4 -right-20 w-[500px] h-[500px] bg-aurora-cyan/15 rounded-full blur-[140px] pointer-events-none"></div>
 
-      <div className="w-full max-w-md relative z-10">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95, y: 15 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: 'easeOut' }}
+        className="w-full max-w-md relative z-10"
+      >
         {/* Brand Header */}
-        <div className="text-center mb-7">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-tr from-brand-600 via-indigo-500 to-cyber-cyan text-white shadow-glow-brand mb-4">
+        <div className="text-center mb-8">
+          <motion.div
+            whileHover={{ rotate: 180, scale: 1.1 }}
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-tr from-aurora-cyan via-brand-500 to-aurora-fuchsia text-white shadow-neon-cyan mb-4 cursor-pointer"
+          >
             <Zap className="w-7 h-7 text-white fill-white" />
+          </motion.div>
+          <div className="flex items-center justify-center space-x-2">
+            <h1 className="text-2xl font-black text-white tracking-tight">DataCore</h1>
+            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded font-bold bg-aurora-cyan/15 text-aurora-cyan border border-aurora-cyan/30">
+              ENGINE v3.0
+            </span>
           </div>
-          <h1 className="text-2xl font-black text-white tracking-tight">DataCore Engine</h1>
-          <p className="text-xs text-slate-400 mt-1 font-mono uppercase tracking-wider">
+          <p className="text-xs text-slate-400 mt-1.5 font-mono uppercase tracking-wider">
             Real-Time Concurrency & Transaction Observability
           </p>
         </div>
 
         {/* Card */}
-        <div className="bg-obsidian-900/90 border border-white/[0.08] rounded-3xl p-8 shadow-2xl backdrop-blur-xl">
+        <div className="bg-void-900/90 border border-white/[0.08] rounded-3xl p-8 shadow-2xl backdrop-blur-2xl relative overflow-hidden">
+          <div className="absolute inset-x-0 top-0 h-[1.5px] bg-gradient-to-r from-transparent via-aurora-cyan/50 to-transparent"></div>
+
           <div className="mb-6">
-            <h2 className="text-base font-bold text-white tracking-tight">Administrator Authentication</h2>
+            <h2 className="text-base font-bold text-white tracking-tight">Operator Authorization</h2>
             <p className="text-xs text-slate-400 mt-0.5">
-              Authoritative access for database locks & ledger invariants
+              Secure administrative access for database locks & ledger proofs
             </p>
           </div>
 
           {error && (
-            <div className="mb-5 p-3.5 bg-rose-500/15 border border-rose-500/30 rounded-2xl flex items-center space-x-3 text-rose-300 text-xs">
-              <AlertCircle className="w-4 h-4 shrink-0 text-rose-400" />
+            <div className="mb-5 p-3.5 bg-aurora-pink/15 border border-aurora-pink/30 rounded-2xl flex items-center space-x-3 text-aurora-pink text-xs">
+              <AlertCircle className="w-4 h-4 shrink-0" />
               <span>{error}</span>
             </div>
           )}
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-[10px] font-mono font-semibold text-slate-400 mb-1.5 uppercase tracking-wider">
-                Operator Email
+              <label className="block text-[10px] font-mono font-bold text-slate-400 mb-1.5 uppercase tracking-wider">
+                Admin Identifier
               </label>
               <div className="relative">
-                <Mail className="w-4 h-4 text-slate-500 absolute left-3.5 top-3" />
+                <Mail className="w-4 h-4 text-slate-500 absolute left-3.5 top-3.5" />
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
                   placeholder="admin@datacore.io"
-                  className="w-full pl-10 pr-4 py-2.5 bg-obsidian-950 border border-white/[0.08] rounded-xl text-xs text-white placeholder-slate-600 focus:outline-none focus:border-brand-500 font-mono transition-colors"
+                  className="w-full pl-10 pr-4 py-2.5 bg-void-950 border border-white/[0.08] rounded-xl text-xs text-white placeholder-slate-600 focus:outline-none focus:border-aurora-cyan font-mono transition-colors"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-[10px] font-mono font-semibold text-slate-400 mb-1.5 uppercase tracking-wider">
-                Access Token / Password
+              <label className="block text-[10px] font-mono font-bold text-slate-400 mb-1.5 uppercase tracking-wider">
+                Security Key / Password
               </label>
               <div className="relative">
-                <Lock className="w-4 h-4 text-slate-500 absolute left-3.5 top-3" />
+                <Lock className="w-4 h-4 text-slate-500 absolute left-3.5 top-3.5" />
                 <input
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
                   placeholder="••••••••••••"
-                  className="w-full pl-10 pr-4 py-2.5 bg-obsidian-950 border border-white/[0.08] rounded-xl text-xs text-white placeholder-slate-600 focus:outline-none focus:border-brand-500 font-mono transition-colors"
+                  className="w-full pl-10 pr-4 py-2.5 bg-void-950 border border-white/[0.08] rounded-xl text-xs text-white placeholder-slate-600 focus:outline-none focus:border-aurora-cyan font-mono transition-colors"
                 />
               </div>
             </div>
 
-            <button
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               type="submit"
               disabled={loading}
-              className="w-full mt-2 py-3 px-4 bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 disabled:opacity-50 text-white text-xs font-mono font-bold rounded-xl flex items-center justify-center space-x-2 transition-all shadow-glow-brand"
+              className="w-full mt-2 py-3 px-4 bg-gradient-to-r from-brand-600 via-indigo-600 to-aurora-cyan hover:opacity-95 disabled:opacity-50 text-white text-xs font-mono font-bold rounded-xl flex items-center justify-center space-x-2 transition-all shadow-neon-violet"
             >
               <span>{loading ? 'Authenticating...' : 'Sign In to Command Center'}</span>
               <ArrowRight className="w-4 h-4" />
-            </button>
+            </motion.button>
           </form>
 
           <div className="mt-6 pt-5 border-t border-white/[0.06] flex items-center justify-between text-[11px] font-mono text-slate-400">
-            <span>Demo: <strong className="text-slate-300">admin@datacore.io</strong></span>
+            <span>Default: <strong className="text-slate-300">admin@datacore.io</strong></span>
             <button
               type="button"
               onClick={handleFillDemo}
-              className="text-brand-400 hover:text-brand-300 font-semibold underline underline-offset-2"
+              className="text-aurora-cyan hover:text-white font-bold underline underline-offset-2 transition-colors"
             >
               Auto-Fill
             </button>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };

@@ -23,11 +23,11 @@ const ProtectedLayout: React.FC = () => {
   }
 
   return (
-    <div className="flex min-h-screen bg-obsidian-950 text-slate-100 selection:bg-brand-500/30 selection:text-white">
+    <div className="flex min-h-screen bg-void-950 text-slate-100 selection:bg-aurora-cyan/30 selection:text-white aurora-canvas">
       <Sidebar userEmail={user?.email} />
-      <div className="flex-1 flex flex-col min-w-0 overflow-hidden bg-radial-glow">
+      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         <Header title="DataCore Administration" subtitle="Centralized Real-Time Engine Observability" />
-        <main className="flex-1 p-8 overflow-y-auto">
+        <main className="flex-1 p-6 md:p-8 overflow-y-auto">
           <div className="max-w-7xl mx-auto space-y-6">
             <Outlet />
           </div>

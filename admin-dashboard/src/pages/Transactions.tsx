@@ -207,7 +207,7 @@ export const Transactions: React.FC = () => {
         <div className="flex items-center space-x-2.5">
           <button
             onClick={exportCSV}
-            className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl border border-white/[0.08] bg-obsidian-900 hover:bg-obsidian-850 text-xs font-semibold text-slate-300 transition-colors shadow-sm"
+            className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl border border-white/[0.08] bg-void-900 hover:bg-void-850 text-xs font-semibold text-slate-300 transition-colors shadow-sm"
           >
             <Download className="w-3.5 h-3.5 text-brand-400" />
             <span>Export CSV</span>
@@ -215,7 +215,7 @@ export const Transactions: React.FC = () => {
 
           <button
             onClick={() => fetchTransactions(true)}
-            className="p-2 bg-obsidian-900 hover:bg-obsidian-850 text-slate-300 rounded-xl border border-white/[0.08] transition-colors shadow-sm"
+            className="p-2 bg-void-900 hover:bg-void-850 text-slate-300 rounded-xl border border-white/[0.08] transition-colors shadow-sm"
             title="Refresh transactions"
           >
             <RefreshCw className={`w-4 h-4 ${isRefreshing ? 'animate-spin text-brand-400' : ''}`} />
@@ -234,7 +234,7 @@ export const Transactions: React.FC = () => {
       )}
 
       {/* Filter and Search Controls */}
-      <div className="bg-obsidian-900/80 border border-white/[0.08] rounded-2xl p-3.5 flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-md">
+      <div className="bg-void-900/80 border border-white/[0.08] rounded-2xl p-3.5 flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-md">
         <div className="relative flex-1">
           <Search className="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
           <input
@@ -242,48 +242,48 @@ export const Transactions: React.FC = () => {
             placeholder="Search by Transaction ID, Account Number, Amount..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 text-xs rounded-xl bg-obsidian-950 border border-white/[0.08] text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 font-mono transition-colors"
+            className="w-full pl-10 pr-4 py-2 text-xs rounded-xl bg-void-950 border border-white/[0.08] text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 font-mono transition-colors"
           />
         </div>
 
         <div className="flex items-center space-x-2.5">
-          <div className="flex items-center space-x-2 bg-obsidian-950 border border-white/[0.08] rounded-xl px-3 py-1.5 text-xs text-slate-300">
+          <div className="flex items-center space-x-2 bg-void-950 border border-white/[0.08] rounded-xl px-3 py-1.5 text-xs text-slate-300">
             <Filter className="w-3.5 h-3.5 text-slate-500" />
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
               className="bg-transparent text-white focus:outline-none font-mono text-xs"
             >
-              <option value="" className="bg-obsidian-950">All Statuses</option>
-              <option value="COMPLETED" className="bg-obsidian-950">COMPLETED</option>
-              <option value="REVERSED" className="bg-obsidian-950">REVERSED</option>
-              <option value="FAILED" className="bg-obsidian-950">FAILED</option>
-              <option value="ROLLED_BACK" className="bg-obsidian-950">ROLLED_BACK</option>
-              <option value="PENDING" className="bg-obsidian-950">PENDING</option>
+              <option value="" className="bg-void-950">All Statuses</option>
+              <option value="COMPLETED" className="bg-void-950">COMPLETED</option>
+              <option value="REVERSED" className="bg-void-950">REVERSED</option>
+              <option value="FAILED" className="bg-void-950">FAILED</option>
+              <option value="ROLLED_BACK" className="bg-void-950">ROLLED_BACK</option>
+              <option value="PENDING" className="bg-void-950">PENDING</option>
             </select>
           </div>
 
-          <div className="flex items-center space-x-2 bg-obsidian-950 border border-white/[0.08] rounded-xl px-3 py-1.5 text-xs text-slate-300">
+          <div className="flex items-center space-x-2 bg-void-950 border border-white/[0.08] rounded-xl px-3 py-1.5 text-xs text-slate-300">
             <select
               value={strategyFilter}
               onChange={(e) => setStrategyFilter(e.target.value)}
               className="bg-transparent text-white focus:outline-none font-mono text-xs"
             >
-              <option value="" className="bg-obsidian-950">All Strategies</option>
-              <option value="PESSIMISTIC" className="bg-obsidian-950">Pessimistic</option>
-              <option value="OPTIMISTIC" className="bg-obsidian-950">Optimistic</option>
-              <option value="ATOMIC_CONDITIONAL" className="bg-obsidian-950">Atomic Conditional</option>
-              <option value="UNSAFE_BASELINE" className="bg-obsidian-950">Unsafe Baseline</option>
+              <option value="" className="bg-void-950">All Strategies</option>
+              <option value="PESSIMISTIC" className="bg-void-950">Pessimistic</option>
+              <option value="OPTIMISTIC" className="bg-void-950">Optimistic</option>
+              <option value="ATOMIC_CONDITIONAL" className="bg-void-950">Atomic Conditional</option>
+              <option value="UNSAFE_BASELINE" className="bg-void-950">Unsafe Baseline</option>
             </select>
           </div>
         </div>
       </div>
 
       {/* Transactions Table */}
-      <div className="bg-obsidian-900/90 border border-white/[0.08] rounded-2xl overflow-hidden shadow-xl">
+      <div className="bg-void-900/90 border border-white/[0.08] rounded-2xl overflow-hidden shadow-xl">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-obsidian-950/80 border-b border-white/[0.06] text-slate-400 uppercase tracking-wider font-mono text-[11px]">
+            <thead className="bg-void-950/80 border-b border-white/[0.06] text-slate-400 uppercase tracking-wider font-mono text-[11px]">
               <tr>
                 <th className="px-5 py-4 font-semibold">Transaction ID</th>
                 <th className="px-5 py-4 font-semibold">Sender</th>
@@ -314,7 +314,7 @@ export const Transactions: React.FC = () => {
                 </tr>
               ) : (
                 filteredTransactions.map((tx) => (
-                  <tr key={tx.id} className="hover:bg-obsidian-850/60 transition-colors">
+                  <tr key={tx.id} className="hover:bg-void-850/60 transition-colors">
                     <td className="px-5 py-4 font-mono font-semibold text-brand-300">
                       {tx.id.substring(0, 8)}...
                     </td>
@@ -342,7 +342,7 @@ export const Transactions: React.FC = () => {
                     <td className="px-5 py-4 text-right space-x-1.5 whitespace-nowrap">
                       <button
                         onClick={() => inspectTransaction(tx.id)}
-                        className="px-2.5 py-1.5 bg-obsidian-950 hover:bg-brand-600/20 text-slate-300 hover:text-brand-300 rounded-xl border border-white/[0.08] hover:border-brand-500/40 text-[11px] font-mono transition-all"
+                        className="px-2.5 py-1.5 bg-void-950 hover:bg-brand-600/20 text-slate-300 hover:text-brand-300 rounded-xl border border-white/[0.08] hover:border-brand-500/40 text-[11px] font-mono transition-all"
                       >
                         Inspect Ledger
                       </button>
@@ -369,7 +369,7 @@ export const Transactions: React.FC = () => {
       {/* Ledger Modal Inspector */}
       {selectedTx && (
         <div className="fixed inset-0 bg-black/75 backdrop-blur-md z-50 flex items-center justify-center p-4">
-          <div className="bg-obsidian-900 border border-white/[0.08] rounded-3xl w-full max-w-2xl max-h-[85vh] overflow-y-auto p-6 shadow-2xl text-white">
+          <div className="bg-void-900 border border-white/[0.08] rounded-3xl w-full max-w-2xl max-h-[85vh] overflow-y-auto p-6 shadow-2xl text-white">
             <div className="flex items-center justify-between pb-4 border-b border-white/[0.06] mb-4">
               <div className="flex items-center space-x-3">
                 <div className="p-2.5 rounded-xl bg-brand-500/15 text-brand-400 border border-brand-500/30">
@@ -382,18 +382,18 @@ export const Transactions: React.FC = () => {
               </div>
               <button
                 onClick={() => setSelectedTx(null)}
-                className="p-1 rounded-lg text-slate-400 hover:text-white bg-obsidian-950 border border-white/[0.06]"
+                className="p-1 rounded-lg text-slate-400 hover:text-white bg-void-950 border border-white/[0.06]"
               >
                 ✕
               </button>
             </div>
 
             <div className="grid grid-cols-2 gap-3 mb-5 text-xs font-mono">
-              <div className="p-3 bg-obsidian-950 rounded-xl border border-white/[0.06]">
+              <div className="p-3 bg-void-950 rounded-xl border border-white/[0.06]">
                 <span className="text-slate-400 text-[10px] uppercase">Transaction Status</span>
                 <div className="mt-1">{getStatusBadge(selectedTx.status)}</div>
               </div>
-              <div className="p-3 bg-obsidian-950 rounded-xl border border-white/[0.06]">
+              <div className="p-3 bg-void-950 rounded-xl border border-white/[0.06]">
                 <span className="text-slate-400 text-[10px] uppercase">Concurrency Strategy</span>
                 <div className="mt-1 font-semibold text-slate-200">{selectedTx.concurrency_strategy}</div>
               </div>
@@ -408,7 +408,7 @@ export const Transactions: React.FC = () => {
                 selectedTx.ledger_entries.map((entry) => (
                   <div
                     key={entry.id}
-                    className="p-3.5 bg-obsidian-950 border border-white/[0.06] rounded-xl flex items-center justify-between text-xs"
+                    className="p-3.5 bg-void-950 border border-white/[0.06] rounded-xl flex items-center justify-between text-xs"
                   >
                     <div>
                       <span
@@ -428,7 +428,7 @@ export const Transactions: React.FC = () => {
                   </div>
                 ))
               ) : (
-                <div className="text-xs text-slate-400 p-5 text-center bg-obsidian-950 rounded-xl border border-white/[0.06]">
+                <div className="text-xs text-slate-400 p-5 text-center bg-void-950 rounded-xl border border-white/[0.06]">
                   No ledger entries recorded (transaction rolled back or bypassed).
                 </div>
               )}
@@ -436,7 +436,7 @@ export const Transactions: React.FC = () => {
 
             <button
               onClick={() => setSelectedTx(null)}
-              className="w-full py-2.5 bg-obsidian-950 hover:bg-obsidian-850 text-slate-200 text-xs font-mono font-semibold rounded-xl border border-white/[0.08] transition-colors"
+              className="w-full py-2.5 bg-void-950 hover:bg-void-850 text-slate-200 text-xs font-mono font-semibold rounded-xl border border-white/[0.08] transition-colors"
             >
               Close Ledger Audit
             </button>

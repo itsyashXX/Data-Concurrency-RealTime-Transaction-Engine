@@ -49,24 +49,24 @@ export const AuditLogs: React.FC = () => {
         </div>
 
         <div className="flex items-center space-x-2.5">
-          <div className="flex items-center space-x-2 bg-obsidian-900 border border-white/[0.08] rounded-xl px-3 py-1.5 text-xs text-slate-300 shadow-sm">
+          <div className="flex items-center space-x-2 bg-void-900 border border-white/[0.08] rounded-xl px-3 py-1.5 text-xs text-slate-300 shadow-sm">
             <Filter className="w-3.5 h-3.5 text-slate-500" />
             <select
               value={filterAction}
               onChange={(e) => setFilterAction(e.target.value)}
               className="bg-transparent text-white focus:outline-none font-mono text-xs"
             >
-              <option value="" className="bg-obsidian-950">All Actions</option>
-              <option value="AUTH_LOGIN" className="bg-obsidian-950">AUTH_LOGIN</option>
-              <option value="AUTH_REGISTER" className="bg-obsidian-950">AUTH_REGISTER</option>
-              <option value="AUTH_LOGOUT" className="bg-obsidian-950">AUTH_LOGOUT</option>
-              <option value="SYSTEM_INITIALIZED" className="bg-obsidian-950">SYSTEM_INITIALIZED</option>
+              <option value="" className="bg-void-950">All Actions</option>
+              <option value="AUTH_LOGIN" className="bg-void-950">AUTH_LOGIN</option>
+              <option value="AUTH_REGISTER" className="bg-void-950">AUTH_REGISTER</option>
+              <option value="AUTH_LOGOUT" className="bg-void-950">AUTH_LOGOUT</option>
+              <option value="SYSTEM_INITIALIZED" className="bg-void-950">SYSTEM_INITIALIZED</option>
             </select>
           </div>
 
           <button
             onClick={() => fetchLogs(true)}
-            className="p-2 bg-obsidian-900 hover:bg-obsidian-850 text-slate-300 rounded-xl border border-white/[0.08] transition-colors shadow-sm"
+            className="p-2 bg-void-900 hover:bg-void-850 text-slate-300 rounded-xl border border-white/[0.08] transition-colors shadow-sm"
             title="Refresh audit trail"
           >
             <RefreshCw className={`w-4 h-4 ${isRefreshing ? 'animate-spin text-brand-400' : ''}`} />
@@ -74,10 +74,10 @@ export const AuditLogs: React.FC = () => {
         </div>
       </div>
 
-      <div className="bg-obsidian-900/90 border border-white/[0.08] rounded-2xl overflow-hidden shadow-xl">
+      <div className="bg-void-900/90 border border-white/[0.08] rounded-2xl overflow-hidden shadow-xl">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs font-mono">
-            <thead className="bg-obsidian-950/80 border-b border-white/[0.06] text-slate-400 uppercase tracking-wider text-[11px]">
+            <thead className="bg-void-950/80 border-b border-white/[0.06] text-slate-400 uppercase tracking-wider text-[11px]">
               <tr>
                 <th className="px-5 py-4 font-semibold">Timestamp</th>
                 <th className="px-5 py-4 font-semibold">Action Trigger</th>
@@ -102,7 +102,7 @@ export const AuditLogs: React.FC = () => {
                 </tr>
               ) : (
                 logs.map((log) => (
-                  <tr key={log.id} className="hover:bg-obsidian-850/60 transition-colors">
+                  <tr key={log.id} className="hover:bg-void-850/60 transition-colors">
                     <td className="px-5 py-3.5 text-slate-400 whitespace-nowrap">
                       {new Date(log.timestamp).toLocaleString()}
                     </td>

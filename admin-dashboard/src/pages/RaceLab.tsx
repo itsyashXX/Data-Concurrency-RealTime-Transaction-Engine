@@ -113,7 +113,7 @@ export const RaceLab: React.FC = () => {
 
       {/* Experiment Setup Card */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-1 bg-obsidian-900/90 border border-white/[0.08] rounded-2xl p-6 shadow-xl space-y-5">
+        <div className="lg:col-span-1 bg-void-900/90 border border-white/[0.08] rounded-2xl p-6 shadow-xl space-y-5">
           <h2 className="text-xs font-mono font-bold text-white uppercase tracking-wider">
             Configure Experiment
           </h2>
@@ -126,7 +126,7 @@ export const RaceLab: React.FC = () => {
               <select
                 value={strategy}
                 onChange={(e) => setStrategy(e.target.value)}
-                className="w-full bg-obsidian-950 border border-white/[0.08] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-500 font-mono transition-colors"
+                className="w-full bg-void-950 border border-white/[0.08] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-500 font-mono transition-colors"
               >
                 <option value="PESSIMISTIC">Pessimistic Locking (SELECT FOR UPDATE)</option>
                 <option value="OPTIMISTIC">Optimistic Locking (Version Check)</option>
@@ -143,7 +143,7 @@ export const RaceLab: React.FC = () => {
                 type="number"
                 value={initialBalance}
                 onChange={(e) => setInitialBalance(Number(e.target.value))}
-                className="w-full bg-obsidian-950 border border-white/[0.08] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-500 font-mono transition-colors"
+                className="w-full bg-void-950 border border-white/[0.08] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-500 font-mono transition-colors"
               />
             </div>
 
@@ -156,7 +156,7 @@ export const RaceLab: React.FC = () => {
                   type="number"
                   value={withdrawalA}
                   onChange={(e) => setWithdrawalA(Number(e.target.value))}
-                  className="w-full bg-obsidian-950 border border-white/[0.08] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-500 font-mono transition-colors"
+                  className="w-full bg-void-950 border border-white/[0.08] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-500 font-mono transition-colors"
                 />
               </div>
 
@@ -168,13 +168,13 @@ export const RaceLab: React.FC = () => {
                   type="number"
                   value={withdrawalB}
                   onChange={(e) => setWithdrawalB(Number(e.target.value))}
-                  className="w-full bg-obsidian-950 border border-white/[0.08] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-500 font-mono transition-colors"
+                  className="w-full bg-void-950 border border-white/[0.08] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-500 font-mono transition-colors"
                 />
               </div>
             </div>
 
             {/* Explanation box */}
-            <div className="p-3 bg-obsidian-950 rounded-xl border border-white/[0.06] text-xs">
+            <div className="p-3 bg-void-950 rounded-xl border border-white/[0.06] text-xs">
               <div className="font-semibold text-white mb-1">{currentInfo.name}</div>
               <p className="text-[11px] text-slate-400 leading-relaxed">{currentInfo.description}</p>
             </div>
@@ -202,7 +202,7 @@ export const RaceLab: React.FC = () => {
         {/* Experiment Results */}
         <div className="lg:col-span-2 space-y-6">
           {activeExperiment ? (
-            <div className="bg-obsidian-900/90 border border-white/[0.08] rounded-2xl p-6 shadow-xl space-y-6">
+            <div className="bg-void-900/90 border border-white/[0.08] rounded-2xl p-6 shadow-xl space-y-6">
               <div className="flex items-center justify-between pb-4 border-b border-white/[0.06]">
                 <div>
                   <h3 className="font-bold text-white text-sm tracking-tight">{activeExperiment.experiment_name}</h3>
@@ -222,21 +222,21 @@ export const RaceLab: React.FC = () => {
 
               {/* Metrics row */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-mono">
-                <div className="p-3 bg-obsidian-950 rounded-xl border border-white/[0.06]">
+                <div className="p-3 bg-void-950 rounded-xl border border-white/[0.06]">
                   <span className="text-slate-400 text-[10px] uppercase">Initial Balance</span>
                   <div className="text-base font-bold text-white mt-1">₹{activeExperiment.initial_balance}</div>
                 </div>
-                <div className="p-3 bg-obsidian-950 rounded-xl border border-white/[0.06]">
+                <div className="p-3 bg-void-950 rounded-xl border border-white/[0.06]">
                   <span className="text-slate-400 text-[10px] uppercase">Final Balance</span>
                   <div className={`text-base font-bold mt-1 ${activeExperiment.invariants_preserved ? 'text-emerald-400' : 'text-rose-400'}`}>
                     ₹{activeExperiment.final_balance}
                   </div>
                 </div>
-                <div className="p-3 bg-obsidian-950 rounded-xl border border-white/[0.06]">
+                <div className="p-3 bg-void-950 rounded-xl border border-white/[0.06]">
                   <span className="text-slate-400 text-[10px] uppercase">Expected Balance</span>
                   <div className="text-base font-bold text-slate-300 mt-1">₹{activeExperiment.expected_balance}</div>
                 </div>
-                <div className="p-3 bg-obsidian-950 rounded-xl border border-white/[0.06]">
+                <div className="p-3 bg-void-950 rounded-xl border border-white/[0.06]">
                   <span className="text-slate-400 text-[10px] uppercase">Execution Time</span>
                   <div className="text-base font-bold text-cyan-300 mt-1">{activeExperiment.duration_ms} ms</div>
                 </div>
@@ -251,10 +251,10 @@ export const RaceLab: React.FC = () => {
                   {activeExperiment.logs.map((log, i) => (
                     <div
                       key={i}
-                      className="p-3 bg-obsidian-950 rounded-xl border border-white/[0.06] flex items-center justify-between text-xs font-mono"
+                      className="p-3 bg-void-950 rounded-xl border border-white/[0.06] flex items-center justify-between text-xs font-mono"
                     >
                       <div className="flex items-center space-x-2">
-                        <span className="px-2 py-0.5 rounded bg-obsidian-900 border border-white/[0.08] text-slate-300 text-[10px]">
+                        <span className="px-2 py-0.5 rounded bg-void-900 border border-white/[0.08] text-slate-300 text-[10px]">
                           Thread #{log.thread}
                         </span>
                         <span className="text-slate-200">Withdraw ₹{log.requested_amount}</span>
@@ -273,7 +273,7 @@ export const RaceLab: React.FC = () => {
               </div>
             </div>
           ) : (
-            <div className="bg-obsidian-900/90 border border-white/[0.08] rounded-2xl p-12 text-center text-slate-400 shadow-xl">
+            <div className="bg-void-900/90 border border-white/[0.08] rounded-2xl p-12 text-center text-slate-400 shadow-xl">
               <FlaskConical className="w-8 h-8 mx-auto mb-2 text-slate-600" />
               <p className="font-semibold text-white">No active experiment</p>
               <p className="text-xs text-slate-500 mt-1">Configure parameters and launch an attack to evaluate lock safety.</p>
@@ -305,7 +305,7 @@ const DeadlockCard: React.FC = () => {
   };
 
   return (
-    <div className="bg-obsidian-900/90 border border-white/[0.08] rounded-2xl p-6 shadow-xl space-y-4">
+    <div className="bg-void-900/90 border border-white/[0.08] rounded-2xl p-6 shadow-xl space-y-4">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <h3 className="text-sm font-bold text-white tracking-tight">Deadlock & Cyclic Dependency Simulator</h3>
@@ -322,7 +322,7 @@ const DeadlockCard: React.FC = () => {
       </div>
 
       {deadlockResult && (
-        <div className="p-4 rounded-xl bg-obsidian-950 border border-white/[0.06] space-y-3 font-mono text-xs">
+        <div className="p-4 rounded-xl bg-void-950 border border-white/[0.06] space-y-3 font-mono text-xs">
           <div className="flex items-center justify-between">
             <span className="text-slate-400">Deadlock State Detected:</span>
             <span className={`px-2 py-0.5 rounded font-bold uppercase text-[10px] ${
