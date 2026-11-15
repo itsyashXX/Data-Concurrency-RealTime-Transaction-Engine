@@ -430,7 +430,7 @@ export const Overview: React.FC = () => {
           </div>
         </div>
 
-        <div className="h-60 w-full">
+        <div className="h-60 sm:h-72 lg:h-80 3xl:h-96 w-full">
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
               <defs>

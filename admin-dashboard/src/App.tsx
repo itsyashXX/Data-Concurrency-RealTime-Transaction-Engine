@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import { Sidebar } from './components/Sidebar';
 import { Header } from './components/Header';
@@ -14,6 +14,7 @@ import { AuditLogs } from './pages/AuditLogs';
 import { CustomerSimulator } from './pages/CustomerSimulator';
 
 const ProtectedLayout: React.FC = () => {
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const token = localStorage.getItem('datacore_admin_token');
   const userJson = localStorage.getItem('datacore_admin_user');
   const user = userJson ? JSON.parse(userJson) : null;
@@ -24,11 +25,20 @@ const ProtectedLayout: React.FC = () => {
 
   return (
     <div className="flex min-h-screen bg-slate-50 text-slate-900 selection:bg-indigo-500/15 selection:text-indigo-900 light-canvas">
-      <Sidebar userEmail={user?.email} />
+      <Sidebar
+        userEmail={user?.email}
+        mobileOpen={mobileSidebarOpen}
+        onClose={() => setMobileSidebarOpen(false)}
+      />
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
-        <Header title="DataCore Administration" subtitle="Centralized Real-Time Engine Observability" />
-        <main className="flex-1 p-6 md:p-8 overflow-y-auto">
-          <div className="max-w-7xl mx-auto space-y-6">
+        <Header
+          title="DataCore Administration"
+          subtitle="Centralized Real-Time Engine Observability"
+          onToggleSidebar={() => setMobileSidebarOpen(!mobileSidebarOpen)}
+          isSidebarOpen={mobileSidebarOpen}
+        />
+        <main className="flex-1 p-3.5 sm:p-6 md:p-8 3xl:p-12 overflow-y-auto">
+          <div className="max-w-7xl 2xl:max-w-[1700px] 3xl:max-w-[2100px] 4k:max-w-[2600px] mx-auto space-y-4 sm:space-y-6 w-full">
             <Outlet />
           </div>
         </main>
