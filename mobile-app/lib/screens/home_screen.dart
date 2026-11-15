@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import '../providers/auth_provider.dart';
 import '../providers/account_provider.dart';
 import '../providers/notification_provider.dart';
-import '../models/account_model.dart';
 import '../widgets/transaction_detail_sheet.dart';
 import '../widgets/receive_money_sheet.dart';
 
@@ -177,6 +176,28 @@ class _HomeScreenState extends State<HomeScreen> {
                     applicationVersion: '1.4.2 (Build 2026)',
                     applicationLegalese: 'Protected by DataCore Concurrency & Double-Entry Invariant Engine.',
                   );
+                },
+              ),
+              const Divider(height: 12),
+              ListTile(
+                contentPadding: EdgeInsets.zero,
+                leading: Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFFEF2F2),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: const Icon(Icons.logout, color: Color(0xFFEF4444), size: 20),
+                ),
+                title: const Text('Sign Out', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFEF4444))),
+                subtitle: const Text('Exit wallet and log in as another user', style: TextStyle(fontSize: 11, color: Color(0xFF64748B))),
+                trailing: const Icon(Icons.chevron_right, size: 20, color: Color(0xFFFECACA)),
+                onTap: () async {
+                  Navigator.pop(ctx);
+                  await auth.logout();
+                  if (context.mounted) {
+                    context.go('/login');
+                  }
                 },
               ),
             ],

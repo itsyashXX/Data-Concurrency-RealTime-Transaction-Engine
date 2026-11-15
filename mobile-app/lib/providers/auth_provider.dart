@@ -119,7 +119,10 @@ class AuthProvider with ChangeNotifier {
     try {
       final refreshToken = await _apiService.storage.read(key: 'refresh_token');
       if (refreshToken != null) {
-        await _apiService.dio.post('/api/auth/logout/', data: {'refresh': refreshToken});
+        await _apiService.dio.post(
+          '/api/auth/logout/',
+          data: {'refresh': refreshToken},
+        );
       }
     } catch (_) {}
     await _apiService.storage.deleteAll();

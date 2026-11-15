@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class ApiService {
-  // Production Render Backend URL
+  // Production Render Backend URL: https://datacore-backend-wktd.onrender.com
   static const String defaultBaseUrl = 'https://datacore-backend-wktd.onrender.com';
   final Dio dio;
   final FlutterSecureStorage storage = const FlutterSecureStorage();
@@ -69,24 +69,5 @@ class ApiService {
     } catch (_) {
       return false;
     }
-  }
-
-  Future<Response> createIncident({
-    required String title,
-    required String description,
-    String severity = 'MEDIUM',
-    String status = 'DETECTED',
-    String affectedService = 'Customer Mobile App',
-  }) async {
-    return await dio.post(
-      '/api/admin/incidents/',
-      data: {
-        'title': title,
-        'description': description,
-        'severity': severity,
-        'status': status,
-        'affected_service': affectedService,
-      },
-    );
   }
 }
