@@ -3,62 +3,29 @@
 @tailwind utilities;
 
 :root {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  color-scheme: light dark;
-}
-
-.dark {
+  font-family: 'Inter', system-ui, sans-serif;
   color-scheme: dark;
 }
 
 code, pre {
-  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-family: 'JetBrains Mono', monospace;
 }
 
-/* Glassmorphism helpers */
-.glass-panel {
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(248, 196, 219, 0.4);
-}
-
-.dark .glass-panel {
-  background: rgba(26, 24, 41, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(46, 42, 71, 0.7);
-}
-
-.gradient-border {
-  position: relative;
-  background-clip: padding-box;
-}
-
-/* Custom scrollbars */
+/* Custom scrollbar for modern fintech look */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: #0f172a;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(191, 161, 245, 0.3);
-  border-radius: 9999px;
+  background: #334155;
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(191, 161, 245, 0.6);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
+  background: #475569;
 }

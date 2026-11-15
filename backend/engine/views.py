@@ -88,12 +88,14 @@ class StandardPagination(PageNumberPagination):
 # =========================================================================
 
 class AccountListView(generics.ListAPIView):
-    """List authenticated user's active ledger accounts."""
+    """List authenticated user's active ledger accounts (or all accounts if admin)."""
     serializer_class = AccountSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        return Account.objects.filter(user=self.request.user, is_active=True)
+        if self.request.user.role == User.Role.ADMIN or self.request.user.is_staff:
+            return Account.objects.all().select_related('user').order_by('-created_at')
+        return Account.objects.filter(user=self.request.user, is_active=True).order_by('-created_at')
 
 
 class AccountDetailView(generics.RetrieveAPIView):
@@ -326,7 +328,16 @@ class AdminUsersListView(generics.ListAPIView):
         data = []
         for u in users:
             accounts_data = [
-                {"account_number": acc.account_number, "balance": str(acc.balance), "currency": acc.currency}
+                {
+                    "id": str(acc.id),
+                    "account_number": acc.account_number,
+                    "upi_id": acc.upi_id,
+                    "balance": str(acc.balance),
+                    "currency": acc.currency,
+                    "version": acc.version,
+                    "is_active": acc.is_active,
+                    "created_at": acc.created_at.isoformat() if acc.created_at else None,
+                }
                 for acc in u.accounts.all()
             ]
             tx_count = Transaction.objects.filter(
@@ -339,7 +350,7 @@ class AdminUsersListView(generics.ListAPIView):
                 "role": u.role,
                 "is_active": u.is_active,
                 "date_joined": u.date_joined.isoformat(),
-                "last_heartbeat": u.last_heartbeat.isoformat(),
+                "last_heartbeat": u.last_heartbeat.isoformat() if u.last_heartbeat else None,
                 "accounts": accounts_data,
                 "total_transactions": tx_count
             })

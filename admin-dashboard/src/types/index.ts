@@ -7,9 +7,14 @@ export interface User {
   date_joined: string;
   last_heartbeat: string;
   accounts?: Array<{
+    id?: string;
     account_number: string;
+    upi_id?: string;
     balance: string;
     currency: string;
+    version?: number;
+    is_active?: boolean;
+    created_at?: string;
   }>;
   total_transactions?: number;
 }
@@ -17,6 +22,7 @@ export interface User {
 export interface Account {
   id: string;
   account_number: string;
+  upi_id?: string;
   user_email: string;
   user_name: string;
   balance: string;
