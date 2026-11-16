@@ -194,3 +194,40 @@ Data-Concurrency-RealTime-Transaction-Engine/
 | **Duplicate Suppression** | SHA-256 payload hash with `Idempotency-Key` | `test_idempotency_key_duplicate_prevention` |
 | **Tampered Key Rejection** | Fingerprint mismatch validation | `test_idempotency_key_reuse_different_payload_rejected` |
 | **RBAC Authorization** | Server-side role checks on every API route | `test_normal_user_cannot_access_admin_api` |
+
+---
+
+## 7. Automated Android APK Builds via GitHub Actions
+
+DataCore Pay features full cloud CI/CD pipelines that build, sign, and distribute Android APKs automatically without local SDK setup.
+
+### A. How to Run the APK Build Workflow Manually
+1. Open your repository on GitHub: `https://github.com/itsyashXX/Data-Concurrency-RealTime-Transaction-Engine`.
+2. Click the **Actions** tab at the top.
+3. In the left sidebar, choose either:
+   - **Android Debug APK Build** (for fast testing builds)
+   - **Android Release APK Build** (for production signed APKs)
+4. Click the **Run workflow** dropdown on the right, select branch `main`, and click **Run workflow**.
+
+### B. How to Download the Generated APK Artifact
+1. Once the workflow run completes (green checkmark), click on the run title.
+2. Scroll down to the **Artifacts** section at the bottom of the summary page.
+3. Click on **DataCore-Pay-debug.apk** or **DataCore-Pay-release.apk** to download the installable ZIP containing your APK directly.
+
+### C. Automated Release Builds via Version Tags
+To trigger an automated release build with GitHub Release attachment:
+```bash
+git tag -a v2.0.0 -m "DataCore Pay v2.0.0"
+git push origin v2.0.0
+```
+GitHub Actions will automatically compile the release APK, create the GitHub Release, and attach `DataCore-Pay-release.apk` directly under **Releases**.
+
+### D. Configuring Production Signing Secrets (Optional)
+To sign your production APK with a custom private keystore:
+1. In your GitHub repo, go to **Settings** > **Secrets and variables** > **Actions**.
+2. Add the following repository secrets:
+   - `ANDROID_KEYSTORE_BASE64`: Base64 encoded string of your `.keystore` file (`base64 -w 0 your.keystore`).
+   - `ANDROID_KEYSTORE_PASSWORD`: Keystore password.
+   - `ANDROID_KEY_ALIAS`: Key alias name.
+   - `ANDROID_KEY_PASSWORD`: Key password.
+If these secrets are not set, the workflow gracefully falls back to standard verified Android signing so you always receive an installable APK.
