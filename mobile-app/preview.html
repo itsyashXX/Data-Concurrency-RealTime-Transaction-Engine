@@ -441,7 +441,7 @@
 
 <div class="phone-container">
   <!-- ==================== SCREEN: OPENING APP SPLASH SCREEN ==================== -->
-  <div id="app-splash-screen" class="absolute inset-0 z-[120] bg-gradient-to-b from-slate-950 via-[#0B0F19] to-slate-950 flex flex-col items-center justify-between p-8 text-white select-none transition-all duration-700 pointer-events-auto">
+  <div id="app-splash-screen" class="absolute inset-0 z-[120] bg-gradient-to-b from-slate-950 via-[#0B0F19] to-slate-950 flex flex-col items-center justify-between p-8 text-white select-none transition-all duration-500 pointer-events-auto">
     <!-- Top Spacer for Status Area -->
     <div class="h-6"></div>
 
@@ -460,10 +460,35 @@
         <p class="text-xs text-blue-200/80 font-medium tracking-wide mt-1">High Concurrency Real-Time UPI Engine</p>
       </div>
 
-      <!-- Loading / Initialization Indicator -->
-      <div class="flex items-center space-x-2 pt-4">
-        <span class="w-2.5 h-2.5 rounded-full bg-blue-500 animate-ping"></span>
-        <span class="text-[10px] font-semibold text-slate-400 tracking-wider">INITIALIZING SECURE ENGINE...</span>
+      <!-- Active Loading State Container -->
+      <div id="splash-loading-indicator" class="flex flex-col items-center space-y-2 pt-4 transition-all">
+        <div class="flex items-center space-x-2">
+          <span id="splash-status-dot" class="w-2.5 h-2.5 rounded-full bg-blue-500 animate-ping"></span>
+          <span id="splash-status-text" class="text-[10px] font-semibold text-slate-300 tracking-wider uppercase font-mono">INITIALIZING SECURE ENGINE...</span>
+        </div>
+        <!-- Progress Bar Indicator -->
+        <div class="w-44 h-1 bg-slate-800/80 rounded-full overflow-hidden border border-white/5">
+          <div id="splash-progress-bar" class="h-full bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full w-1/4 transition-all duration-300"></div>
+        </div>
+      </div>
+
+      <!-- Recoverable Error Card (Displayed ONLY on network/initialization error) -->
+      <div id="splash-error-card" class="hidden flex-col items-center text-center max-w-xs p-4 rounded-2xl bg-slate-900/90 border border-rose-500/30 text-white mt-3 space-y-2.5 shadow-2xl backdrop-blur-md">
+        <div class="w-9 h-9 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center text-sm font-bold">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+        <p id="splash-error-message" class="text-xs text-slate-300 leading-snug">
+          Unable to synchronize with backend network.
+        </p>
+        <div class="flex items-center space-x-2 w-full pt-1">
+          <button type="button" onclick="retryAppStartup()" class="flex-1 py-2 px-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition active:scale-95 shadow-md flex items-center justify-center space-x-1.5">
+            <i class="fa-solid fa-rotate-right text-[10px]"></i>
+            <span>Retry</span>
+          </button>
+          <button type="button" onclick="continueInOfflineMode()" class="flex-1 py-2 px-3 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-bold border border-white/10 transition active:scale-95">
+            Offline Mode
+          </button>
+        </div>
       </div>
     </div>
 
@@ -473,7 +498,7 @@
         <i class="fa-solid fa-shield-halved text-emerald-400"></i>
         <span>NPCI & BBPS ASSURED • 256-BIT ENCRYPTION</span>
       </div>
-      <p class="text-[9px] text-slate-500 font-medium">Powered by DataCore Transaction Engine v8.4</p>
+      <p class="text-[9px] text-slate-500 font-medium">Powered by DataCore Transaction Engine v8.4 • v3.1.0</p>
     </div>
   </div>
 
@@ -3177,7 +3202,7 @@
         <i class="fa-solid fa-right-from-bracket text-base"></i>
         <span>Log Out of Wallet</span>
       </button>
-      <p class="text-center text-[10px] text-slate-400 font-medium mt-2.5">DataCore Pay v3.0.0 • Protected Ledger Architecture</p>
+      <p class="text-center text-[10px] text-slate-400 font-medium mt-2.5">DataCore Pay v3.1.0 • Protected Ledger Architecture</p>
     </div>
 
     <!-- Bottom Spacer to Guarantee 100% Unhindered Scrolling Past Navigation Bar -->
@@ -7100,13 +7125,8 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
 
     // Receive Modal & Profile UPI Handle
     const userHandle = getUserUpiId(currentUser);
-    const recAcc = document.getElementById('receive-account-no');
     const recBtn = document.getElementById('receive-share-btn');
-    if (recAcc) recAcc.innerText = userHandle;
     if (recBtn) recBtn.setAttribute('onclick', `copyToClipboard('${userHandle}', 'UPI handle copied!')`);
-
-    const profUpi = document.getElementById('profile-upi-handle-display');
-    if (profUpi) profUpi.innerText = userHandle;
 
     renderAllAvatars();
     updateBiometricUI();
@@ -10977,7 +10997,7 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
   }
 
   function showAboutInfo() {
-    alert('DataCore Pay v3.0.0\n\n' +
+    alert('DataCore Pay v3.1.0\n\n' +
           '• Production-Grade UPI 2.0 Real-Time Concurrency Architecture\n' +
           '• Native Android BiometricPrompt Hardware Security\n' +
           '• 256-Bit SHA Tamper-Proof Double-Entry Ledger\n' +
@@ -11013,75 +11033,186 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
     updateBiometricUI();
   }
 
-  // ================= BOOTSTRAP INITIAL VIEW (PRESERVE SESSION ON REFRESH) =================
-  applyTheme();
+  // ================= APPLICATION STARTUP & LIFECYCLE MANAGEMENT =================
+  const StartupState = {
+    INITIALIZING: 'INITIALIZING',
+    AUTHENTICATING: 'AUTHENTICATING',
+    LOADING_PROFILE: 'LOADING_PROFILE',
+    READY: 'READY',
+    ERROR: 'ERROR',
+    RETRYING: 'RETRYING'
+  };
 
-  activeUserEmail = getSavedActiveUserEmail() || 'arjun@datacore';
-  if (!wallets[activeUserEmail]) {
-    const keys = Object.keys(wallets);
-    if (keys.length > 0) {
-      activeUserEmail = keys[0];
-    } else {
-      wallets['arjun@datacore'] = JSON.parse(JSON.stringify(DEFAULT_INITIAL_WALLETS['arjun@datacore']));
-      activeUserEmail = 'arjun@datacore';
-      saveCurrentWalletState();
+  let currentStartupState = StartupState.INITIALIZING;
+  let isAppInitialized = false;
+
+  function setStartupState(state, message = '') {
+    currentStartupState = state;
+    const statusText = document.getElementById('splash-status-text');
+    const progressBar = document.getElementById('splash-progress-bar');
+    const errorCard = document.getElementById('splash-error-card');
+    const loadingIndicator = document.getElementById('splash-loading-indicator');
+    const errorMsg = document.getElementById('splash-error-message');
+
+    switch (state) {
+      case StartupState.INITIALIZING:
+        if (statusText) statusText.innerText = 'INITIALIZING SECURE ENGINE...';
+        if (progressBar) progressBar.style.width = '25%';
+        if (errorCard) errorCard.classList.add('hidden');
+        if (loadingIndicator) loadingIndicator.classList.remove('hidden');
+        break;
+
+      case StartupState.AUTHENTICATING:
+        if (statusText) statusText.innerText = 'AUTHENTICATING SECURE SESSION...';
+        if (progressBar) progressBar.style.width = '55%';
+        if (errorCard) errorCard.classList.add('hidden');
+        if (loadingIndicator) loadingIndicator.classList.remove('hidden');
+        break;
+
+      case StartupState.LOADING_PROFILE:
+        if (statusText) statusText.innerText = 'SYNCING ENCRYPTED LEDGER...';
+        if (progressBar) progressBar.style.width = '85%';
+        if (errorCard) errorCard.classList.add('hidden');
+        if (loadingIndicator) loadingIndicator.classList.remove('hidden');
+        break;
+
+      case StartupState.READY:
+        if (statusText) statusText.innerText = 'SYSTEM READY • CONNECTED';
+        if (progressBar) progressBar.style.width = '100%';
+        if (errorCard) errorCard.classList.add('hidden');
+        if (loadingIndicator) loadingIndicator.classList.remove('hidden');
+        break;
+
+      case StartupState.RETRYING:
+        if (statusText) statusText.innerText = 'RECONNECTING SECURE ENGINE...';
+        if (progressBar) progressBar.style.width = '35%';
+        if (errorCard) errorCard.classList.add('hidden');
+        if (loadingIndicator) loadingIndicator.classList.remove('hidden');
+        break;
+
+      case StartupState.ERROR:
+        if (loadingIndicator) loadingIndicator.classList.add('hidden');
+        if (errorCard) {
+          errorCard.classList.remove('hidden');
+          errorCard.style.display = 'flex';
+        }
+        if (errorMsg) errorMsg.innerText = message || 'Connection timeout. You can retry or proceed with local ledger.';
+        break;
     }
   }
 
-  currentUser = wallets[activeUserEmail];
-  balance = (typeof currentUser.balance === 'number') ? currentUser.balance : 10000.00;
-  dailyLimit = currentUser.dailyLimit || 100000.00;
-  transactions = Array.isArray(currentUser.transactions) ? currentUser.transactions : [];
-  notifications = Array.isArray(currentUser.notifications) ? currentUser.notifications : [];
-  payees = Array.isArray(currentUser.payees) ? currentUser.payees : [];
-  isTransfersLocked = !!currentUser.isTransfersLocked;
+  async function startApplicationLifecycle() {
+    if (isAppInitialized) return;
 
-  updateUserBindings();
-  renderBalance();
-  renderPayees();
-  renderTransactions();
-  renderNotifications();
-  initServicesHub();
-  renderAutoPayMandates();
+    try {
+      // 1. INITIALIZING: Preferences, styles, and safe boundaries
+      setStartupState(StartupState.INITIALIZING);
+      applyTheme();
+      applyPreferences();
 
-  // Deduplicate any preexisting notifications in currentUser
-  if (currentUser && Array.isArray(currentUser.notifications)) {
-    const seen = new Set();
-    currentUser.notifications = currentUser.notifications.filter(n => {
-      const key = `${(n.title||'').trim().toLowerCase()}|${(n.msg||'').trim().toLowerCase()}`;
-      if (seen.has(key)) return false;
-      seen.add(key);
-      return true;
-    });
-    notifications = currentUser.notifications;
-    renderNotifications();
+      // 2. AUTHENTICATING: Check saved auth tokens and user session
+      setStartupState(StartupState.AUTHENTICATING);
+      const storedLogin = localStorage.getItem('datacore_is_logged_in');
+      const savedEmail = getSavedActiveUserEmail();
+      const isUserLoggedIn = storedLogin !== 'false';
+
+      // 3. LOADING_PROFILE: Load active wallet & transaction cache
+      setStartupState(StartupState.LOADING_PROFILE);
+
+      if (!wallets[savedEmail]) {
+        const keys = Object.keys(wallets);
+        activeUserEmail = keys.length > 0 ? keys[0] : 'arjun@datacore';
+      } else {
+        activeUserEmail = savedEmail;
+      }
+
+      currentUser = wallets[activeUserEmail] || DEFAULT_INITIAL_WALLETS['arjun@datacore'];
+      balance = (typeof currentUser.balance === 'number') ? currentUser.balance : 15000.00;
+      dailyLimit = currentUser.dailyLimit || 100000.00;
+      transactions = Array.isArray(currentUser.transactions) ? currentUser.transactions : [];
+      notifications = Array.isArray(currentUser.notifications) ? currentUser.notifications : [];
+      payees = Array.isArray(currentUser.payees) ? currentUser.payees : [];
+
+      updateUserBindings();
+      renderBalance();
+      renderPayees();
+      renderTransactions();
+      renderNotifications();
+      initServicesHub();
+      renderAutoPayMandates();
+
+      // 4. NON-BLOCKING Backend health check with strict 1.5s timeout
+      try {
+        const healthPromise = checkBackendHealth();
+        const timeoutPromise = new Promise(resolve => setTimeout(resolve, 1500));
+        await Promise.race([healthPromise, timeoutPromise]);
+      } catch (netErr) {
+        console.warn('Backend check non-blocking notice:', netErr);
+      }
+
+      // 5. READY: Initialization complete
+      setStartupState(StartupState.READY);
+      isAppInitialized = true;
+
+      // Small delay for clean aesthetic visual completion before dismiss
+      setTimeout(() => {
+        dismissSplashScreenAndNavigate(isUserLoggedIn && !!currentUser);
+      }, 550);
+
+    } catch (err) {
+      console.error('Startup lifecycle caught error:', err);
+      setStartupState(StartupState.ERROR, `Startup error: ${err.message || 'System timeout'}`);
+
+      // Auto-fallback after 3 seconds so the user is NEVER trapped on an infinite splash screen!
+      setTimeout(() => {
+        if (!isAppInitialized) {
+          continueInOfflineMode();
+        }
+      }, 3000);
+    }
   }
 
-  // Smoothly dismiss Opening Splash Screen
-  const splash = document.getElementById('app-splash-screen');
-  if (splash) {
-    setTimeout(() => {
+  function dismissSplashScreenAndNavigate(isAuthenticated) {
+    const splash = document.getElementById('app-splash-screen');
+    if (splash) {
       splash.style.opacity = '0';
-      splash.style.transform = 'scale(1.04)';
+      splash.style.transform = 'scale(1.03)';
       splash.style.pointerEvents = 'none';
       setTimeout(() => {
         splash.classList.add('hidden');
-      }, 700);
-    }, 1100);
+        splash.style.display = 'none';
+      }, 500);
+    }
+
+    const nav = document.getElementById('bottom-nav');
+    if (isAuthenticated) {
+      if (nav) nav.classList.remove('hidden');
+      loginAs(activeUserEmail);
+    } else {
+      if (nav) nav.classList.add('hidden');
+      logout(true);
+    }
   }
 
-  const storedLoginStatus = localStorage.getItem('datacore_is_logged_in');
-  // Default to logged-in as active user unless user explicitly logged out
-  const isUserLoggedIn = storedLoginStatus !== 'false';
+  function retryAppStartup() {
+    setStartupState(StartupState.RETRYING);
+    isAppInitialized = false;
+    setTimeout(() => {
+      startApplicationLifecycle();
+    }, 400);
+  }
 
-  checkBackendHealth();
+  function continueInOfflineMode() {
+    showToast('Continuing with secure local ledger');
+    isAppInitialized = true;
+    dismissSplashScreenAndNavigate(true);
+  }
 
-  if (isUserLoggedIn && wallets[activeUserEmail]) {
-    // Keep user logged in across page refreshes!
-    loginAs(activeUserEmail);
+  // Auto-launch the resilient startup lifecycle immediately upon document readiness
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', startApplicationLifecycle);
   } else {
-    // Show clean login screen (first time or logged out) - defaults to Sign Up first
-    logout(true);
+    startApplicationLifecycle();
   }
 </script>
 
