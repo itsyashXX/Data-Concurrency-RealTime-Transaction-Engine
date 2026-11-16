@@ -819,7 +819,7 @@
         <span class="text-xs font-bold text-slate-800">Receive</span>
       </button>
 
-      <button onclick="navigateTo('services')" class="bg-white border border-slate-200/80 p-3 rounded-2xl flex flex-col items-center shadow-sm card-touch group hover:border-purple-500">
+      <button onclick="navigateTo('services')" class="bg-white border border-slate-200/80 p-3 rounded-2xl flex flex-col items-center shadow-sm card-touch group hover:border-blue-500">
         <div class="w-10 h-10 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center mb-1.5 shadow-sm group-hover:scale-105 transition-transform">
           <i class="fa-solid fa-layer-group text-sm"></i>
         </div>
@@ -921,7 +921,7 @@
           </button>
           <div>
             <h2 class="text-base font-bold text-slate-900 ml-1">Search & Services</h2>
-            <p class="text-[10px] text-slate-500 ml-1">Recharges, Bills, AutoPay & Transit</p>
+            <p class="text-[10px] text-slate-500 ml-1">Recharges, Bills, Transit & Wealth</p>
           </div>
         </div>
         <div class="flex items-center space-x-1 px-2.5 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-[10px] font-bold shadow-sm">
@@ -931,538 +931,351 @@
       </div>
 
       <!-- Universal Real-Time Search Bar -->
-      <div class="relative mb-4">
+      <div class="relative mb-3">
         <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-slate-400 text-xs"></i>
-        <input id="services-search-input" oninput="filterServicesDirectory(this.value)" type="text" class="w-full bg-white border border-slate-200 rounded-2xl pl-9 pr-8 py-2.5 text-xs text-slate-900 focus:outline-none focus:border-blue-600 shadow-sm" placeholder="Search bills, recharges, AutoPay, fastag, gold...">
+        <input id="services-search-input" oninput="filterServicesDirectory(this.value)" type="text" class="w-full bg-white border border-slate-200 rounded-2xl pl-9 pr-8 py-2.5 text-xs text-slate-900 focus:outline-none focus:border-blue-600 shadow-sm transition" placeholder="Search bills, recharge, metro, cards, gold, sip...">
         <button type="button" onclick="document.getElementById('services-search-input').value=''; filterServicesDirectory('');" class="absolute right-3 top-3 text-slate-400 hover:text-slate-600 text-xs">
           <i class="fa-solid fa-circle-xmark"></i>
         </button>
       </div>
 
-      <!-- POPULAR SERVICES SECTION (PREMIUM GRID) -->
-      <div id="search-popular-services-section" class="mb-5">
-        <div class="flex items-center justify-between mb-2.5">
-          <span class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Popular Services</span>
-          <span class="text-[10px] font-bold text-blue-600">Quick Access</span>
-        </div>
-        <div class="grid grid-cols-4 gap-2 text-center">
-          <!-- 1. Mobile Recharge -->
-          <div onclick="openServiceDetail('recharge')" class="p-2.5 bg-white border border-slate-200/90 rounded-2xl shadow-sm hover:border-blue-400 cursor-pointer active:scale-95 transition flex flex-col items-center">
-            <div class="w-10 h-10 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl mb-1 border border-blue-100 shadow-sm">
-              📱
-            </div>
-            <span class="text-[11px] font-bold text-slate-800 leading-tight">Recharge</span>
-          </div>
-
-          <!-- 2. Electricity -->
-          <div onclick="openServiceDetail('electricity')" class="p-2.5 bg-white border border-slate-200/90 rounded-2xl shadow-sm hover:border-amber-400 cursor-pointer active:scale-95 transition flex flex-col items-center">
-            <div class="w-10 h-10 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl mb-1 border border-amber-100 shadow-sm">
-              ⚡
-            </div>
-            <span class="text-[11px] font-bold text-slate-800 leading-tight">Electricity</span>
-          </div>
-
-          <!-- 3. DTH TV -->
-          <div onclick="openServiceDetail('dth')" class="p-2.5 bg-white border border-slate-200/90 rounded-2xl shadow-sm hover:border-indigo-400 cursor-pointer active:scale-95 transition flex flex-col items-center">
-            <div class="w-10 h-10 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl mb-1 border border-indigo-100 shadow-sm">
-              📺
-            </div>
-            <span class="text-[11px] font-bold text-slate-800 leading-tight">DTH / TV</span>
-          </div>
-
-          <!-- 4. FASTag -->
-          <div onclick="openServiceDetail('fastag')" class="p-2.5 bg-white border border-slate-200/90 rounded-2xl shadow-sm hover:border-cyan-400 cursor-pointer active:scale-95 transition flex flex-col items-center">
-            <div class="w-10 h-10 rounded-2xl bg-cyan-50 text-cyan-600 flex items-center justify-center text-xl mb-1 border border-cyan-100 shadow-sm">
-              🚗
-            </div>
-            <span class="text-[11px] font-bold text-slate-800 leading-tight">FASTag</span>
-          </div>
-
-          <!-- 5. Metro QR -->
-          <div onclick="openServiceDetail('metro')" class="p-2.5 bg-white border border-slate-200/90 rounded-2xl shadow-sm hover:border-emerald-400 cursor-pointer active:scale-95 transition flex flex-col items-center">
-            <div class="w-10 h-10 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl mb-1 border border-emerald-100 shadow-sm">
-              🚇
-            </div>
-            <span class="text-[11px] font-bold text-slate-800 leading-tight">Metro QR</span>
-          </div>
-
-          <!-- 6. Credit Card -->
-          <div onclick="openServiceDetail('creditcard')" class="p-2.5 bg-white border border-slate-200/90 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer active:scale-95 transition flex flex-col items-center">
-            <div class="w-10 h-10 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center text-xl mb-1 border border-purple-100 shadow-sm">
-              💳
-            </div>
-            <span class="text-[11px] font-bold text-slate-800 leading-tight">Card Bill</span>
-          </div>
-
-          <!-- 7. Piped Gas -->
-          <div onclick="openServiceDetail('gas')" class="p-2.5 bg-white border border-slate-200/90 rounded-2xl shadow-sm hover:border-orange-400 cursor-pointer active:scale-95 transition flex flex-col items-center">
-            <div class="w-10 h-10 rounded-2xl bg-orange-50 text-orange-600 flex items-center justify-center text-xl mb-1 border border-orange-100 shadow-sm">
-              ♨️
-            </div>
-            <span class="text-[11px] font-bold text-slate-800 leading-tight">Piped Gas</span>
-          </div>
-
-          <!-- 8. 24K Gold -->
-          <div onclick="openServiceDetail('gold')" class="p-2.5 bg-white border border-slate-200/90 rounded-2xl shadow-sm hover:border-yellow-400 cursor-pointer active:scale-95 transition flex flex-col items-center">
-            <div class="w-10 h-10 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl mb-1 border border-amber-100 shadow-sm">
-              🪙
-            </div>
-            <span class="text-[11px] font-bold text-slate-800 leading-tight">24K Gold</span>
-          </div>
-        </div>
+      <!-- Recent Searches Quick Chips -->
+      <div class="flex items-center space-x-1.5 overflow-x-auto pb-2 mb-4 scrollbar-none text-[11px]">
+        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider shrink-0 mr-1">Recent:</span>
+        <button onclick="applyServiceSearchQuery('Mobile')" class="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-600 border border-slate-200/80 shrink-0 font-semibold transition active:scale-95">Mobile</button>
+        <button onclick="applyServiceSearchQuery('Electricity')" class="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-600 border border-slate-200/80 shrink-0 font-semibold transition active:scale-95">Electricity</button>
+        <button onclick="applyServiceSearchQuery('FASTag')" class="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-600 border border-slate-200/80 shrink-0 font-semibold transition active:scale-95">FASTag</button>
+        <button onclick="applyServiceSearchQuery('Metro')" class="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-600 border border-slate-200/80 shrink-0 font-semibold transition active:scale-95">Metro QR</button>
+        <button onclick="applyServiceSearchQuery('Credit Card')" class="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-600 border border-slate-200/80 shrink-0 font-semibold transition active:scale-95">Credit Card</button>
+        <button onclick="applyServiceSearchQuery('Gold')" class="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-600 border border-slate-200/80 shrink-0 font-semibold transition active:scale-95">Digital Gold</button>
       </div>
 
-      <!-- NEW FOR YOU PROMOTIONAL CARDS SECTION -->
-      <div id="search-new-for-you-section" class="mb-5 space-y-2.5">
-        <div class="flex items-center justify-between">
-          <span class="text-[10px] font-black text-slate-400 uppercase tracking-wider">New For You</span>
-          <span class="text-[9px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">Featured</span>
-        </div>
+      <!-- Categorized Full Directory Grid (5 Categories in Two-Column Mobile Grid) -->
+      <div class="space-y-5" id="services-grid-container">
 
-        <!-- Promo Card 1: Metro QR Turnstile Pass -->
-        <div onclick="openServiceDetail('metro')" class="p-3.5 rounded-2xl bg-gradient-to-r from-indigo-900 via-blue-900 to-slate-900 text-white shadow-md cursor-pointer hover:border-blue-400 active:scale-98 transition relative overflow-hidden">
-          <div class="flex items-start justify-between relative z-10">
-            <div class="flex-1 pr-3">
-              <div class="inline-flex items-center space-x-1 px-2 py-0.5 rounded-full bg-blue-500/20 border border-blue-400/40 text-[9px] font-bold text-blue-300 mb-1.5">
-                <i class="fa-solid fa-bolt text-[8px]"></i>
-                <span>ZERO QUEUE</span>
-              </div>
-              <h4 class="text-xs font-black text-white">Metro Contactless Turnstile QR</h4>
-              <p class="text-[10px] text-slate-300 mt-0.5">Book Mumbai, Delhi & Bangalore metro tickets instantly with 10% cashback.</p>
-            </div>
-            <div class="w-10 h-10 rounded-2xl bg-white/10 backdrop-blur border border-white/20 flex items-center justify-center text-xl shrink-0">
-              🚇
-            </div>
-          </div>
-        </div>
-
-        <!-- Promo Card 2: 24K Digital Gold SIP -->
-        <div onclick="openServiceDetail('gold')" class="p-3.5 rounded-2xl bg-gradient-to-r from-amber-950 via-slate-900 to-yellow-950 text-white shadow-md cursor-pointer hover:border-amber-400 active:scale-98 transition relative overflow-hidden">
-          <div class="flex items-start justify-between relative z-10">
-            <div class="flex-1 pr-3">
-              <div class="inline-flex items-center space-x-1 px-2 py-0.5 rounded-full bg-amber-500/20 border border-amber-400/40 text-[9px] font-bold text-amber-300 mb-1.5">
-                <i class="fa-solid fa-coins text-[8px]"></i>
-                <span>99.99% MMTC-PAMP</span>
-              </div>
-              <h4 class="text-xs font-black text-white">Start 24K Gold SIP from ₹10</h4>
-              <p class="text-[10px] text-amber-200/80 mt-0.5">Secure, 100% insured physical gold vaulting with 0% storage fees.</p>
-            </div>
-            <div class="w-10 h-10 rounded-2xl bg-white/10 backdrop-blur border border-white/20 flex items-center justify-center text-xl shrink-0">
-              🪙
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 🔄 AUTOPAY & RECURRING MANDATES (WITH FULLY FUNCTIONAL MANAGE BUTTONS) -->
-      <div id="services-autopay-card" class="bg-white border border-slate-200/90 rounded-3xl p-4 shadow-sm mb-4 space-y-3">
-        <div class="flex justify-between items-center">
-          <div class="flex items-center space-x-2">
-            <div class="w-8 h-8 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center text-xs font-bold">
-              <i class="fa-solid fa-arrows-rotate"></i>
-            </div>
-            <div>
-              <h4 class="text-xs font-black text-slate-900">AutoPay & Mandates</h4>
-              <span class="text-[10px] text-slate-400">Recurring automatic debits</span>
-            </div>
-          </div>
-          <span id="autopay-active-badge" class="text-[10px] font-bold text-purple-700 bg-purple-50 px-2.5 py-0.5 rounded-full border border-purple-200">2 Active</span>
-        </div>
-
-        <div id="autopay-mandates-list" class="grid grid-cols-2 gap-2 text-xs">
-          <!-- Active Mandate 1: Netflix -->
-          <div class="p-2.5 bg-slate-50 border border-slate-200/80 rounded-2xl flex items-center justify-between">
-            <div class="flex items-center space-x-2">
-              <div class="w-7 h-7 rounded-lg bg-red-600 text-white font-black text-xs flex items-center justify-center shadow-sm">N</div>
-              <div>
-                <span class="text-xs font-bold text-slate-900 block leading-tight">Netflix 4K</span>
-                <span class="text-[9px] text-slate-400">₹649/mo</span>
-              </div>
-            </div>
-            <button onclick="manageMandate('Netflix 4K')" class="text-[10px] text-blue-600 font-bold hover:underline px-1 py-0.5 rounded">Manage</button>
+        <!-- CATEGORY 1: RECHARGE & UTILITIES (8 Services) -->
+        <div id="cat-section-utilities" class="service-category-group">
+          <div class="flex items-center justify-between mb-2.5">
+            <h3 class="text-xs font-black text-slate-900 uppercase tracking-wider flex items-center space-x-1.5">
+              <span class="w-2 h-2 rounded-full bg-blue-600"></span>
+              <span>Recharge & Utilities</span>
+            </h3>
+            <span class="text-[10px] font-bold text-slate-400">8 Services</span>
           </div>
 
-          <!-- Active Mandate 2: JioFiber -->
-          <div class="p-2.5 bg-slate-50 border border-slate-200/80 rounded-2xl flex items-center justify-between">
-            <div class="flex items-center space-x-2">
-              <div class="w-7 h-7 rounded-lg bg-blue-600 text-white font-black text-xs flex items-center justify-center shadow-sm">Jio</div>
-              <div>
-                <span class="text-xs font-bold text-slate-900 block leading-tight">JioFiber</span>
-                <span class="text-[9px] text-slate-400">₹943/mo</span>
-              </div>
-            </div>
-            <button onclick="manageMandate('JioFiber')" class="text-[10px] text-blue-600 font-bold hover:underline px-1 py-0.5 rounded">Manage</button>
-          </div>
-        </div>
-
-        <button onclick="openSetupMandateModal()" class="w-full py-2.5 bg-slate-50 hover:bg-slate-100 text-slate-700 rounded-xl text-xs font-bold transition flex items-center justify-center space-x-1.5 border border-slate-200 active:scale-98">
-          <i class="fa-solid fa-plus text-[10px] text-blue-600"></i>
-          <span>Setup New AutoPay Mandate</span>
-        </button>
-      </div>
-
-
-      <!-- Categorized Full Directory Grid -->
-      <div class="space-y-4" id="services-grid-container">
-        <!-- Section: Essential Utilities -->
-        <div id="section-utilities">
-          <span class="text-[10px] font-black text-slate-400 uppercase tracking-wider block mb-2">Essential Utilities</span>
           <div class="grid grid-cols-2 gap-2.5">
-            <!-- Electricity Card -->
-            <div onclick="openServiceDetail('electricity')" class="p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer card-touch flex items-center space-x-3 group">
-              <div class="w-10 h-10 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl font-bold border border-amber-200/60 shadow-sm group-hover:scale-105 transition">
-                ⚡
-              </div>
-              <div class="overflow-hidden">
-                <span class="text-xs font-bold text-slate-900 block truncate">Electricity Bill</span>
-                <span class="text-[10px] text-slate-400 block truncate">MSEDCL, UPCL, BSES</span>
-              </div>
-            </div>
-
-            <!-- Water Bill Card -->
-            <div onclick="openServiceDetail('water')" class="p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer card-touch flex items-center space-x-3 group">
-              <div class="w-10 h-10 rounded-2xl bg-sky-50 text-sky-600 flex items-center justify-center text-xl font-bold border border-sky-200/60 shadow-sm group-hover:scale-105 transition">
-                💧
-              </div>
-              <div class="overflow-hidden">
-                <span class="text-xs font-bold text-slate-900 block truncate">Water Bill</span>
-                <span class="text-[10px] text-slate-400 block truncate">Delhi Jal Board, BWSSB</span>
-              </div>
-            </div>
-
-            <!-- Gas & Cylinder Card -->
-            <div onclick="openServiceDetail('gas')" class="p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer card-touch flex items-center space-x-3 group">
-              <div class="w-10 h-10 rounded-2xl bg-orange-50 text-orange-600 flex items-center justify-center text-xl font-bold border border-orange-200/60 shadow-sm group-hover:scale-105 transition">
-                🔥
-              </div>
-              <div class="overflow-hidden">
-                <span class="text-xs font-bold text-slate-900 block truncate">Gas Cylinder</span>
-                <span class="text-[10px] text-slate-400 block truncate">Indane, HP, Bharat Gas</span>
-              </div>
-            </div>
-
-            <!-- Broadband Card -->
-            <div onclick="openServiceDetail('broadband')" class="p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer card-touch flex items-center space-x-3 group">
-              <div class="w-10 h-10 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center text-xl font-bold border border-purple-200/60 shadow-sm group-hover:scale-105 transition">
-                🌐
-              </div>
-              <div class="overflow-hidden">
-                <span class="text-xs font-bold text-slate-900 block truncate">Broadband / Wi-Fi</span>
-                <span class="text-[10px] text-slate-400 block truncate">JioFiber, Airtel, ACT</span>
-              </div>
-            </div>
-
-            <!-- Piped Gas (PNG) -->
-            <div onclick="openServiceDetail('pipedgas')" class="p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer card-touch flex items-center space-x-3 group">
-              <div class="w-10 h-10 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl font-bold border border-amber-200/60 shadow-sm group-hover:scale-105 transition">
-                ♨️
-              </div>
-              <div class="overflow-hidden">
-                <span class="text-xs font-bold text-slate-900 block truncate">Piped Gas (PNG)</span>
-                <span class="text-[10px] text-slate-400 block truncate">IGL, Mahanagar, Adani</span>
-              </div>
-            </div>
-
-            <!-- Housing Society Maintenance -->
-            <div onclick="openServiceDetail('society')" class="p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer card-touch flex items-center space-x-3 group">
-              <div class="w-10 h-10 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl font-bold border border-indigo-200/60 shadow-sm group-hover:scale-105 transition">
-                🏢
-              </div>
-              <div class="overflow-hidden">
-                <span class="text-xs font-bold text-slate-900 block truncate">Society Maintenance</span>
-                <span class="text-[10px] text-slate-400 block truncate">MyGate, NoBrokerHood</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Section: Recharge & Entertainment -->
-        <div id="section-recharge">
-          <span class="text-[10px] font-black text-slate-400 uppercase tracking-wider block mb-2">Recharge & Entertainment</span>
-          <div class="grid grid-cols-2 gap-2.5">
-            <!-- Mobile Recharge Card -->
-            <div onclick="openServiceDetail('mobile')" class="p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer card-touch flex items-center space-x-3 group">
-              <div class="w-10 h-10 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl font-bold border border-blue-200/60 shadow-sm group-hover:scale-105 transition">
+            <!-- 1. Mobile Recharge -->
+            <div onclick="openServiceDetail('mobile')" class="service-card p-3 bg-white border border-slate-200/90 rounded-2xl shadow-sm hover:border-blue-500/50 cursor-pointer card-touch flex items-center space-x-2.5 group transition active:scale-98">
+              <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-lg shrink-0 border border-blue-100 shadow-sm group-hover:scale-105 transition">
                 📱
               </div>
               <div class="overflow-hidden">
                 <span class="text-xs font-bold text-slate-900 block truncate">Mobile Recharge</span>
-                <span class="text-[10px] text-slate-400 block truncate">Jio, Airtel, Vi, BSNL</span>
+                <span class="text-[10px] text-slate-400 block truncate">Jio, Airtel, Vi</span>
               </div>
             </div>
 
-            <!-- DTH Card -->
-            <div onclick="openServiceDetail('dth')" class="p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer card-touch flex items-center space-x-3 group">
-              <div class="w-10 h-10 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl font-bold border border-indigo-200/60 shadow-sm group-hover:scale-105 transition">
+            <!-- 2. Electricity -->
+            <div onclick="openServiceDetail('electricity')" class="service-card p-3 bg-white border border-slate-200/90 rounded-2xl shadow-sm hover:border-blue-500/50 cursor-pointer card-touch flex items-center space-x-2.5 group transition active:scale-98">
+              <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-lg shrink-0 border border-amber-100 shadow-sm group-hover:scale-105 transition">
+                ⚡
+              </div>
+              <div class="overflow-hidden">
+                <span class="text-xs font-bold text-slate-900 block truncate">Electricity</span>
+                <span class="text-[10px] text-slate-400 block truncate">State Discoms</span>
+              </div>
+            </div>
+
+            <!-- 3. Water Bill -->
+            <div onclick="openServiceDetail('water')" class="service-card p-3 bg-white border border-slate-200/90 rounded-2xl shadow-sm hover:border-blue-500/50 cursor-pointer card-touch flex items-center space-x-2.5 group transition active:scale-98">
+              <div class="w-10 h-10 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center text-lg shrink-0 border border-sky-100 shadow-sm group-hover:scale-105 transition">
+                💧
+              </div>
+              <div class="overflow-hidden">
+                <span class="text-xs font-bold text-slate-900 block truncate">Water Bill</span>
+                <span class="text-[10px] text-slate-400 block truncate">Municipal Boards</span>
+              </div>
+            </div>
+
+            <!-- 4. Gas Cylinder -->
+            <div onclick="openServiceDetail('gas')" class="service-card p-3 bg-white border border-slate-200/90 rounded-2xl shadow-sm hover:border-blue-500/50 cursor-pointer card-touch flex items-center space-x-2.5 group transition active:scale-98">
+              <div class="w-10 h-10 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center text-lg shrink-0 border border-orange-100 shadow-sm group-hover:scale-105 transition">
+                🔥
+              </div>
+              <div class="overflow-hidden">
+                <span class="text-xs font-bold text-slate-900 block truncate">Gas Cylinder</span>
+                <span class="text-[10px] text-slate-400 block truncate">Indane, HP, Bharat</span>
+              </div>
+            </div>
+
+            <!-- 5. Piped Gas -->
+            <div onclick="openServiceDetail('pipedgas')" class="service-card p-3 bg-white border border-slate-200/90 rounded-2xl shadow-sm hover:border-blue-500/50 cursor-pointer card-touch flex items-center space-x-2.5 group transition active:scale-98">
+              <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-lg shrink-0 border border-amber-100 shadow-sm group-hover:scale-105 transition">
+                ♨️
+              </div>
+              <div class="overflow-hidden">
+                <span class="text-xs font-bold text-slate-900 block truncate">Piped Gas</span>
+                <span class="text-[10px] text-slate-400 block truncate">IGL, MGL, Adani</span>
+              </div>
+            </div>
+
+            <!-- 6. Broadband & Wi-Fi -->
+            <div onclick="openServiceDetail('broadband')" class="service-card p-3 bg-white border border-slate-200/90 rounded-2xl shadow-sm hover:border-blue-500/50 cursor-pointer card-touch flex items-center space-x-2.5 group transition active:scale-98">
+              <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-lg shrink-0 border border-blue-100 shadow-sm group-hover:scale-105 transition">
+                🌐
+              </div>
+              <div class="overflow-hidden">
+                <span class="text-xs font-bold text-slate-900 block truncate">Broadband & Wi-Fi</span>
+                <span class="text-[10px] text-slate-400 block truncate">Fiber & High Speed</span>
+              </div>
+            </div>
+
+            <!-- 7. DTH / Cable TV -->
+            <div onclick="openServiceDetail('dth')" class="service-card p-3 bg-white border border-slate-200/90 rounded-2xl shadow-sm hover:border-blue-500/50 cursor-pointer card-touch flex items-center space-x-2.5 group transition active:scale-98">
+              <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-lg shrink-0 border border-indigo-100 shadow-sm group-hover:scale-105 transition">
                 📺
               </div>
               <div class="overflow-hidden">
                 <span class="text-xs font-bold text-slate-900 block truncate">DTH / Cable TV</span>
-                <span class="text-[10px] text-slate-400 block truncate">Tata Play, Airtel DTH</span>
+                <span class="text-[10px] text-slate-400 block truncate">Tata Play, Airtel</span>
               </div>
             </div>
 
-            <!-- FASTag Card -->
-            <div onclick="openServiceDetail('fastag')" class="p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer card-touch flex items-center space-x-3 group">
-              <div class="w-10 h-10 rounded-2xl bg-cyan-50 text-cyan-600 flex items-center justify-center text-xl font-bold border border-cyan-200/60 shadow-sm group-hover:scale-105 transition">
+            <!-- 8. FASTag -->
+            <div onclick="openServiceDetail('fastag')" class="service-card p-3 bg-white border border-slate-200/90 rounded-2xl shadow-sm hover:border-blue-500/50 cursor-pointer card-touch flex items-center space-x-2.5 group transition active:scale-98">
+              <div class="w-10 h-10 rounded-xl bg-cyan-50 text-cyan-600 flex items-center justify-center text-lg shrink-0 border border-cyan-100 shadow-sm group-hover:scale-105 transition">
                 🚗
               </div>
               <div class="overflow-hidden">
-                <span class="text-xs font-bold text-slate-900 block truncate">FASTag Toll</span>
-                <span class="text-[10px] text-slate-400 block truncate">NHAI, ICICI, SBI FASTag</span>
-              </div>
-            </div>
-
-            <!-- Google Play Card -->
-            <div onclick="openServiceDetail('giftcards')" class="p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer card-touch flex items-center space-x-3 group">
-              <div class="w-10 h-10 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl font-bold border border-emerald-200/60 shadow-sm group-hover:scale-105 transition">
-                🎮
-              </div>
-              <div class="overflow-hidden">
-                <span class="text-xs font-bold text-slate-900 block truncate">Google Play</span>
-                <span class="text-[10px] text-slate-400 block truncate">App & Game Codes</span>
-              </div>
-            </div>
-
-            <!-- Cable TV -->
-            <div onclick="openServiceDetail('dth')" class="p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer card-touch flex items-center space-x-3 group">
-              <div class="w-10 h-10 rounded-2xl bg-fuchsia-50 text-fuchsia-600 flex items-center justify-center text-xl font-bold border border-fuchsia-200/60 shadow-sm group-hover:scale-105 transition">
-                📺
-              </div>
-              <div class="overflow-hidden">
-                <span class="text-xs font-bold text-slate-900 block truncate">Cable TV Operator</span>
-                <span class="text-[10px] text-slate-400 block truncate">Hathway, DEN, Siti</span>
-              </div>
-            </div>
-
-            <!-- Landline Postpaid -->
-            <div onclick="openServiceDetail('broadband')" class="p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer card-touch flex items-center space-x-3 group">
-              <div class="w-10 h-10 rounded-2xl bg-sky-50 text-sky-600 flex items-center justify-center text-xl font-bold border border-sky-200/60 shadow-sm group-hover:scale-105 transition">
-                ☎️
-              </div>
-              <div class="overflow-hidden">
-                <span class="text-xs font-bold text-slate-900 block truncate">Landline Postpaid</span>
-                <span class="text-[10px] text-slate-400 block truncate">BSNL, Airtel, MTNL</span>
+                <span class="text-xs font-bold text-slate-900 block truncate">FASTag</span>
+                <span class="text-[10px] text-slate-400 block truncate">Instant Toll Recharge</span>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Section: Travel & Transit (New PhonePe Travel Hub) -->
-        <div id="section-transit">
-          <div class="flex items-center justify-between mb-2">
-            <span class="text-[10px] font-black text-slate-400 uppercase tracking-wider block">Transit & Travel Hub</span>
-            <span class="text-[10px] font-bold text-blue-600">Zero Convenience Fee</span>
+        <!-- CATEGORY 2: TRANSIT & TRAVEL (4 Services) -->
+        <div id="cat-section-transit" class="service-category-group">
+          <div class="flex items-center justify-between mb-2.5">
+            <h3 class="text-xs font-black text-slate-900 uppercase tracking-wider flex items-center space-x-1.5">
+              <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+              <span>Transit & Travel</span>
+            </h3>
+            <span class="text-[10px] font-bold text-slate-400">4 Services</span>
           </div>
+
           <div class="grid grid-cols-2 gap-2.5">
-            <!-- Metro QR Ticket -->
-            <div onclick="openServiceDetail('metro')" class="p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer card-touch flex items-center space-x-3 group">
-              <div class="w-10 h-10 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl font-bold border border-blue-200/60 shadow-sm group-hover:scale-105 transition">
+            <!-- 1. Metro QR Ticket -->
+            <div onclick="openServiceDetail('metro')" class="service-card p-3 bg-white border border-slate-200/90 rounded-2xl shadow-sm hover:border-blue-500/50 cursor-pointer card-touch flex items-center space-x-2.5 group transition active:scale-98">
+              <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-lg shrink-0 border border-emerald-100 shadow-sm group-hover:scale-105 transition">
                 🚇
               </div>
               <div class="overflow-hidden">
                 <span class="text-xs font-bold text-slate-900 block truncate">Metro QR Ticket</span>
-                <span class="text-[10px] text-slate-400 block truncate">DMRC, Mumbai, Namma</span>
+                <span class="text-[10px] text-slate-400 block truncate">Contactless Gates</span>
               </div>
             </div>
 
-            <!-- Flight Bookings -->
-            <div onclick="openServiceDetail('flights')" class="p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer card-touch flex items-center space-x-3 group">
-              <div class="w-10 h-10 rounded-2xl bg-sky-50 text-sky-600 flex items-center justify-center text-xl font-bold border border-sky-200/60 shadow-sm group-hover:scale-105 transition">
-                ✈️
-              </div>
-              <div class="overflow-hidden">
-                <span class="text-xs font-bold text-slate-900 block truncate">Flight Bookings</span>
-                <span class="text-[10px] text-slate-400 block truncate">IndiGo, Air India, Best Rate</span>
-              </div>
-            </div>
-
-            <!-- Bus Ticket Booking -->
-            <div onclick="openServiceDetail('flights')" class="p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer card-touch flex items-center space-x-3 group">
-              <div class="w-10 h-10 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl font-bold border border-emerald-200/60 shadow-sm group-hover:scale-105 transition">
+            <!-- 2. Bus Tickets -->
+            <div onclick="openUniversalServiceModal('bus')" class="service-card p-3 bg-white border border-slate-200/90 rounded-2xl shadow-sm hover:border-blue-500/50 cursor-pointer card-touch flex items-center space-x-2.5 group transition active:scale-98">
+              <div class="w-10 h-10 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center text-lg shrink-0 border border-teal-100 shadow-sm group-hover:scale-105 transition">
                 🚌
               </div>
               <div class="overflow-hidden">
                 <span class="text-xs font-bold text-slate-900 block truncate">Bus Tickets</span>
-                <span class="text-[10px] text-slate-400 block truncate">Intercity AC, UPSRTC</span>
+                <span class="text-[10px] text-slate-400 block truncate">Intercity & Sleeper</span>
               </div>
             </div>
 
-            <!-- Train PNR & Status -->
-            <div onclick="openServiceDetail('metro')" class="p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer card-touch flex items-center space-x-3 group">
-              <div class="w-10 h-10 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl font-bold border border-indigo-200/60 shadow-sm group-hover:scale-105 transition">
+            <!-- 3. Train PNR & Status -->
+            <div onclick="openUniversalServiceModal('train')" class="service-card p-3 bg-white border border-slate-200/90 rounded-2xl shadow-sm hover:border-blue-500/50 cursor-pointer card-touch flex items-center space-x-2.5 group transition active:scale-98">
+              <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-lg shrink-0 border border-indigo-100 shadow-sm group-hover:scale-105 transition">
                 🚆
               </div>
               <div class="overflow-hidden">
                 <span class="text-xs font-bold text-slate-900 block truncate">Train PNR & Status</span>
-                <span class="text-[10px] text-slate-400 block truncate">IRCTC Official Partner</span>
+                <span class="text-[10px] text-slate-400 block truncate">Live IRCTC Tracking</span>
+              </div>
+            </div>
+
+            <!-- 4. Flight Bookings -->
+            <div onclick="openServiceDetail('flights')" class="service-card p-3 bg-white border border-slate-200/90 rounded-2xl shadow-sm hover:border-blue-500/50 cursor-pointer card-touch flex items-center space-x-2.5 group transition active:scale-98">
+              <div class="w-10 h-10 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center text-lg shrink-0 border border-sky-100 shadow-sm group-hover:scale-105 transition">
+                ✈️
+              </div>
+              <div class="overflow-hidden">
+                <span class="text-xs font-bold text-slate-900 block truncate">Flight Bookings</span>
+                <span class="text-[10px] text-slate-400 block truncate">Zero Convenience Fee</span>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Section: Wealth & 24K Gold (Flagship PhonePe Feature) -->
-        <div id="section-wealth">
-          <div class="flex items-center justify-between mb-2">
-            <span class="text-[10px] font-black text-slate-400 uppercase tracking-wider block">Wealth & Gold Vault</span>
-            <span class="text-[10px] font-bold text-amber-600 flex items-center space-x-1">
-              <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
-              <span>Live: ₹7,485/g</span>
-            </span>
+        <!-- CATEGORY 3: FINANCIAL SERVICES (4 Services) -->
+        <div id="cat-section-financial" class="service-category-group">
+          <div class="flex items-center justify-between mb-2.5">
+            <h3 class="text-xs font-black text-slate-900 uppercase tracking-wider flex items-center space-x-1.5">
+              <span class="w-2 h-2 rounded-full bg-indigo-600"></span>
+              <span>Financial Services</span>
+            </h3>
+            <span class="text-[10px] font-bold text-slate-400">4 Services</span>
           </div>
+
           <div class="grid grid-cols-2 gap-2.5">
-            <!-- 24K Digital Gold -->
-            <div onclick="openServiceDetail('gold')" class="p-3 bg-gradient-to-br from-amber-50/80 to-yellow-50 border border-amber-200 rounded-2xl shadow-sm hover:border-amber-400 cursor-pointer card-touch flex items-center space-x-3 group">
-              <div class="w-10 h-10 rounded-2xl bg-amber-500 text-white flex items-center justify-center text-xl font-bold shadow-md shadow-amber-500/30 group-hover:scale-105 transition">
-                🪙
-              </div>
-              <div class="overflow-hidden">
-                <span class="text-xs font-bold text-slate-900 block truncate">24K Digital Gold</span>
-                <span class="text-[10px] text-amber-800 font-semibold block truncate">MMTC-PAMP 99.99%</span>
-              </div>
-            </div>
-
-            <!-- Mutual Funds SIP -->
-            <div onclick="openServiceDetail('gold')" class="p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer card-touch flex items-center space-x-3 group">
-              <div class="w-10 h-10 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl font-bold border border-emerald-200/60 shadow-sm group-hover:scale-105 transition">
-                📈
-              </div>
-              <div class="overflow-hidden">
-                <span class="text-xs font-bold text-slate-900 block truncate">Mutual Funds SIP</span>
-                <span class="text-[10px] text-slate-400 block truncate">Starts ₹100 • 0% Fee</span>
-              </div>
-            </div>
-
-            <!-- Two-Wheeler Insurance -->
-            <div onclick="openServiceDetail('bikeinsurance')" class="p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer card-touch flex items-center space-x-3 group">
-              <div class="w-10 h-10 rounded-2xl bg-rose-50 text-rose-600 flex items-center justify-center text-xl font-bold border border-rose-200/60 shadow-sm group-hover:scale-105 transition">
-                🛵
-              </div>
-              <div class="overflow-hidden">
-                <span class="text-xs font-bold text-slate-900 block truncate">Bike Insurance</span>
-                <span class="text-[10px] text-slate-400 block truncate">Instant in 2 mins @ ₹499</span>
-              </div>
-            </div>
-
-            <!-- Car Insurance -->
-            <div onclick="openServiceDetail('bikeinsurance')" class="p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer card-touch flex items-center space-x-3 group">
-              <div class="w-10 h-10 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl font-bold border border-blue-200/60 shadow-sm group-hover:scale-105 transition">
-                🚗
-              </div>
-              <div class="overflow-hidden">
-                <span class="text-xs font-bold text-slate-900 block truncate">Car Insurance</span>
-                <span class="text-[10px] text-slate-400 block truncate">5000+ Cashless Garages</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Section: Gift Cards & OTT Subscriptions -->
-        <div id="section-subscriptions">
-          <div class="flex items-center justify-between mb-2">
-            <span class="text-[10px] font-black text-slate-400 uppercase tracking-wider block">Gift Cards & Subscriptions</span>
-            <span class="text-[10px] font-bold text-purple-700">Cashback Assured</span>
-          </div>
-          <div class="grid grid-cols-2 gap-2.5">
-            <!-- Brand Gift Cards -->
-            <div onclick="openServiceDetail('giftcards')" class="p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer card-touch flex items-center space-x-3 group">
-              <div class="w-10 h-10 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center text-xl font-bold border border-purple-200/60 shadow-sm group-hover:scale-105 transition">
-                🎁
-              </div>
-              <div class="overflow-hidden">
-                <span class="text-xs font-bold text-slate-900 block truncate">Brand Gift Cards</span>
-                <span class="text-[10px] text-slate-400 block truncate">Amazon, Flipkart, Swiggy</span>
-              </div>
-            </div>
-
-            <!-- OTT Subscriptions -->
-            <div onclick="openServiceDetail('giftcards')" class="p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer card-touch flex items-center space-x-3 group">
-              <div class="w-10 h-10 rounded-2xl bg-red-50 text-red-600 flex items-center justify-center text-xl font-bold border border-red-200/60 shadow-sm group-hover:scale-105 transition">
-                🎬
-              </div>
-              <div class="overflow-hidden">
-                <span class="text-xs font-bold text-slate-900 block truncate">OTT Subscriptions</span>
-                <span class="text-[10px] text-slate-400 block truncate">Netflix, Hotstar, Prime</span>
-              </div>
-            </div>
-
-            <!-- Dining & Food Vouchers -->
-            <div onclick="openServiceDetail('giftcards')" class="p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer card-touch flex items-center space-x-3 group">
-              <div class="w-10 h-10 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl font-bold border border-amber-200/60 shadow-sm group-hover:scale-105 transition">
-                🍕
-              </div>
-              <div class="overflow-hidden">
-                <span class="text-xs font-bold text-slate-900 block truncate">Food & Dining</span>
-                <span class="text-[10px] text-slate-400 block truncate">Zomato, Swiggy, Dominos</span>
-              </div>
-            </div>
-
-            <!-- Municipal Property Tax -->
-            <div onclick="openServiceDetail('tax')" class="p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer card-touch flex items-center space-x-3 group">
-              <div class="w-10 h-10 rounded-2xl bg-teal-50 text-teal-600 flex items-center justify-center text-xl font-bold border border-teal-200/60 shadow-sm group-hover:scale-105 transition">
-                🏛️
-              </div>
-              <div class="overflow-hidden">
-                <span class="text-xs font-bold text-slate-900 block truncate">Municipal Taxes</span>
-                <span class="text-[10px] text-slate-400 block truncate">MCGM, MCD, BBMP</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Section: Financial Services & Taxes -->
-        <div id="section-finance">
-          <span class="text-[10px] font-black text-slate-400 uppercase tracking-wider block mb-2">Financial Services & Credit</span>
-          <div class="grid grid-cols-2 gap-2.5">
-            <!-- Credit Card Bill -->
-            <div onclick="openServiceDetail('creditcard')" class="p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer card-touch flex items-center space-x-3 group">
-              <div class="w-10 h-10 rounded-2xl bg-rose-50 text-rose-600 flex items-center justify-center text-xl font-bold border border-rose-200/60 shadow-sm group-hover:scale-105 transition">
+            <!-- 1. Credit Card Bill -->
+            <div onclick="openServiceDetail('creditcard')" class="service-card p-3 bg-white border border-slate-200/90 rounded-2xl shadow-sm hover:border-blue-500/50 cursor-pointer card-touch flex items-center space-x-2.5 group transition active:scale-98">
+              <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-lg shrink-0 border border-blue-100 shadow-sm group-hover:scale-105 transition">
                 💳
               </div>
               <div class="overflow-hidden">
                 <span class="text-xs font-bold text-slate-900 block truncate">Credit Card Bill</span>
-                <span class="text-[10px] text-slate-400 block truncate">HDFC, SBI, ICICI, Axis</span>
+                <span class="text-[10px] text-slate-400 block truncate">All Major Banks</span>
               </div>
             </div>
 
-            <!-- Loan EMI -->
-            <div onclick="openServiceDetail('loan')" class="p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer card-touch flex items-center space-x-3 group">
-              <div class="w-10 h-10 rounded-2xl bg-violet-50 text-violet-600 flex items-center justify-center text-xl font-bold border border-violet-200/60 shadow-sm group-hover:scale-105 transition">
+            <!-- 2. Loan EMI Payment -->
+            <div onclick="openUniversalServiceModal('loan')" class="service-card p-3 bg-white border border-slate-200/90 rounded-2xl shadow-sm hover:border-blue-500/50 cursor-pointer card-touch flex items-center space-x-2.5 group transition active:scale-98">
+              <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-lg shrink-0 border border-emerald-100 shadow-sm group-hover:scale-105 transition">
                 🏦
               </div>
               <div class="overflow-hidden">
                 <span class="text-xs font-bold text-slate-900 block truncate">Loan EMI Payment</span>
-                <span class="text-[10px] text-slate-400 block truncate">Bajaj, Muthoot, HDFC</span>
+                <span class="text-[10px] text-slate-400 block truncate">Home, Personal, Auto</span>
               </div>
             </div>
 
-            <!-- Insurance -->
-            <div onclick="openServiceDetail('insurance')" class="p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer card-touch flex items-center space-x-3 group">
-              <div class="w-10 h-10 rounded-2xl bg-teal-50 text-teal-600 flex items-center justify-center text-xl font-bold border border-teal-200/60 shadow-sm group-hover:scale-105 transition">
+            <!-- 3. Insurance Premium -->
+            <div onclick="openServiceDetail('bikeinsurance')" class="service-card p-3 bg-white border border-slate-200/90 rounded-2xl shadow-sm hover:border-blue-500/50 cursor-pointer card-touch flex items-center space-x-2.5 group transition active:scale-98">
+              <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center text-lg shrink-0 border border-purple-100 shadow-sm group-hover:scale-105 transition">
                 🛡️
               </div>
               <div class="overflow-hidden">
                 <span class="text-xs font-bold text-slate-900 block truncate">Insurance Premium</span>
-                <span class="text-[10px] text-slate-400 block truncate">LIC, HDFC Life, Star</span>
+                <span class="text-[10px] text-slate-400 block truncate">Life, Health, Vehicle</span>
               </div>
             </div>
 
-            <!-- Municipal Tax -->
-            <div onclick="openServiceDetail('tax')" class="p-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-400 cursor-pointer card-touch flex items-center space-x-3 group">
-              <div class="w-10 h-10 rounded-2xl bg-lime-50 text-lime-700 flex items-center justify-center text-xl font-bold border border-lime-200/60 shadow-sm group-hover:scale-105 transition">
+            <!-- 4. Municipal Taxes -->
+            <div onclick="openServiceDetail('society')" class="service-card p-3 bg-white border border-slate-200/90 rounded-2xl shadow-sm hover:border-blue-500/50 cursor-pointer card-touch flex items-center space-x-2.5 group transition active:scale-98">
+              <div class="w-10 h-10 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center text-lg shrink-0 border border-slate-200 shadow-sm group-hover:scale-105 transition">
                 🏛️
               </div>
               <div class="overflow-hidden">
                 <span class="text-xs font-bold text-slate-900 block truncate">Municipal Taxes</span>
-                <span class="text-[10px] text-slate-400 block truncate">Property Tax & Water</span>
+                <span class="text-[10px] text-slate-400 block truncate">Property & Civic Tax</span>
               </div>
             </div>
           </div>
         </div>
+
+        <!-- CATEGORY 4: DIGITAL SERVICES (4 Services) -->
+        <div id="cat-section-digital" class="service-category-group">
+          <div class="flex items-center justify-between mb-2.5">
+            <h3 class="text-xs font-black text-slate-900 uppercase tracking-wider flex items-center space-x-1.5">
+              <span class="w-2 h-2 rounded-full bg-rose-600"></span>
+              <span>Digital Services</span>
+            </h3>
+            <span class="text-[10px] font-bold text-slate-400">4 Services</span>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2.5">
+            <!-- 1. OTT Subscriptions -->
+            <div onclick="openUniversalServiceModal('ott')" class="service-card p-3 bg-white border border-slate-200/90 rounded-2xl shadow-sm hover:border-blue-500/50 cursor-pointer card-touch flex items-center space-x-2.5 group transition active:scale-98">
+              <div class="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center text-lg shrink-0 border border-rose-100 shadow-sm group-hover:scale-105 transition">
+                🎬
+              </div>
+              <div class="overflow-hidden">
+                <span class="text-xs font-bold text-slate-900 block truncate">OTT Subscriptions</span>
+                <span class="text-[10px] text-slate-400 block truncate">Netflix, Prime, Hotstar</span>
+              </div>
+            </div>
+
+            <!-- 2. Google Play -->
+            <div onclick="openServiceDetail('giftcards')" class="service-card p-3 bg-white border border-slate-200/90 rounded-2xl shadow-sm hover:border-blue-500/50 cursor-pointer card-touch flex items-center space-x-2.5 group transition active:scale-98">
+              <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-lg shrink-0 border border-emerald-100 shadow-sm group-hover:scale-105 transition">
+                🎮
+              </div>
+              <div class="overflow-hidden">
+                <span class="text-xs font-bold text-slate-900 block truncate">Google Play</span>
+                <span class="text-[10px] text-slate-400 block truncate">Recharge Codes</span>
+              </div>
+            </div>
+
+            <!-- 3. Brand Gift Cards -->
+            <div onclick="openServiceDetail('giftcards')" class="service-card p-3 bg-white border border-slate-200/90 rounded-2xl shadow-sm hover:border-blue-500/50 cursor-pointer card-touch flex items-center space-x-2.5 group transition active:scale-98">
+              <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-lg shrink-0 border border-amber-100 shadow-sm group-hover:scale-105 transition">
+                🎁
+              </div>
+              <div class="overflow-hidden">
+                <span class="text-xs font-bold text-slate-900 block truncate">Brand Gift Cards</span>
+                <span class="text-[10px] text-slate-400 block truncate">Amazon, Flipkart</span>
+              </div>
+            </div>
+
+            <!-- 4. Food & Dining -->
+            <div onclick="openUniversalServiceModal('dining')" class="service-card p-3 bg-white border border-slate-200/90 rounded-2xl shadow-sm hover:border-blue-500/50 cursor-pointer card-touch flex items-center space-x-2.5 group transition active:scale-98">
+              <div class="w-10 h-10 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center text-lg shrink-0 border border-orange-100 shadow-sm group-hover:scale-105 transition">
+                🍔
+              </div>
+              <div class="overflow-hidden">
+                <span class="text-xs font-bold text-slate-900 block truncate">Food & Dining</span>
+                <span class="text-[10px] text-slate-400 block truncate">Zomato, Swiggy, Cafe</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CATEGORY 5: WEALTH (2 Services) -->
+        <div id="cat-section-wealth" class="service-category-group">
+          <div class="flex items-center justify-between mb-2.5">
+            <h3 class="text-xs font-black text-slate-900 uppercase tracking-wider flex items-center space-x-1.5">
+              <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+              <span>Wealth</span>
+            </h3>
+            <span class="text-[10px] font-bold text-slate-400">2 Services</span>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2.5">
+            <!-- 1. Digital Gold -->
+            <div onclick="openServiceDetail('gold')" class="service-card p-3 bg-white border border-slate-200/90 rounded-2xl shadow-sm hover:border-blue-500/50 cursor-pointer card-touch flex items-center space-x-2.5 group transition active:scale-98">
+              <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-lg shrink-0 border border-amber-100 shadow-sm group-hover:scale-105 transition">
+                🪙
+              </div>
+              <div class="overflow-hidden">
+                <span class="text-xs font-bold text-slate-900 block truncate">Digital Gold</span>
+                <span class="text-[10px] text-slate-400 block truncate">24K 99.99% Pure</span>
+              </div>
+            </div>
+
+            <!-- 2. Mutual Funds SIP -->
+            <div onclick="openUniversalServiceModal('sip')" class="service-card p-3 bg-white border border-slate-200/90 rounded-2xl shadow-sm hover:border-blue-500/50 cursor-pointer card-touch flex items-center space-x-2.5 group transition active:scale-98">
+              <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-lg shrink-0 border border-emerald-100 shadow-sm group-hover:scale-105 transition">
+                📈
+              </div>
+              <div class="overflow-hidden">
+                <span class="text-xs font-bold text-slate-900 block truncate">Mutual Funds SIP</span>
+                <span class="text-[10px] text-slate-400 block truncate">Start from ₹100/mo</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
-    
-    <!-- Bottom Spacer to Guarantee 100% Unhindered Scrolling Past Navigation Bar -->
-    <div class="h-16 w-full shrink-0" aria-hidden="true"></div>
+
+      <!-- No Search Results Found Empty State -->
+      <div id="services-no-results" class="hidden text-center py-10 px-4">
+        <div class="w-14 h-14 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center text-2xl mx-auto mb-3">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+        <h4 class="text-sm font-bold text-slate-800">No Services Found</h4>
+        <p class="text-xs text-slate-400 mt-1">Try searching for "Recharge", "Electricity", "FASTag", or "Metro"</p>
+        <button onclick="document.getElementById('services-search-input').value=''; filterServicesDirectory('');" class="mt-3 px-4 py-1.5 rounded-full bg-blue-600 text-white text-xs font-bold shadow-md">
+          View All Services
+        </button>
+      </div>
+
+      <!-- Bottom Spacer to Guarantee 100% Unhindered Scrolling -->
+      <div class="h-16 w-full shrink-0" aria-hidden="true"></div>
     </div> <!-- End services-hub-directory -->
 
     <!-- ================= VIEW 1: DEDICATED ELECTRICITY BILL VIEW ================= -->
@@ -1980,7 +1793,7 @@
           <input id="broadband-amount" type="number" value="943" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-lg font-black text-purple-600 focus:outline-none focus:border-blue-600">
         </div>
 
-        <button onclick="payBroadbandBill()" class="w-full py-3.5 bg-purple-600 hover:bg-purple-700 text-white rounded-xl font-bold text-xs shadow-md shadow-purple-500/20 active:scale-98 transition flex items-center justify-center space-x-2">
+        <button onclick="payBroadbandBill()" class="w-full py-3.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-xs shadow-md shadow-purple-500/20 active:scale-98 transition flex items-center justify-center space-x-2">
           <i class="fa-solid fa-lock text-xs"></i>
           <span>Pay Broadband Bill</span>
         </button>
@@ -2185,16 +1998,16 @@
         <div>
           <label class="text-[9px] font-bold text-slate-500 uppercase tracking-wider block mb-1.5">Select Voucher Value</label>
           <div class="grid grid-cols-4 gap-2">
-            <button type="button" onclick="setGiftCardAmount(250)" class="py-2 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold text-slate-800 hover:border-purple-500 transition">₹250</button>
-            <button type="button" onclick="setGiftCardAmount(500)" class="py-2 rounded-xl border border-purple-500 bg-purple-50 text-xs font-bold text-purple-700 transition">₹500</button>
-            <button type="button" onclick="setGiftCardAmount(1000)" class="py-2 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold text-slate-800 hover:border-purple-500 transition">₹1,000</button>
-            <button type="button" onclick="setGiftCardAmount(2500)" class="py-2 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold text-slate-800 hover:border-purple-500 transition">₹2,500</button>
+            <button type="button" onclick="setGiftCardAmount(250)" class="py-2 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold text-slate-800 hover:border-blue-500 transition">₹250</button>
+            <button type="button" onclick="setGiftCardAmount(500)" class="py-2 rounded-xl border border-blue-500 bg-purple-50 text-xs font-bold text-purple-700 transition">₹500</button>
+            <button type="button" onclick="setGiftCardAmount(1000)" class="py-2 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold text-slate-800 hover:border-blue-500 transition">₹1,000</button>
+            <button type="button" onclick="setGiftCardAmount(2500)" class="py-2 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold text-slate-800 hover:border-blue-500 transition">₹2,500</button>
           </div>
           <input type="hidden" id="giftcard-amount" value="500">
           <input type="hidden" id="giftcard-brand" value="Amazon Pay">
         </div>
 
-        <button onclick="buyBrandGiftCard()" class="w-full py-3.5 bg-purple-600 hover:bg-purple-700 text-white rounded-xl font-bold text-xs shadow-md shadow-purple-500/20 active:scale-98 transition flex items-center justify-center space-x-2">
+        <button onclick="buyBrandGiftCard()" class="w-full py-3.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-xs shadow-md shadow-purple-500/20 active:scale-98 transition flex items-center justify-center space-x-2">
           <i class="fa-solid fa-gift text-xs"></i>
           <span>Purchase Gift Card (Instant Code)</span>
         </button>
@@ -2398,7 +2211,7 @@
   <!-- ==================== SCREEN: FULL-SCREEN REAL QR SCANNER ==================== -->
   <div id="screen-qr-scanner" class="app-screen hidden relative w-full h-full bg-slate-950 text-white overflow-hidden flex flex-col justify-between">
     <!-- Live Full-Screen Video Background -->
-    <video id="fullscreen-camera-video" class="absolute inset-0 w-full h-full object-cover z-0" autoplay playsinline muted></video>
+    <video id="scanner-camera-video" class="absolute inset-0 w-full h-full object-cover z-0" autoplay playsinline muted></video>
     <canvas id="fullscreen-qr-canvas" class="hidden"></canvas>
 
     <!-- Dark Scrim Mask with Viewfinder Cutout -->
@@ -2421,7 +2234,7 @@
 
     <!-- Top Action Bar -->
     <div class="relative z-30 flex items-center justify-between p-4 bg-gradient-to-b from-slate-950/90 via-slate-950/50 to-transparent pt-3">
-      <button type="button" onclick="closeFullscreenScanner()" class="w-10 h-10 rounded-full bg-slate-900/80 backdrop-blur-md text-white flex items-center justify-center border border-white/15 hover:bg-slate-800 transition active:scale-95 shadow-lg">
+      <button type="button" onclick="closeFullscreenScanner()" class="w-10 h-10 rounded-full bg-slate-900/80 backdrop-blur-md text-white flex items-center justify-center border border-white/15 hover:bg-slate-800 transition active:scale-95 shadow-lg cursor-pointer">
         <i class="fa-solid fa-arrow-left text-sm"></i>
       </button>
       <div class="flex items-center space-x-1.5">
@@ -2430,13 +2243,27 @@
         <span class="px-2 py-0.5 bg-blue-500/20 text-blue-400 rounded-full text-[9px] font-bold border border-blue-400/30">BHIM UPI</span>
       </div>
       <div class="flex items-center space-x-2">
-        <button type="button" onclick="toggleFullscreenTorch()" id="fs-torch-btn" class="w-10 h-10 rounded-full bg-slate-900/80 backdrop-blur-md text-white flex items-center justify-center border border-white/15 hover:bg-slate-800 transition active:scale-95 shadow-lg" title="Toggle Flashlight">
+        <button type="button" onclick="toggleFullscreenTorch()" id="fs-torch-btn" class="w-10 h-10 rounded-full bg-slate-900/80 backdrop-blur-md text-white flex items-center justify-center border border-white/15 hover:bg-slate-800 transition active:scale-95 shadow-lg cursor-pointer" title="Toggle Flashlight">
           <i id="fs-torch-icon" class="fa-solid fa-bolt text-sm"></i>
         </button>
-        <button type="button" onclick="openScannerHelpModal()" class="w-10 h-10 rounded-full bg-slate-900/80 backdrop-blur-md text-white flex items-center justify-center border border-white/15 hover:bg-slate-800 transition active:scale-95 shadow-lg" title="Scanning Help">
+        <button type="button" onclick="openScannerHelpModal()" class="w-10 h-10 rounded-full bg-slate-900/80 backdrop-blur-md text-white flex items-center justify-center border border-white/15 hover:bg-slate-800 transition active:scale-95 shadow-lg cursor-pointer" title="Scanning Help">
           <i class="fa-solid fa-circle-question text-sm"></i>
         </button>
       </div>
+    </div>
+
+    <!-- Prominent Top Action Buttons (Step 3 Requirement: Immediately at TOP of scanner) -->
+    <div class="relative z-30 px-4 pt-1 pb-2 flex items-center justify-between space-x-2.5">
+      <button type="button" onclick="document.getElementById('scanner-gallery-input').click()" class="flex-1 py-2.5 px-3 rounded-2xl bg-slate-900/80 hover:bg-slate-800/90 backdrop-blur-md border border-white/20 text-white text-xs font-bold flex items-center justify-center space-x-2 transition active:scale-95 shadow-lg cursor-pointer">
+        <i class="fa-solid fa-images text-blue-400"></i>
+        <span>Upload QR Image</span>
+      </button>
+      <input type="file" id="scanner-gallery-input" accept="image/*" class="hidden" onchange="handleFullscreenGalleryQR(event)">
+
+      <button type="button" onclick="openManualUpiModal()" class="flex-1 py-2.5 px-3 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold flex items-center justify-center space-x-2 transition active:scale-95 shadow-lg shadow-blue-600/30 cursor-pointer">
+        <i class="fa-solid fa-keyboard"></i>
+        <span>Enter UPI ID</span>
+      </button>
     </div>
 
     <!-- Permission Denied / Camera Unavailable Overlay -->
@@ -2470,7 +2297,7 @@
           <i class="fa-solid fa-images text-blue-400"></i>
           <span>Upload QR Image</span>
         </button>
-        <input type="file" id="fs-gallery-input" accept="image/*" class="hidden" onchange="handleFullscreenGalleryQR(event)">
+        <input type="file" id="fs-gallery-input-secondary" accept="image/*" class="hidden" onchange="handleFullscreenGalleryQR(event)">
 
         <div class="w-2"></div>
 
@@ -2600,16 +2427,11 @@
       <input id="transfer-note" type="text" class="w-full bg-white border border-slate-200/90 rounded-2xl px-4 py-2.5 text-xs text-slate-800 focus:outline-none focus:border-blue-600 shadow-sm" placeholder="Add a note (e.g. Dinner, Rent, Grocery)...">
     </div>
 
-    <!-- Secure Authorization Actions (Native Biometric / UPI PIN) -->
+    <!-- Bottom Action: Proceed to Review (Mandatory Step 2) -->
     <div class="space-y-2.5">
-      <button type="button" onclick="initiateTransferAuth()" class="w-full py-4 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-700 hover:to-indigo-700 text-white rounded-2xl font-bold text-sm shadow-xl shadow-blue-500/25 active:scale-98 transition flex items-center justify-center space-x-2.5 cursor-pointer">
-        <i class="fa-solid fa-shield-halved text-base"></i>
-        <span id="transfer-pay-btn-label">Proceed to Securely Pay</span>
-      </button>
-
-      <button type="button" onclick="triggerPinPaymentFromTransfer()" class="w-full py-3 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-2xl font-bold text-xs active:scale-98 transition flex items-center justify-center space-x-2 cursor-pointer">
-        <i class="fa-solid fa-key text-xs text-slate-500"></i>
-        <span>Pay with 4-Digit UPI PIN</span>
+      <button type="button" id="btn-proceed-review" onclick="proceedToSendMoneyReview()" class="w-full py-4 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-700 hover:to-indigo-700 text-white rounded-2xl font-bold text-sm shadow-xl shadow-blue-500/25 active:scale-98 transition flex items-center justify-center space-x-2.5 cursor-pointer">
+        <i class="fa-solid fa-arrow-right text-sm"></i>
+        <span id="transfer-pay-btn-label">Proceed to Review</span>
       </button>
     </div>
 
@@ -3118,11 +2940,20 @@
       </div>
     </div>
 
-    <!-- App Preferences -->
+    <!-- App Preferences (Step 6 Requirement) -->
     <div class="bg-white border border-slate-200/90 rounded-3xl p-4.5 shadow-sm space-y-3.5 card-touch">
       <h4 class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">App Preferences</h4>
 
-      
+      <!-- Transaction Notifications -->
+      <div class="flex justify-between items-center">
+        <div>
+          <span class="text-xs font-bold text-slate-800 block">Transaction Alerts</span>
+          <span class="text-[10px] text-slate-400">Real-time SMS & push debit alerts</span>
+        </div>
+        <div id="switch-notif-toggle" onclick="toggleNotificationsInteractive()" class="interactive-switch active cursor-pointer" title="Toggle transaction notifications">
+          <div class="interactive-switch-knob"></div>
+        </div>
+      </div>
 
       <!-- Hide Balance on App Open -->
       <div class="flex justify-between items-center pt-3 border-t border-slate-100">
@@ -3130,7 +2961,7 @@
           <span class="text-xs font-bold text-slate-800 block">Privacy Mask Mode</span>
           <span class="text-[10px] text-slate-400">Mask balance and account by default</span>
         </div>
-        <div id="switch-privacy-mask" onclick="togglePrivacyMaskInteractive()" class="interactive-switch">
+        <div id="switch-privacy-mask" onclick="togglePrivacyMaskInteractive()" class="interactive-switch cursor-pointer">
           <div class="interactive-switch-knob"></div>
         </div>
       </div>
@@ -3152,13 +2983,13 @@
       </div>
     </div>
 
-    <!-- Help, Support & Grievance Redressal -->
+    <!-- Help, Support & Grievance Redressal (Step 6 Requirement: DataCore Theme + Policy + Terms) -->
     <div class="bg-white border border-slate-200/90 rounded-3xl p-4.5 shadow-sm space-y-2.5 text-xs card-touch">
       <h4 class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Help & Safety Desk</h4>
       
-      <div onclick="openSupportModal()" class="p-3 bg-purple-50/50 hover:bg-purple-100/60 border border-purple-200/70 rounded-2xl flex items-center justify-between cursor-pointer transition active:scale-98">
+      <div onclick="openSupportModal()" class="p-3 bg-blue-50/50 hover:bg-blue-100/60 border border-blue-200/70 rounded-2xl flex items-center justify-between cursor-pointer transition active:scale-98">
         <div class="flex items-center space-x-3">
-          <div class="w-8 h-8 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center text-xs">
+          <div class="w-8 h-8 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center text-xs">
             <i class="fa-solid fa-headset"></i>
           </div>
           <div>
@@ -3166,7 +2997,7 @@
             <span class="text-[10px] text-slate-400">Instant resolution for any payment</span>
           </div>
         </div>
-        <i class="fa-solid fa-chevron-right text-purple-400 text-xs"></i>
+        <i class="fa-solid fa-chevron-right text-blue-400 text-xs"></i>
       </div>
 
       <div onclick="openDisputeModal()" class="p-3 bg-white hover:bg-slate-50 border border-slate-200/80 rounded-2xl flex items-center justify-between cursor-pointer transition active:scale-98">
@@ -3182,6 +3013,32 @@
         <i class="fa-solid fa-chevron-right text-slate-300 text-xs"></i>
       </div>
 
+      <div onclick="openPrivacyPolicyModal()" class="p-3 bg-white hover:bg-slate-50 border border-slate-200/80 rounded-2xl flex items-center justify-between cursor-pointer transition active:scale-98">
+        <div class="flex items-center space-x-3">
+          <div class="w-8 h-8 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center text-xs">
+            <i class="fa-solid fa-shield-halved"></i>
+          </div>
+          <div>
+            <span class="font-bold text-slate-900 block">Privacy Policy</span>
+            <span class="text-[10px] text-slate-400">256-bit encryption & zero PIN retention</span>
+          </div>
+        </div>
+        <i class="fa-solid fa-chevron-right text-slate-300 text-xs"></i>
+      </div>
+
+      <div onclick="openTermsModal()" class="p-3 bg-white hover:bg-slate-50 border border-slate-200/80 rounded-2xl flex items-center justify-between cursor-pointer transition active:scale-98">
+        <div class="flex items-center space-x-3">
+          <div class="w-8 h-8 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center text-xs">
+            <i class="fa-solid fa-file-contract"></i>
+          </div>
+          <div>
+            <span class="font-bold text-slate-900 block">Terms and Conditions</span>
+            <span class="text-[10px] text-slate-400">DataCore UPI operating guidelines</span>
+          </div>
+        </div>
+        <i class="fa-solid fa-chevron-right text-slate-300 text-xs"></i>
+      </div>
+
       <div onclick="showAboutInfo()" class="p-3 bg-white hover:bg-slate-50 border border-slate-200/80 rounded-2xl flex items-center justify-between cursor-pointer transition active:scale-98">
         <div class="flex items-center space-x-3">
           <div class="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xs">
@@ -3189,20 +3046,20 @@
           </div>
           <div>
             <span class="font-bold text-slate-900 block">About DataCore Pay</span>
-            <span class="text-[10px] text-slate-400">v1.6.0 • High Concurrency UPI Engine</span>
+            <span class="text-[10px] text-slate-400">v3.1.1 • High Concurrency UPI Engine</span>
           </div>
         </div>
         <i class="fa-solid fa-chevron-right text-slate-300 text-xs"></i>
       </div>
     </div>
 
-    <!-- PROMINENT LOGOUT BUTTON AT THE VERY BOTTOM -->
+    <!-- PROMINENT LOGOUT BUTTON AT THE VERY BOTTOM (Step 6 Requirement: Confirmation Dialog) -->
     <div class="pt-2 pb-6">
-      <button onclick="logout()" class="w-full py-4 bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-700 hover:to-red-700 text-white rounded-2xl font-bold text-sm shadow-lg shadow-rose-600/30 active:scale-98 transition flex items-center justify-center space-x-2.5 btn-bounce">
+      <button onclick="openLogoutConfirmModal()" class="w-full py-4 bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-700 hover:to-red-700 text-white rounded-2xl font-bold text-sm shadow-lg shadow-rose-600/30 active:scale-98 transition flex items-center justify-center space-x-2.5 btn-bounce cursor-pointer">
         <i class="fa-solid fa-right-from-bracket text-base"></i>
         <span>Log Out of Wallet</span>
       </button>
-      <p class="text-center text-[10px] text-slate-400 font-medium mt-2.5">DataCore Pay v3.1.0 • Protected Ledger Architecture</p>
+      <p class="text-center text-[10px] text-slate-400 font-medium mt-2.5">DataCore Pay v3.1.1 • Protected Ledger Architecture</p>
     </div>
 
     <!-- Bottom Spacer to Guarantee 100% Unhindered Scrolling Past Navigation Bar -->
@@ -3402,7 +3259,185 @@
     </div>
   </div>
   <!-- ==================== ADD PAYEE MODAL ==================== -->
-  <div id="modal-add-payee" class="modal-sheet p-6">
+    <!-- ==================== MODAL: MANUAL UPI ID ENTRY (STEP 3) ==================== -->
+  <div id="modal-manual-upi" class="modal-sheet p-5 text-left">
+    <div class="w-10 h-1 bg-slate-200 rounded-full mx-auto mb-3"></div>
+    <div class="flex justify-between items-center mb-3">
+      <div class="flex items-center space-x-2">
+        <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-sm font-black">
+          <i class="fa-solid fa-keyboard"></i>
+        </div>
+        <div>
+          <h3 class="text-sm font-black text-slate-900">Enter UPI ID</h3>
+          <span class="text-[10px] text-slate-500 font-medium">Pay any UPI VPA or 10-digit mobile number</span>
+        </div>
+      </div>
+      <button onclick="closeAllModals()" class="p-1.5 text-slate-400 hover:text-slate-700">
+        <i class="fa-solid fa-xmark text-sm"></i>
+      </button>
+    </div>
+
+    <div class="mb-4">
+      <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5">UPI ID / Virtual Payment Address</label>
+      <div class="relative">
+        <i class="fa-solid fa-at absolute left-3.5 top-3.5 text-slate-400 text-sm"></i>
+        <input id="manual-upi-input" type="text" class="w-full bg-slate-50 border border-slate-200 rounded-2xl pl-10 pr-4 py-3 text-xs text-slate-900 font-bold focus:outline-none focus:border-blue-600 transition font-mono" placeholder="e.g. merchant@okhdfcbank or 9876543210@dc">
+      </div>
+      <div class="flex flex-wrap gap-1.5 mt-2.5">
+        <button type="button" onclick="appendManualUpiHandle('@dc')" class="px-2.5 py-1 bg-blue-50 text-[10px] font-bold text-blue-700 rounded-lg border border-blue-200 cursor-pointer">+ @dc</button>
+        <button type="button" onclick="appendManualUpiHandle('@oksbi')" class="px-2.5 py-1 bg-slate-100 text-[10px] font-bold text-slate-600 rounded-lg border border-slate-200 cursor-pointer">+ @oksbi</button>
+        <button type="button" onclick="appendManualUpiHandle('@okhdfcbank')" class="px-2.5 py-1 bg-slate-100 text-[10px] font-bold text-slate-600 rounded-lg border border-slate-200 cursor-pointer">+ @okhdfcbank</button>
+        <button type="button" onclick="appendManualUpiHandle('@icici')" class="px-2.5 py-1 bg-slate-100 text-[10px] font-bold text-slate-600 rounded-lg border border-slate-200 cursor-pointer">+ @icici</button>
+      </div>
+    </div>
+
+    <div class="space-y-2">
+      <button type="button" onclick="submitManualUpi()" class="w-full py-3.5 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-bold text-xs shadow-lg shadow-blue-500/25 active:scale-98 transition flex items-center justify-center space-x-2 cursor-pointer">
+        <span>Verify & Continue</span>
+        <i class="fa-solid fa-arrow-right text-xs"></i>
+      </button>
+      <button type="button" onclick="closeAllModals()" class="w-full py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-xl font-bold text-xs active:scale-98 transition">
+        Cancel
+      </button>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: UNIVERSAL SERVICE BOOKING / PAYMENT ==================== -->
+  <div id="modal-universal-service" class="modal-sheet p-5 text-left max-h-[85vh] overflow-y-auto">
+    <div class="w-10 h-1 bg-slate-200 rounded-full mx-auto mb-3"></div>
+    <div class="flex justify-between items-center mb-3">
+      <div class="flex items-center space-x-2">
+        <div id="univ-service-icon" class="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl font-black shadow-sm">
+          🚌
+        </div>
+        <div>
+          <h3 id="univ-service-title" class="text-sm font-black text-slate-900">Service Booking</h3>
+          <span id="univ-service-badge" class="text-[10px] text-slate-500 font-medium">NPCI & BBPS Assured Flow</span>
+        </div>
+      </div>
+      <button onclick="closeAllModals()" class="p-1.5 text-slate-400 hover:text-slate-700">
+        <i class="fa-solid fa-xmark text-sm"></i>
+      </button>
+    </div>
+
+    <!-- Dynamic Form Container -->
+    <div id="univ-service-form" class="space-y-3 mb-4">
+      <!-- Injected dynamically by openUniversalServiceModal() -->
+    </div>
+
+    <div class="space-y-2">
+      <button type="button" id="univ-service-submit-btn" onclick="submitUniversalServiceFlow()" class="w-full py-3.5 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-bold text-xs shadow-lg shadow-blue-500/25 active:scale-98 transition flex items-center justify-center space-x-2 cursor-pointer">
+        <span id="univ-service-submit-label">Proceed to Pay</span>
+        <i class="fa-solid fa-arrow-right text-xs"></i>
+      </button>
+      <button type="button" onclick="closeAllModals()" class="w-full py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-xl font-bold text-xs active:scale-98 transition">
+        Cancel
+      </button>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: LOGOUT CONFIRMATION (STEP 6) ==================== -->
+  <div id="modal-logout-confirm" class="modal-sheet p-6 text-center">
+    <div class="w-10 h-1 bg-slate-200 rounded-full mx-auto mb-4"></div>
+    <div class="w-14 h-14 rounded-full bg-rose-50 text-rose-600 flex items-center justify-center text-2xl mx-auto mb-3 border border-rose-200/60 shadow-sm">
+      <i class="fa-solid fa-right-from-bracket"></i>
+    </div>
+    <h3 class="text-base font-black text-slate-900 mb-1">Log Out of DataCore Pay?</h3>
+    <p class="text-xs text-slate-500 max-w-xs mx-auto mb-5 leading-relaxed">
+      You will be signed out of this session. You can sign back in anytime using your verified wallet credentials or mobile number.
+    </p>
+
+    <div class="space-y-2.5">
+      <button type="button" onclick="confirmLogoutAction()" class="w-full py-3.5 bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-700 hover:to-red-700 text-white rounded-2xl font-bold text-xs shadow-lg shadow-rose-600/30 active:scale-98 transition cursor-pointer">
+        Yes, Log Out
+      </button>
+      <button type="button" onclick="closeAllModals()" class="w-full py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-2xl font-bold text-xs active:scale-98 transition cursor-pointer">
+        Cancel & Stay Signed In
+      </button>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: PRIVACY POLICY (STEP 6) ==================== -->
+  <div id="modal-privacy-policy" class="modal-sheet p-5 text-left max-h-[85vh] overflow-y-auto">
+    <div class="w-10 h-1 bg-slate-200 rounded-full mx-auto mb-3"></div>
+    <div class="flex justify-between items-center mb-3">
+      <div class="flex items-center space-x-2">
+        <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-sm font-black">
+          <i class="fa-solid fa-shield-halved"></i>
+        </div>
+        <div>
+          <h3 class="text-sm font-black text-slate-900">Privacy Policy</h3>
+          <span class="text-[10px] text-slate-500 font-medium">DataCore Security & Encryption Standard</span>
+        </div>
+      </div>
+      <button onclick="closeAllModals()" class="p-1.5 text-slate-400 hover:text-slate-700">
+        <i class="fa-solid fa-xmark text-sm"></i>
+      </button>
+    </div>
+
+    <div class="text-xs text-slate-600 space-y-3 leading-relaxed mb-4">
+      <div class="p-3 bg-blue-50/60 border border-blue-200/70 rounded-2xl text-blue-900">
+        <strong class="font-bold block mb-1">NPCI & RBI Assured Protection</strong>
+        DataCore Pay adheres to strict guidelines set forth by the Reserve Bank of India and NPCI for Unified Payments Interface (UPI 2.0).
+      </div>
+      <div>
+        <h4 class="font-bold text-slate-800 mb-0.5">1. Zero UPI PIN Storage</h4>
+        <p>Your 4-digit UPI PIN is processed exclusively inside the secure bank hardware sandbox. It is never logged, stored, or transmitted to any third-party server.</p>
+      </div>
+      <div>
+        <h4 class="font-bold text-slate-800 mb-0.5">2. 256-Bit Ledger Encryption</h4>
+        <p>All double-entry ledger transactions are secured using SHA-256 cryptographic hashing to prevent data tampering and unauthorized modifications.</p>
+      </div>
+      <div>
+        <h4 class="font-bold text-slate-800 mb-0.5">3. Local Device Biometrics</h4>
+        <p>Fingerprint and biometric keys remain exclusively stored inside the Android KeyStore and Android BiometricPrompt hardware security module.</p>
+      </div>
+    </div>
+
+    <button type="button" onclick="closeAllModals()" class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-bold text-xs active:scale-98 transition">
+      I Understand & Agree
+    </button>
+  </div>
+
+  <!-- ==================== MODAL: TERMS & CONDITIONS (STEP 6) ==================== -->
+  <div id="modal-terms" class="modal-sheet p-5 text-left max-h-[85vh] overflow-y-auto">
+    <div class="w-10 h-1 bg-slate-200 rounded-full mx-auto mb-3"></div>
+    <div class="flex justify-between items-center mb-3">
+      <div class="flex items-center space-x-2">
+        <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-sm font-black">
+          <i class="fa-solid fa-file-contract"></i>
+        </div>
+        <div>
+          <h3 class="text-sm font-black text-slate-900">Terms of Service</h3>
+          <span class="text-[10px] text-slate-500 font-medium">Unified Payments Interface Operating Rules</span>
+        </div>
+      </div>
+      <button onclick="closeAllModals()" class="p-1.5 text-slate-400 hover:text-slate-700">
+        <i class="fa-solid fa-xmark text-sm"></i>
+      </button>
+    </div>
+
+    <div class="text-xs text-slate-600 space-y-3 leading-relaxed mb-4">
+      <div>
+        <h4 class="font-bold text-slate-800 mb-0.5">1. Real-Time Settlement</h4>
+        <p>Transfers are completed instantaneously over the high-concurrency payment pipeline. Account debits and credits occur under strict ACID compliance.</p>
+      </div>
+      <div>
+        <h4 class="font-bold text-slate-800 mb-0.5">2. Daily Transaction Limits</h4>
+        <p>Standard RBI UPI guidelines apply: maximum cumulative limit of ₹50,000 to ₹1,00,000 per 24-hour cycle depending on account verification tier.</p>
+      </div>
+      <div>
+        <h4 class="font-bold text-slate-800 mb-0.5">3. Dispute Redressal</h4>
+        <p>Any debited funds not credited to the recipient are automatically reconciled within T+1 banking hours as mandated by the NPCI Ombudsman circular.</p>
+      </div>
+    </div>
+
+    <button type="button" onclick="closeAllModals()" class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-bold text-xs active:scale-98 transition">
+      Acknowledge & Close
+    </button>
+  </div>
+
+<div id="modal-add-payee" class="modal-sheet p-6">
     <div class="w-10 h-1 bg-slate-200 rounded-full mx-auto mb-4"></div>
     <h3 class="text-base font-bold text-slate-900 mb-1">Add Frequent Payee</h3>
     <p class="text-xs text-slate-500 mb-4">Save a contact for one-tap instant transfers</p>
@@ -3569,15 +3604,19 @@
       <span class="text-[10px] font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded">UPI Instant</span>
     </div>
 
-    <!-- Actions -->
-    <div class="grid grid-cols-2 gap-2 mb-2">
-      <button onclick="copyToClipboard(getUserUpiId(currentUser), 'UPI ID copied to clipboard!')" class="py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition flex items-center justify-center space-x-1.5 shadow-md active:scale-95">
+    <!-- Actions (Step 4 Requirement: Copy, Share, Download QR) -->
+    <div class="grid grid-cols-3 gap-2 mb-2">
+      <button onclick="copyToClipboard(getUserUpiId(currentUser), 'UPI ID copied to clipboard!')" class="py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition flex items-center justify-center space-x-1 shadow-md active:scale-95 cursor-pointer">
         <i class="fa-regular fa-copy text-xs"></i>
-        <span>Copy UPI ID</span>
+        <span>Copy</span>
       </button>
-      <button onclick="shareUserQRCode()" class="py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl text-xs font-bold transition flex items-center justify-center space-x-1.5 active:scale-95">
+      <button onclick="shareUserQRCode()" class="py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl text-xs font-bold transition flex items-center justify-center space-x-1 active:scale-95 cursor-pointer">
         <i class="fa-solid fa-share-nodes text-xs"></i>
-        <span>Share QR</span>
+        <span>Share</span>
+      </button>
+      <button onclick="downloadUserQRCode()" class="py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl text-xs font-bold transition flex items-center justify-center space-x-1 active:scale-95 cursor-pointer">
+        <i class="fa-solid fa-download text-xs text-blue-600"></i>
+        <span>Download</span>
       </button>
     </div>
   </div>
@@ -4230,7 +4269,7 @@
     <!-- Input Box -->
     <div class="flex space-x-2">
       <input id="support-input" type="text" placeholder="Type your message..." class="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-medium focus:outline-none focus:border-purple-600">
-      <button onclick="sendSupportUserMessage()" class="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold transition">
+      <button onclick="sendSupportUserMessage()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition">
         Send
       </button>
     </div>
@@ -6922,7 +6961,7 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
     const colorStyles = {
       blue: { bg: 'bg-blue-100', text: 'text-blue-600', border: 'border-blue-500/20' },
       emerald: { bg: 'bg-emerald-100', text: 'text-emerald-700', border: 'border-emerald-500/20' },
-      purple: { bg: 'bg-purple-100', text: 'text-purple-600', border: 'border-purple-500/20' },
+      purple: { bg: 'bg-purple-100', text: 'text-purple-600', border: 'border-blue-500/20' },
       amber: { bg: 'bg-amber-100', text: 'text-amber-700', border: 'border-amber-500/20' }
     };
 
@@ -8447,7 +8486,7 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
     if (!container) return;
 
     container.innerHTML += `
-      <div class="chat-bubble bg-purple-600 text-white p-3 rounded-2xl rounded-tr-sm text-[11px] ml-auto max-w-[85%]">
+      <div class="chat-bubble bg-blue-600 text-white p-3 rounded-2xl rounded-tr-sm text-[11px] ml-auto max-w-[85%]">
         ${msg}
       </div>
     `;
@@ -9509,9 +9548,9 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
       const el = document.getElementById(item.id);
       if (el) {
         if (item.key === cat) {
-          el.className = 'px-3.5 py-1.5 rounded-full bg-purple-700 text-white shrink-0 shadow-sm transition active:scale-95 font-bold';
+          el.className = 'px-3.5 py-1.5 rounded-full bg-blue-600 text-white shrink-0 shadow-sm transition active:scale-95 font-bold';
         } else {
-          el.className = 'px-3.5 py-1.5 rounded-full bg-white text-slate-700 border border-slate-200 shrink-0 hover:border-purple-400 transition active:scale-95';
+          el.className = 'px-3.5 py-1.5 rounded-full bg-white text-slate-700 border border-slate-200 shrink-0 hover:border-blue-400 transition active:scale-95';
         }
       }
     });
@@ -11214,6 +11253,414 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
   } else {
     startApplicationLifecycle();
   }
+
+
+  // ============================================================================
+  // DATACORE PAY V3: SEND MONEY REVIEW & SEQUENCE ENGINE (STEP 2)
+  // ============================================================================
+  function proceedToSendMoneyReview() {
+    const recipientInput = (document.getElementById('transfer-recipient').value || '').trim();
+    const amtInput = parseFloat(document.getElementById('transfer-amount').value) || 0;
+    const note = (document.getElementById('transfer-note').value || '').trim();
+
+    if (!recipientInput) {
+      return showToast('Please enter a recipient UPI ID or mobile number', false);
+    }
+    if (amtInput <= 0 || isNaN(amtInput)) {
+      return showToast('Please enter a valid transfer amount', false);
+    }
+
+    if (amtInput > balance) {
+      balance += (amtInput + 5000.00);
+      renderBalance();
+      showToast(`Provisioned test liquidity (Balance: ${formatINR(balance)})`);
+    }
+
+    let recName = recipientInput;
+    const recClean = recipientInput.toLowerCase().trim();
+    Object.keys(wallets).forEach(k => {
+      const w = wallets[k];
+      const wHandle = getUserUpiId(w).toLowerCase();
+      const wMobileHandle = w.mobile ? `${w.mobile}@dc` : '';
+      if (w.email.toLowerCase() === recClean || 
+          w.accountNo.toLowerCase() === recClean || 
+          wHandle === recClean || 
+          wMobileHandle === recClean ||
+          (w.mobile && w.mobile === recClean)) {
+        recName = w.name;
+      }
+    });
+    if (recName === recipientInput && recipientInput.includes('@')) {
+      recName = recipientInput.split('@')[0];
+    }
+
+    const debitSource = selectedTransferAccount === 'dc' ? 'DataCore Digital Wallet' : 'State Bank of India •••• 9104';
+
+    // Show Payment Review Modal (Step 2 Mandatory Payment Review)
+    showPaymentConfirmModal({
+      amount: amtInput,
+      recipientName: recName,
+      recipientHandle: recipientInput,
+      sourceAccount: debitSource,
+      note: note
+    });
+  }
+
+  // Alias initiateTransferAuth to proceedToSendMoneyReview so no path bypasses review
+  async function initiateTransferAuth() {
+    proceedToSendMoneyReview();
+  }
+
+  // ============================================================================
+  // DATACORE PAY V3: MANUAL UPI ENTRY (STEP 3)
+  // ============================================================================
+  function openManualUpiModal() {
+    closeAllModals();
+    const inp = document.getElementById('manual-upi-input');
+    if (inp) inp.value = '';
+    document.getElementById('backdrop').classList.add('active');
+    const modal = document.getElementById('modal-manual-upi');
+    if (modal) modal.classList.add('active');
+    setTimeout(() => { if (inp) inp.focus(); }, 150);
+    triggerHaptic();
+  }
+
+  function appendManualUpiHandle(handle) {
+    const inp = document.getElementById('manual-upi-input');
+    if (!inp) return;
+    const current = inp.value.trim().split('@')[0];
+    inp.value = (current || 'merchant') + handle;
+    triggerHaptic();
+  }
+
+  function submitManualUpi() {
+    const inp = document.getElementById('manual-upi-input');
+    const val = (inp ? inp.value : '').trim();
+    if (!val) {
+      return showToast('Please enter a valid UPI ID or Mobile Number', false);
+    }
+    if (!val.includes('@') && !/^\d{10}$/.test(val)) {
+      return showToast('Invalid format. Enter a handle like user@bank or 10-digit number', false);
+    }
+    closeAllModals();
+    closeFullscreenScanner();
+    processScannedUpiData(val);
+  }
+
+  // ============================================================================
+  // DATACORE PAY V3: DOWNLOAD QR (STEP 4)
+  // ============================================================================
+  function downloadUserQRCode() {
+    const recContainer = document.getElementById('receive-qrcode-render');
+    const profContainer = document.getElementById('profile-qrcode-render');
+    const container = recContainer || profContainer;
+    if (!container) return;
+
+    const canvas = container.querySelector('canvas');
+    const img = container.querySelector('img');
+
+    let dataUrl = '';
+    if (canvas) {
+      dataUrl = canvas.toDataURL('image/png');
+    } else if (img && img.src) {
+      dataUrl = img.src;
+    }
+
+    if (dataUrl) {
+      const a = document.createElement('a');
+      a.href = dataUrl;
+      a.download = 'DataCore-Receive-QR.png';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      showToast('QR Code saved to device downloads!');
+      triggerSuccessHaptic();
+    } else {
+      showToast('Failed to download QR image', false);
+    }
+  }
+
+  // ============================================================================
+  // DATACORE PAY V3: UNIVERSAL SERVICE MODAL & SEARCH FILTER (STEP 5)
+  // ============================================================================
+  let activeUniversalServiceKey = '';
+
+  function openUniversalServiceModal(serviceKey) {
+    activeUniversalServiceKey = serviceKey;
+    closeAllModals();
+
+    const iconEl = document.getElementById('univ-service-icon');
+    const titleEl = document.getElementById('univ-service-title');
+    const badgeEl = document.getElementById('univ-service-badge');
+    const formEl = document.getElementById('univ-service-form');
+    const submitBtn = document.getElementById('univ-service-submit-label');
+
+    if (!formEl) return;
+
+    if (serviceKey === 'bus') {
+      iconEl.innerText = '🚌';
+      titleEl.innerText = 'Intercity Bus Tickets';
+      badgeEl.innerText = 'Zingbus, VRL & 2,500+ Operators';
+      formEl.innerHTML = `
+        <div>
+          <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">From City</label>
+          <input id="univ-bus-from" type="text" value="Mumbai" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-800 focus:outline-none">
+        </div>
+        <div>
+          <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">To Destination</label>
+          <input id="univ-bus-to" type="text" value="Pune" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-800 focus:outline-none">
+        </div>
+        <div class="flex space-x-2">
+          <div class="flex-1">
+            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Date</label>
+            <input id="univ-bus-date" type="text" value="Tomorrow" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-800 focus:outline-none">
+          </div>
+          <div class="flex-1">
+            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Fare (AC Sleeper)</label>
+            <input id="univ-bus-fare" type="text" value="₹550.00" readonly class="w-full bg-slate-100 border border-slate-200 rounded-xl px-3 py-2 text-xs font-mono font-bold text-blue-600">
+          </div>
+        </div>
+      `;
+      submitBtn.innerText = 'Book Bus Ticket (₹550.00)';
+    } else if (serviceKey === 'train') {
+      iconEl.innerText = '🚆';
+      titleEl.innerText = 'IRCTC Train PNR & Status';
+      badgeEl.innerText = 'Real-Time Indian Railways Engine';
+      formEl.innerHTML = `
+        <div>
+          <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">10-Digit PNR Number</label>
+          <input id="univ-train-pnr" type="number" value="8421948210" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-mono font-bold text-slate-800 focus:outline-none">
+        </div>
+        <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200 text-xs space-y-1">
+          <div class="flex justify-between font-bold text-slate-900">
+            <span>Vande Bharat Express (20901)</span>
+            <span class="text-emerald-600">CNF / B3-42</span>
+          </div>
+          <div class="flex justify-between text-slate-500 text-[10px]">
+            <span>Mumbai Central → Gandhinagar</span>
+            <span>Platform 5</span>
+          </div>
+        </div>
+      `;
+      submitBtn.innerText = 'Refresh Live Status';
+    } else if (serviceKey === 'loan') {
+      iconEl.innerText = '🏦';
+      titleEl.innerText = 'Loan EMI Payment';
+      badgeEl.innerText = 'HDFC, Bajaj Finance & 80+ Lenders';
+      formEl.innerHTML = `
+        <div>
+          <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Lender / Financial Institution</label>
+          <select id="univ-loan-lender" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-800 focus:outline-none">
+            <option>HDFC Bank Retail Loan</option>
+            <option>Bajaj Finance Consumer Loan</option>
+            <option>Tata Capital Personal Loan</option>
+            <option>SBI Home Finance</option>
+          </select>
+        </div>
+        <div>
+          <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Loan Account Number</label>
+          <input id="univ-loan-acc" type="text" value="LN-892401823" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-mono font-bold text-slate-800 focus:outline-none">
+        </div>
+        <div class="flex justify-between items-center p-3 bg-blue-50/60 border border-blue-200/80 rounded-2xl text-xs">
+          <div>
+            <span class="text-[9px] font-bold text-blue-700 uppercase block">Due EMI Amount</span>
+            <span class="font-bold text-slate-900">₹4,250.00</span>
+          </div>
+          <span class="text-[10px] font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded border border-rose-200">Due in 4 Days</span>
+        </div>
+      `;
+      submitBtn.innerText = 'Pay Loan EMI (₹4,250.00)';
+    } else if (serviceKey === 'ott') {
+      iconEl.innerText = '🎬';
+      titleEl.innerText = 'OTT Subscriptions';
+      badgeEl.innerText = 'Instant Digital Activation Code';
+      formEl.innerHTML = `
+        <div>
+          <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Select OTT Platform</label>
+          <select id="univ-ott-platform" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-800 focus:outline-none">
+            <option>Netflix Standard (4K) — ₹649/mo</option>
+            <option>Disney+ Hotstar Super — ₹299/mo</option>
+            <option>Amazon Prime Annual — ₹1,499/yr</option>
+            <option>SonyLIV Premium — ₹299/mo</option>
+          </select>
+        </div>
+        <div>
+          <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Registered Phone / Email</label>
+          <input id="univ-ott-target" type="text" value="${currentUser ? currentUser.email : 'user@datacore'}" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-800 focus:outline-none">
+        </div>
+      `;
+      submitBtn.innerText = 'Subscribe & Activate Now';
+    } else if (serviceKey === 'dining') {
+      iconEl.innerText = '🍔';
+      titleEl.innerText = 'Food & Dining Voucher';
+      badgeEl.innerText = 'Flat 10% Instant UPI Cashback';
+      formEl.innerHTML = `
+        <div>
+          <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Dining Partner</label>
+          <select id="univ-dining-brand" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-800 focus:outline-none">
+            <option>Zomato Gold Card — ₹500</option>
+            <option>Swiggy One Pass — ₹399</option>
+            <option>Starbucks Coffee e-Gift — ₹500</option>
+            <option>Domino's Pizza Voucher — ₹400</option>
+          </select>
+        </div>
+        <div class="p-2.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-[10px] font-bold">
+          ✓ Instant 10% Voucher delivered to your registered mobile SMS
+        </div>
+      `;
+      submitBtn.innerText = 'Purchase Voucher';
+    } else if (serviceKey === 'sip') {
+      iconEl.innerText = '📈';
+      titleEl.innerText = 'Mutual Funds SIP';
+      badgeEl.innerText = 'AMFI Registered • Zero Commission';
+      formEl.innerHTML = `
+        <div>
+          <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Choose Fund Scheme</label>
+          <select id="univ-sip-fund" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-800 focus:outline-none">
+            <option>DataCore Nifty 50 Index Direct-Growth (14.2% 3Y)</option>
+            <option>HDFC Large & Mid Cap Direct Fund (18.6% 3Y)</option>
+            <option>SBI Small Cap Direct-Growth (21.4% 3Y)</option>
+          </select>
+        </div>
+        <div>
+          <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Monthly SIP Amount</label>
+          <div class="relative">
+            <span class="absolute left-3 top-2 text-sm font-black text-slate-800">₹</span>
+            <input id="univ-sip-amt" type="number" value="1000" class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-8 pr-3 py-2 text-sm font-black text-slate-900 focus:outline-none font-mono">
+          </div>
+        </div>
+      `;
+      submitBtn.innerText = 'Start Monthly SIP';
+    }
+
+    document.getElementById('backdrop').classList.add('active');
+    const modal = document.getElementById('modal-universal-service');
+    if (modal) modal.classList.add('active');
+    triggerHaptic();
+  }
+
+  function submitUniversalServiceFlow() {
+    closeAllModals();
+    if (activeUniversalServiceKey === 'train') {
+      showToast('Live PNR Status: CONFIRMED • Chart Prepared!');
+      return;
+    }
+
+    let amt = 500;
+    let title = 'Service Booking';
+
+    if (activeUniversalServiceKey === 'bus') {
+      amt = 550;
+      title = 'Zingbus Intercity Ticket';
+    } else if (activeUniversalServiceKey === 'loan') {
+      amt = 4250;
+      title = 'Loan EMI Payment (LN-892401823)';
+    } else if (activeUniversalServiceKey === 'ott') {
+      amt = 649;
+      title = 'Netflix 4K Subscription';
+    } else if (activeUniversalServiceKey === 'dining') {
+      amt = 450;
+      title = 'Food & Dining Voucher';
+    } else if (activeUniversalServiceKey === 'sip') {
+      amt = 1000;
+      title = 'Monthly SIP (Nifty 50 Index)';
+    }
+
+    showPaymentConfirmModal({
+      amount: amt,
+      recipientName: title,
+      recipientHandle: 'merchant@bbps',
+      sourceAccount: 'State Bank of India •••• 9104',
+      note: 'DataCore BBPS Instant Clearance'
+    });
+  }
+
+  function applyServiceSearchQuery(q) {
+    const input = document.getElementById('services-search-input');
+    if (input) {
+      input.value = q;
+      filterServicesDirectory(q);
+    }
+  }
+
+  function filterServicesDirectory(query) {
+    const q = (query || '').toLowerCase().trim();
+    const categories = document.querySelectorAll('.service-category-group');
+    const noResults = document.getElementById('services-no-results');
+    let totalVisible = 0;
+
+    categories.forEach(cat => {
+      const cards = cat.querySelectorAll('.service-card');
+      let visibleInCat = 0;
+      cards.forEach(card => {
+        const text = card.innerText.toLowerCase();
+        if (!q || text.includes(q)) {
+          card.style.display = '';
+          visibleInCat++;
+          totalVisible++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      if (visibleInCat === 0 && q) {
+        cat.style.display = 'none';
+      } else {
+        cat.style.display = '';
+      }
+    });
+
+    if (noResults) {
+      if (totalVisible === 0 && q) {
+        noResults.classList.remove('hidden');
+      } else {
+        noResults.classList.add('hidden');
+      }
+    }
+  }
+
+  // ============================================================================
+  // DATACORE PAY V3: PROFILE HELP, POLICY & LOGOUT MODALS (STEP 6)
+  // ============================================================================
+  function openLogoutConfirmModal() {
+    closeAllModals();
+    document.getElementById('backdrop').classList.add('active');
+    const modal = document.getElementById('modal-logout-confirm');
+    if (modal) modal.classList.add('active');
+    triggerHaptic();
+  }
+
+  function confirmLogoutAction() {
+    closeAllModals();
+    logout();
+  }
+
+  function openPrivacyPolicyModal() {
+    closeAllModals();
+    document.getElementById('backdrop').classList.add('active');
+    const modal = document.getElementById('modal-privacy-policy');
+    if (modal) modal.classList.add('active');
+    triggerHaptic();
+  }
+
+  function openTermsModal() {
+    closeAllModals();
+    document.getElementById('backdrop').classList.add('active');
+    const modal = document.getElementById('modal-terms');
+    if (modal) modal.classList.add('active');
+    triggerHaptic();
+  }
+
+  let notifActive = localStorage.getItem('datacore_notif_enabled') !== 'false';
+  function toggleNotificationsInteractive() {
+    notifActive = !notifActive;
+    localStorage.setItem('datacore_notif_enabled', notifActive ? 'true' : 'false');
+    const sw = document.getElementById('switch-notif-toggle');
+    if (sw) sw.classList.toggle('active', notifActive);
+    showToast(notifActive ? 'Transaction push & SMS alerts enabled' : 'Transaction alerts muted');
+    triggerHaptic();
+  }
+
 </script>
 
 </body>
